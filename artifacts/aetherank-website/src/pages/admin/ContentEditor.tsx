@@ -361,6 +361,9 @@ export default function ContentEditor() {
             {/* ── Contact Info ── */}
             {activeSection === "contact" && (
               <Section title="Contact Information" subtitle="Displayed on the Contact page and in the footer.">
+                <Field label="Footer Tagline" hint="Short description shown under the logo in the website footer.">
+                  <textarea rows={2} value={contact.footer_tagline ?? ""} onChange={(e) => setContact({ ...contact, footer_tagline: e.target.value })} placeholder="India's premier AI-powered digital marketing agency. We turn clicks into clients." className={inputCls} />
+                </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Email Address">
                     <input type="email" value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} placeholder="help@aetherank.com" className={inputCls} />

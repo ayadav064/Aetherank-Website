@@ -1690,7 +1690,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">
-              India's premier AI-powered digital marketing agency. We turn clicks into clients.
+              {contact.footer_tagline || "India's premier AI-powered digital marketing agency. We turn clicks into clients."}
             </p>
             <div className="flex gap-4">
               {contact.twitter && (
