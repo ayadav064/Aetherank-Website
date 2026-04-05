@@ -1,7 +1,9 @@
 import express, { type Express } from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
-import router from "./routes";
+import path from "path";
+import { existsSync } from "fs";
+import router, { sitemapRouter } from "./routes";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
@@ -29,6 +31,24 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Sitemap & robots at root (not under /api)
+app.use(sitemapRouter);
+
 app.use("/api", router);
+
+const isProduction = process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  const distDir = path.resolve(process.cwd(), "../aetherank-website/dist/public");
+  if (existsSync(distDir)) {
+    app.use(express.static(distDir));
+    app.use((_req, res) => {
+      res.sendFile(path.join(distDir, "index.html"));
+    });
+    logger.info({ distDir }, "Serving static frontend");
+  } else {
+    logger.warn({ distDir }, "Frontend dist not found — only API routes available");
+  }
+}
 
 export default app;

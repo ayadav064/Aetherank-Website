@@ -1,0 +1,202 @@
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  fetchSettings,
+  type CmsSettings,
+  type BlogNewsletterCta,
+  DEFAULT_SEO,
+  DEFAULT_CONTENT,
+  DEFAULT_PAGE_CONTENT,
+  DEFAULT_STATS,
+  DEFAULT_GROWTH_PARTNER,
+  DEFAULT_AI_ADVANTAGE,
+  DEFAULT_SERVICES_SECTION,
+  DEFAULT_WHY_CHOOSE_US,
+  DEFAULT_ABOUT,
+  DEFAULT_TESTIMONIALS,
+  DEFAULT_FAQS,
+  DEFAULT_SERVICE_PAGES,
+  DEFAULT_ABOUT_PAGE,
+  DEFAULT_CASE_STUDIES,
+  DEFAULT_BLOG_NEWSLETTER_CTA,
+} from "@/lib/cmsApi";
+
+interface CmsContextValue {
+  settings: CmsSettings;
+  loading: boolean;
+}
+
+const defaultSettings: CmsSettings = {
+  seo: DEFAULT_SEO,
+  content: DEFAULT_CONTENT,
+};
+
+const CmsContext = createContext<CmsContextValue>({
+  settings: defaultSettings,
+  loading: true,
+});
+
+function mergeAboutPage(saved: Record<string, unknown>): CmsSettings["content"]["about_page"] {
+  return {
+    stats: Array.isArray(saved["stats"]) ? saved["stats"] as typeof DEFAULT_ABOUT_PAGE.stats : DEFAULT_ABOUT_PAGE.stats,
+    story_paragraphs: Array.isArray(saved["story_paragraphs"]) ? saved["story_paragraphs"] as string[] : DEFAULT_ABOUT_PAGE.story_paragraphs,
+    story_quote: typeof saved["story_quote"] === "string" ? saved["story_quote"] : DEFAULT_ABOUT_PAGE.story_quote,
+    story_points: Array.isArray(saved["story_points"]) ? saved["story_points"] as string[] : DEFAULT_ABOUT_PAGE.story_points,
+    core_values: Array.isArray(saved["core_values"]) ? saved["core_values"] as typeof DEFAULT_ABOUT_PAGE.core_values : DEFAULT_ABOUT_PAGE.core_values,
+    team_total: typeof saved["team_total"] === "string" ? saved["team_total"] : DEFAULT_ABOUT_PAGE.team_total,
+    team_roles: Array.isArray(saved["team_roles"]) ? saved["team_roles"] as typeof DEFAULT_ABOUT_PAGE.team_roles : DEFAULT_ABOUT_PAGE.team_roles,
+    india_points: Array.isArray(saved["india_points"]) ? saved["india_points"] as string[] : DEFAULT_ABOUT_PAGE.india_points,
+    india_stats: Array.isArray(saved["india_stats"]) ? saved["india_stats"] as typeof DEFAULT_ABOUT_PAGE.india_stats : DEFAULT_ABOUT_PAGE.india_stats,
+  };
+}
+
+function mergeServicePages(
+  saved: Record<string, unknown> | undefined
+): CmsSettings["content"]["service_pages"] {
+  if (!saved || typeof saved !== "object") return DEFAULT_SERVICE_PAGES;
+  const result: CmsSettings["content"]["service_pages"] = {};
+  for (const key of Object.keys(DEFAULT_SERVICE_PAGES)) {
+    const s = (saved as Record<string, unknown>)[key];
+    if (s && typeof s === "object") {
+      const sp = s as Record<string, unknown>;
+      result[key] = {
+        benefits: Array.isArray(sp["benefits"]) ? sp["benefits"] as CmsSettings["content"]["service_pages"][string]["benefits"] : DEFAULT_SERVICE_PAGES[key].benefits,
+        process_steps: Array.isArray(sp["process_steps"]) ? sp["process_steps"] as CmsSettings["content"]["service_pages"][string]["process_steps"] : DEFAULT_SERVICE_PAGES[key].process_steps,
+        pricing: Array.isArray(sp["pricing"]) ? sp["pricing"] as CmsSettings["content"]["service_pages"][string]["pricing"] : DEFAULT_SERVICE_PAGES[key].pricing,
+      };
+    } else {
+      result[key] = DEFAULT_SERVICE_PAGES[key];
+    }
+  }
+  return result;
+}
+
+export function CmsProvider({ children }: { children: ReactNode }) {
+  const [settings, setSettings] = useState<CmsSettings>(defaultSettings);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchSettings().then((s) => {
+      if (s) {
+        const c = s.content ?? {};
+        setSettings({
+          seo: { ...DEFAULT_SEO, ...(s.seo ?? {}) },
+          content: {
+            hero: { ...DEFAULT_CONTENT.hero, ...(c.hero ?? {}) },
+            contact: { ...DEFAULT_CONTENT.contact, ...(c.contact ?? {}) },
+            pages: { ...DEFAULT_PAGE_CONTENT, ...(c.pages ?? {}) },
+            stats: Array.isArray(c.stats) && c.stats.length > 0 ? c.stats : DEFAULT_STATS,
+            growth_partner: c.growth_partner
+              ? { ...DEFAULT_GROWTH_PARTNER, ...c.growth_partner, pillars: Array.isArray((c.growth_partner as Record<string, unknown>)["pillars"]) ? (c.growth_partner as Record<string, unknown>)["pillars"] as CmsSettings["content"]["growth_partner"]["pillars"] : DEFAULT_GROWTH_PARTNER.pillars }
+              : DEFAULT_GROWTH_PARTNER,
+            ai_advantage: c.ai_advantage
+              ? { ...DEFAULT_AI_ADVANTAGE, ...c.ai_advantage, cards: Array.isArray((c.ai_advantage as Record<string, unknown>)["cards"]) ? (c.ai_advantage as Record<string, unknown>)["cards"] as CmsSettings["content"]["ai_advantage"]["cards"] : DEFAULT_AI_ADVANTAGE.cards }
+              : DEFAULT_AI_ADVANTAGE,
+            services_section: c.services_section
+              ? { ...DEFAULT_SERVICES_SECTION, ...c.services_section, cards: Array.isArray((c.services_section as Record<string, unknown>)["cards"]) ? (c.services_section as Record<string, unknown>)["cards"] as CmsSettings["content"]["services_section"]["cards"] : DEFAULT_SERVICES_SECTION.cards }
+              : DEFAULT_SERVICES_SECTION,
+            why_choose_us: c.why_choose_us
+              ? { ...DEFAULT_WHY_CHOOSE_US, ...c.why_choose_us, features: Array.isArray((c.why_choose_us as Record<string, unknown>)["features"]) ? (c.why_choose_us as Record<string, unknown>)["features"] as CmsSettings["content"]["why_choose_us"]["features"] : DEFAULT_WHY_CHOOSE_US.features }
+              : DEFAULT_WHY_CHOOSE_US,
+            about: c.about
+              ? { ...DEFAULT_ABOUT, ...c.about, points: Array.isArray((c.about as Record<string, unknown>)["points"]) ? (c.about as Record<string, unknown>)["points"] as string[] : DEFAULT_ABOUT.points }
+              : DEFAULT_ABOUT,
+            testimonials: Array.isArray(c.testimonials) && c.testimonials.length > 0 ? c.testimonials : DEFAULT_TESTIMONIALS,
+            faqs: Array.isArray(c.faqs) && c.faqs.length > 0 ? c.faqs : DEFAULT_FAQS,
+            service_pages: mergeServicePages(c.service_pages as Record<string, unknown> | undefined),
+            privacy_html: typeof c.privacy_html === "string" ? c.privacy_html : undefined,
+            terms_html: typeof c.terms_html === "string" ? c.terms_html : undefined,
+            about_page: c.about_page ? mergeAboutPage(c.about_page as unknown as Record<string, unknown>) : DEFAULT_ABOUT_PAGE,
+            case_studies: Array.isArray(c.case_studies) && c.case_studies.length > 0
+              ? c.case_studies as CmsSettings["content"]["case_studies"]
+              : DEFAULT_CASE_STUDIES,
+            blog_newsletter_cta: c.blog_newsletter_cta
+              ? { ...DEFAULT_BLOG_NEWSLETTER_CTA, ...(c.blog_newsletter_cta as BlogNewsletterCta) }
+              : DEFAULT_BLOG_NEWSLETTER_CTA,
+          },
+        });
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  return <CmsContext.Provider value={{ settings, loading }}>{children}</CmsContext.Provider>;
+}
+
+export function useCms() {
+  return useContext(CmsContext);
+}
+
+export function usePageContent(path: string) {
+  const { settings } = useCms();
+  return settings.content.pages[path] ?? DEFAULT_PAGE_CONTENT[path] ?? { headline: "", subheadline: "" };
+}
+
+export function usePageSeo(path: string) {
+  const { settings } = useCms();
+  return settings.seo[path] ?? DEFAULT_SEO[path] ?? { title: "", description: "", keywords: "", schema: "" };
+}
+
+export function useCompanyStats() {
+  const { settings } = useCms();
+  return settings.content.stats;
+}
+
+export function useGrowthPartner() {
+  const { settings } = useCms();
+  return settings.content.growth_partner;
+}
+
+export function useAiAdvantage() {
+  const { settings } = useCms();
+  return settings.content.ai_advantage;
+}
+
+export function useServicesSection() {
+  const { settings } = useCms();
+  return settings.content.services_section;
+}
+
+export function useWhyChooseUs() {
+  const { settings } = useCms();
+  return settings.content.why_choose_us;
+}
+
+export function useAboutContent() {
+  const { settings } = useCms();
+  return settings.content.about;
+}
+
+export function useTestimonials() {
+  const { settings } = useCms();
+  return settings.content.testimonials;
+}
+
+export function useFaqs() {
+  const { settings } = useCms();
+  return settings.content.faqs;
+}
+
+export function useServicePageData(path: string) {
+  const { settings } = useCms();
+  return settings.content.service_pages[path] ?? DEFAULT_SERVICE_PAGES[path] ?? { benefits: [], process_steps: [], pricing: [] };
+}
+
+export function useAboutPageContent() {
+  const { settings } = useCms();
+  return settings.content.about_page ?? DEFAULT_ABOUT_PAGE;
+}
+
+export function useCaseStudies() {
+  const { settings } = useCms();
+  return settings.content.case_studies ?? DEFAULT_CASE_STUDIES;
+}
+
+export function useContactContent() {
+  const { settings } = useCms();
+  return settings.content.contact;
+}
+
+export function useBlogNewsletterCta() {
+  const { settings } = useCms();
+  return settings.content.blog_newsletter_cta ?? DEFAULT_BLOG_NEWSLETTER_CTA;
+}

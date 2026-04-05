@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <!-- Brand gradient: emerald → cyan -->
+    <linearGradient id="ar" x1="3" y1="4" x2="45" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <!-- Background gradient: deep navy -->
+    <linearGradient id="bg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#0D1B36"/>
+      <stop offset="100%" stop-color="#0F2448"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="48" height="48" rx="10" fill="url(#bg)"/>
+
+  <!-- Subtle inner highlight rim -->
+  <rect x="0.5" y="0.5" width="47" height="47" rx="9.5"
+        stroke="white" stroke-opacity="0.06"/>
+
+  <!-- ── Letter A ── -->
+  <!-- Left diagonal -->
+  <line x1="3"  y1="44" x2="13" y2="4"  stroke="url(#ar)" stroke-width="3.8" stroke-linecap="round"/>
+  <!-- Right diagonal -->
+  <line x1="13" y1="4"  x2="23" y2="44" stroke="url(#ar)" stroke-width="3.8" stroke-linecap="round"/>
+  <!-- Crossbar (at ~70% of height ≈ y=32; interpolated x positions on the diagonals) -->
+  <line x1="6"  y1="32" x2="20" y2="32" stroke="url(#ar)" stroke-width="3.2" stroke-linecap="round"/>
+
+  <!-- ── Letter R ── -->
+  <!-- Vertical stem -->
+  <line x1="27" y1="4"  x2="27" y2="44" stroke="url(#ar)" stroke-width="3.8" stroke-linecap="round"/>
+  <!-- Rounded bump (bowl) -->
+  <path d="M27 4.5 Q45.5 4.5 45.5 14 Q45.5 23.5 27 23.5"
+        stroke="url(#ar)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Diagonal leg -->
+  <line x1="27" y1="23.5" x2="45" y2="44" stroke="url(#ar)" stroke-width="3.2" stroke-linecap="round"/>
+</svg>
