@@ -2,7 +2,6 @@ import { db } from "@workspace/db";
 import { blogPostsTable, settingsTable } from "@workspace/db/schema";
 import { eq } from "drizzle-orm";
 
-// ─── Blog posts seed data ────────────────────────────────────────────────────
 const SEED_POSTS = [
   {
     "id": "abf3d265-a8d0-4238-88b9-9189def324d2",
@@ -417,9 +416,8 @@ const SEED_POSTS = [
     "createdAt": "2026-04-05T15:02:57.724Z",
     "updatedAt": "2026-04-05T15:02:57.724Z"
   }
-] as const;
+];
 
-// ─── CMS settings seed data ──────────────────────────────────────────────────
 const SEED_SETTINGS = {
   "seo": {
     "/": {
@@ -1656,10 +1654,8 @@ const SEED_SETTINGS = {
   }
 };
 
-// ─── Run seed ────────────────────────────────────────────────────────────────
 export async function runSeed(): Promise<void> {
   try {
-    // 1. Sync blog posts — insert missing ones by slug
     for (const post of SEED_POSTS) {
       const existing = await db
         .select({ id: blogPostsTable.id })
@@ -1686,8 +1682,6 @@ export async function runSeed(): Promise<void> {
       }
     }
 
-    // 2. Sync CMS settings — always upsert so admin-panel changes in dev
-    //    are reflected in production on next deployment
     await db
       .insert(settingsTable)
       .values({ key: "main", value: SEED_SETTINGS, updatedAt: new Date() })
