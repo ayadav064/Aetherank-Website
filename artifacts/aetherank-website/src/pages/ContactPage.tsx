@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { PageHero } from "@/components/ui/PageHero";
 import { useState } from "react";
-import { MapPin, Phone, Mail, Linkedin, Instagram, Facebook, CheckCircle2, Loader2, AlertCircle, Clock, ShieldCheck, Headphones } from "lucide-react";
+import { MapPin, Phone, Mail, Linkedin, Instagram, Facebook, CheckCircle2, Loader2, AlertCircle, ShieldCheck } from "lucide-react";
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -97,82 +97,59 @@ export default function ContactPage() {
 
               {/* ── Left: Contact Info ── */}
               <FadeIn>
-                <div className="space-y-8">
+                <div className="space-y-10">
 
-                  {/* Heading */}
-                  <div>
-                    <h2 className="text-3xl font-bold text-slate-900 mb-3">
-                      Get in <span className="text-emerald-500">Touch</span>
-                    </h2>
-                    <p className="text-slate-500 leading-relaxed">
-                      Whether you have a question, a project in mind, or just want to say hello — our team is here and ready to help.
-                    </p>
-                  </div>
+                  <h2 className="text-3xl font-bold text-slate-900">Get in Touch</h2>
 
-                  {/* Contact Cards */}
-                  <div className="space-y-3">
-                    {/* Offices */}
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex items-start gap-4 hover:border-emerald-200 hover:shadow-md transition-all duration-200">
-                      <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="w-5 h-5 text-emerald-600" />
+                  {/* Contact list */}
+                  <div className="space-y-8">
+
+                    {/* Offices — all under one pin icon */}
+                    <div className="flex gap-5">
+                      <div className="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-1">
+                        <MapPin className="w-6 h-6 text-emerald-600" />
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-xs font-semibold text-emerald-600 uppercase tracking-widest mb-2">Our Offices</p>
-                        <div className="space-y-2">
-                          {addresses.map((addr) => (
-                            <div key={addr.label}>
-                              <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">{addr.label}</p>
-                              <p className="text-sm text-slate-700 font-medium">{addr.value}</p>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="space-y-5">
+                        {addresses.map((addr) => (
+                          <div key={addr.label}>
+                            <p className="font-bold text-slate-900 text-base">{addr.label}</p>
+                            <p className="text-slate-500 text-sm mt-1 leading-relaxed">{addr.value}</p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
                     {/* Phone */}
-                    <a
-                      href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                      className="group bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex items-center gap-4 hover:border-blue-200 hover:shadow-md transition-all duration-200 block"
-                    >
-                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                        <Phone className="w-5 h-5 text-blue-600" />
+                    <div className="flex gap-5 items-start">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <Phone className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-0.5">Phone</p>
-                        <p className="text-slate-800 font-semibold text-base group-hover:text-blue-600 transition-colors">{contact.phone}</p>
+                        <p className="font-bold text-slate-900 text-base">Phone</p>
+                        <a
+                          href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+                          className="text-slate-500 text-sm mt-1 block hover:text-emerald-600 transition-colors"
+                        >
+                          {contact.phone}
+                        </a>
                       </div>
-                    </a>
+                    </div>
 
                     {/* Email */}
-                    <a
-                      href={`mailto:${contact.email}`}
-                      className="group bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex items-center gap-4 hover:border-violet-200 hover:shadow-md transition-all duration-200 block"
-                    >
-                      <div className="w-11 h-11 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center flex-shrink-0">
-                        <Mail className="w-5 h-5 text-violet-600" />
+                    <div className="flex gap-5 items-start">
+                      <div className="w-12 h-12 rounded-2xl bg-violet-100 flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-6 h-6 text-violet-600" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-violet-600 uppercase tracking-widest mb-0.5">Email</p>
-                        <p className="text-slate-800 font-semibold text-base group-hover:text-violet-600 transition-colors">{contact.email}</p>
+                        <p className="font-bold text-slate-900 text-base">Email</p>
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="text-slate-500 text-sm mt-1 block hover:text-emerald-600 transition-colors"
+                        >
+                          {contact.email}
+                        </a>
                       </div>
-                    </a>
-                  </div>
-
-                  {/* Trust Badges */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { icon: Clock, label: "24h", sub: "Response Time", color: "emerald" },
-                      { icon: Headphones, label: "Free", sub: "Consultation", color: "blue" },
-                      { icon: ShieldCheck, label: "100%", sub: "Confidential", color: "violet" },
-                    ].map(({ icon: Icon, label, sub, color }) => (
-                      <div key={sub} className={`bg-${color}-50 border border-${color}-100 rounded-xl p-3.5 text-center`}>
-                        <div className={`w-8 h-8 rounded-lg bg-${color}-100 flex items-center justify-center mx-auto mb-2`}>
-                          <Icon className={`w-4 h-4 text-${color}-600`} />
-                        </div>
-                        <p className={`text-base font-bold text-${color}-700 leading-none`}>{label}</p>
-                        <p className={`text-xs text-${color}-600 mt-0.5`}>{sub}</p>
-                      </div>
-                    ))}
+                    </div>
                   </div>
 
                   {/* Social Links */}
@@ -182,25 +159,25 @@ export default function ContactPage() {
                       <div className="flex gap-2.5">
                         {contact.linkedin && (
                           <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                            className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-500 flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm">
+                            className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
                             <Linkedin className="w-4.5 h-4.5" />
                           </a>
                         )}
                         {contact.twitter && (
                           <a href={contact.twitter} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"
-                            className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-500 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all shadow-sm">
+                            className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-black hover:text-white transition-all">
                             <XIcon className="w-4 h-4" />
                           </a>
                         )}
                         {contact.instagram && (
                           <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                            className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-500 flex items-center justify-center hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all shadow-sm">
+                            className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all">
                             <Instagram className="w-4.5 h-4.5" />
                           </a>
                         )}
                         {contact.facebook && (
                           <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                            className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-500 flex items-center justify-center hover:bg-blue-700 hover:text-white hover:border-blue-700 transition-all shadow-sm">
+                            className="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all">
                             <Facebook className="w-4.5 h-4.5" />
                           </a>
                         )}
@@ -209,7 +186,7 @@ export default function ContactPage() {
                   )}
 
                   {/* Map */}
-                  <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm" style={{ height: 220 }}>
+                  <div className="rounded-2xl overflow-hidden border border-slate-200" style={{ height: 220 }}>
                     <iframe
                       title="Aetherank Location - India"
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0!2d72.8167!3d18.9667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce6b3b0b0001%3A0x1!2sTardeo%20AC%20Market%2C%20Tardeo%2C%20Mumbai%2C%20Maharashtra%20400034!5e0!3m2!1sen!2sin!4v1"
