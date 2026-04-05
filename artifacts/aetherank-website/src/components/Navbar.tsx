@@ -73,7 +73,7 @@ export function Navbar() {
             <img
               src="/logo-icon.png"
               alt="Aetherank logo"
-              className="w-9 h-9 rounded-xl object-cover shadow-[0_4px_12px_rgba(16,185,129,0.35)] group-hover:shadow-[0_6px_16px_rgba(16,185,129,0.45)] transition-shadow"
+              className="w-11 h-11 object-contain"
             />
             <span className="font-extrabold text-[1.15rem] text-slate-900 tracking-tight">
               Aetherank<span className="text-emerald-500">.</span>
