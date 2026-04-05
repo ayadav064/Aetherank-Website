@@ -1678,9 +1678,9 @@ export function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-16">
           
-          <div className="col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl tracking-tighter">
                 A
@@ -1741,7 +1741,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4 text-slate-400">
               {contact.address_3 && (
