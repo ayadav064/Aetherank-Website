@@ -1,4 +1,4 @@
-import { pgTable, text, varchar, jsonb, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, jsonb, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 
 export const blogPostsTable = pgTable("blog_posts", {
   id: varchar("id", { length: 36 }).primaryKey(),
@@ -16,6 +16,7 @@ export const blogPostsTable = pgTable("blog_posts", {
   seo: jsonb("seo")
     .$type<{ title: string; description: string; keywords: string; schema: string }>()
     .default({ title: "", description: "", keywords: "", schema: "" }),
+  sortOrder: integer("sort_order").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

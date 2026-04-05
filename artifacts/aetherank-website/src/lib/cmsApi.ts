@@ -952,6 +952,7 @@ export interface BlogPost {
   status: "draft" | "published";
   readTime: string;
   seo: BlogPostSeo;
+  sortOrder?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -998,6 +999,16 @@ export async function updateBlogPost(id: string, post: Partial<BlogPost>): Promi
   });
   if (!res.ok) throw new Error(await res.text());
   return (await res.json()) as BlogPost;
+}
+
+export async function reorderBlogPosts(ids: string[]): Promise<void> {
+  const token = getToken();
+  const res = await fetch(`${BLOG_BASE}/reorder`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ ids }),
+  });
+  if (!res.ok) throw new Error(await res.text());
 }
 
 export async function deleteBlogPost(id: string): Promise<void> {

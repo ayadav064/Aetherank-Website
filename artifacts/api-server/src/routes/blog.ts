@@ -2,7 +2,7 @@ import { Router } from "express";
 import { randomUUID } from "crypto";
 import { db } from "@workspace/db";
 import { blogPostsTable } from "@workspace/db/schema";
-import { eq, desc, or } from "drizzle-orm";
+import { eq, desc, asc, or, sql } from "drizzle-orm";
 import { authMiddleware } from "../lib/auth";
 
 const router = Router();
@@ -28,7 +28,7 @@ router.get("/blog/posts", async (_req, res) => {
     const posts = await db
       .select()
       .from(blogPostsTable)
-      .orderBy(desc(blogPostsTable.createdAt));
+      .orderBy(asc(blogPostsTable.sortOrder), desc(blogPostsTable.createdAt));
     res.json(posts);
   } catch {
     res.status(500).json({ error: "Failed to fetch posts" });
@@ -52,6 +52,27 @@ router.get("/blog/posts/:idOrSlug", async (req, res) => {
     res.json(rows[0]);
   } catch {
     res.status(500).json({ error: "Failed to fetch post" });
+  }
+});
+
+// ── Admin: reorder posts ──────────────────────────────────────────────────
+
+router.put("/blog/posts/reorder", authMiddleware, async (req, res) => {
+  try {
+    const { ids } = req.body as { ids: string[] };
+    if (!Array.isArray(ids) || ids.length === 0) {
+      res.status(400).json({ error: "ids must be a non-empty array" });
+      return;
+    }
+    for (let i = 0; i < ids.length; i++) {
+      await db
+        .update(blogPostsTable)
+        .set({ sortOrder: i + 1 })
+        .where(eq(blogPostsTable.id, ids[i]!));
+    }
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "Failed to reorder posts" });
   }
 });
 
