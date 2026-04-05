@@ -10,6 +10,7 @@ import {
 const services = [
   "SEO, GEO (Search Engine & Generative Engine Optimisation)",
   "PPC & Google Ads",
+  "Meta Ads (Facebook & Instagram)",
   "Social Media Management",
   "Website Design & Development",
   "Content Marketing",
