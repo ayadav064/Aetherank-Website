@@ -5,6 +5,7 @@ import path from "path";
 import { existsSync } from "fs";
 import router, { sitemapRouter } from "./routes";
 import { logger } from "./lib/logger";
+import { runSeed } from "./seed";
 
 const app: Express = express();
 
@@ -50,5 +51,8 @@ if (isProduction) {
     logger.warn({ distDir }, "Frontend dist not found — only API routes available");
   }
 }
+
+// Run data seed on startup (inserts missing blog posts, syncs CMS settings)
+runSeed().catch((err) => logger.error({ err }, "[seed] Startup seed failed"));
 
 export default app;
