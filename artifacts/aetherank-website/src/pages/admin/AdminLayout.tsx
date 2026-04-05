@@ -24,6 +24,7 @@ import {
   PenLine,
   Plus,
   Inbox,
+  Mail,
 } from "lucide-react";
 
 interface NavItem {
@@ -86,6 +87,11 @@ const NAV: NavItem[] = [
     label: "Submissions",
     icon: Inbox,
   },
+  {
+    path: "/admin/subscribers",
+    label: "Subscribers",
+    icon: Mail,
+  },
 ];
 
 const ICON_COLORS: Record<string, string> = {
@@ -96,6 +102,7 @@ const ICON_COLORS: Record<string, string> = {
   "Service Pages": "text-violet-400",
   SEO: "text-teal-400",
   Submissions: "text-amber-400",
+  Subscribers: "text-emerald-400",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

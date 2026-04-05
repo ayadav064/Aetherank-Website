@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { db } from "@workspace/db";
-import { settingsTable } from "@workspace/db/schema";
+import { settingsTable, newsletterSubscribersTable } from "@workspace/db/schema";
 import { authMiddleware, getAdminToken } from "../lib/auth";
+import { desc, eq } from "drizzle-orm";
 
 const router = Router();
 
@@ -56,6 +57,31 @@ router.put("/admin/settings", authMiddleware, async (req, res) => {
     res.json({ ok: true });
   } catch {
     res.status(500).json({ ok: false, error: "Failed to save settings" });
+  }
+});
+
+// ── Newsletter Subscribers ────────────────────────────────────────────────
+
+router.get("/admin/subscribers", authMiddleware, async (_req, res) => {
+  try {
+    const rows = await db
+      .select()
+      .from(newsletterSubscribersTable)
+      .orderBy(desc(newsletterSubscribersTable.createdAt));
+    res.json(rows);
+  } catch {
+    res.status(500).json({ error: "Failed to fetch subscribers" });
+  }
+});
+
+router.delete("/admin/subscribers/:id", authMiddleware, async (req, res) => {
+  try {
+    await db
+      .delete(newsletterSubscribersTable)
+      .where(eq(newsletterSubscribersTable.id, req.params["id"]!));
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "Failed to delete subscriber" });
   }
 });
 
