@@ -30,6 +30,7 @@ export interface ContactContent {
   twitter?: string;
   instagram?: string;
   facebook?: string;
+  whatsapp?: string;
   logo_url?: string;
   favicon_url?: string;
   footer_tagline?: string;
@@ -910,6 +911,7 @@ export const DEFAULT_CONTENT: CmsSettings["content"] = {
     twitter: "",
     instagram: "",
     facebook: "",
+    whatsapp: "",
     logo_url: "",
     favicon_url: "",
     footer_tagline: "India's premier AI-powered digital marketing agency. We turn clicks into clients.",

@@ -687,6 +687,7 @@ const SEED_SETTINGS = {
       "address_2": "Rustomjee Global City, J/27 163, near ClubOne, Virar West, Maharashtra, India - 401303",
       "address_3": "2906 Bull Run Ct, Missouri City, TX, USA 77459",
       "instagram": "#",
+      "whatsapp": "+91 80109 60269",
       "favicon_url": "",
       "footer_tagline": "India's premier AI-powered digital marketing agency. We turn clicks into clients."
     },

@@ -389,6 +389,9 @@ export default function ContentEditor() {
                     <input type="url" value={contact.favicon_url ?? ""} onChange={(e) => setContact({ ...contact, favicon_url: e.target.value })} placeholder="https://yourdomain.com/favicon.ico" className={inputCls} />
                   </Field>
                 </div>
+                <Field label="WhatsApp Number" hint="Phone number for the WhatsApp chat button shown on the website (e.g. +91 98765 43210). Leave blank to hide the button.">
+                  <input type="text" value={contact.whatsapp ?? ""} onChange={(e) => setContact({ ...contact, whatsapp: e.target.value })} placeholder="+91 80109 60269" className={inputCls} />
+                </Field>
                 <p className="text-[#646970] text-xs font-medium uppercase tracking-wide pt-2">Social Media Links <span className="normal-case font-normal">(leave blank to hide icon)</span></p>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="LinkedIn URL">
