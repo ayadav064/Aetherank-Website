@@ -41,9 +41,20 @@ const NAV: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
-    path: "/admin/home",
+    path: "/admin/content?s=hero",
     label: "Home Content",
     icon: Home,
+    children: [
+      { path: "/admin/content?s=hero", label: "Hero Banner" },
+      { path: "/admin/content?s=stats", label: "Stats Bar" },
+      { path: "/admin/content?s=ai_advantage", label: "AI Advantage" },
+      { path: "/admin/content?s=growth_partner", label: "Growth Partner" },
+      { path: "/admin/content?s=services_section", label: "Services Grid" },
+      { path: "/admin/content?s=why_choose_us", label: "Why Choose Us" },
+      { path: "/admin/content?s=about", label: "About Section" },
+      { path: "/admin/content?s=testimonials", label: "Testimonials" },
+      { path: "/admin/content?s=faqs", label: "FAQs" },
+    ],
   },
   {
     path: "/admin/blog",
@@ -71,6 +82,7 @@ const NAV: NavItem[] = [
     children: [
       { path: "/admin/content?s=service_pages&p=/services/seo", label: "SEO & GEO" },
       { path: "/admin/content?s=service_pages&p=/services/ppc", label: "PPC & Google Ads" },
+      { path: "/admin/content?s=service_pages&p=/services/meta-ads", label: "Meta Ads" },
       { path: "/admin/content?s=service_pages&p=/services/social-media", label: "Social Media" },
       { path: "/admin/content?s=service_pages&p=/services/web-design-development", label: "Web Design & Dev" },
       { path: "/admin/content?s=service_pages&p=/services/content-marketing", label: "Content Marketing" },

@@ -29,7 +29,7 @@ import ContentEditor from "@/pages/admin/ContentEditor";
 import BlogPostList from "@/pages/admin/BlogPostList";
 import BlogPostEditor from "@/pages/admin/BlogPostEditor";
 import AdminSubmissions from "@/pages/admin/AdminSubmissions";
-import AdminHomeContent from "@/pages/admin/AdminHomeContent";
+
 import AdminNewsletterSubscribers from "@/pages/admin/AdminNewsletterSubscribers";
 import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
@@ -64,7 +64,7 @@ function Router() {
       <Route path="/admin/blog" component={BlogPostList} />
       <Route path="/admin/blog/new" component={BlogPostEditor} />
       <Route path="/admin/blog/edit/:id" component={BlogPostEditor} />
-      <Route path="/admin/home" component={AdminHomeContent} />
+      <Route path="/admin/home" component={ContentEditor} />
       <Route path="/admin/submissions" component={AdminSubmissions} />
       <Route path="/admin/subscribers" component={AdminNewsletterSubscribers} />
       <Route component={NotFound} />
