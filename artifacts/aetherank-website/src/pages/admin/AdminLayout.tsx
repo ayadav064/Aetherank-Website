@@ -93,6 +93,11 @@ const NAV: NavItem[] = [
     path: "/admin/seo",
     label: "SEO",
     icon: Search,
+    children: [
+      { path: "/admin/seo?tab=meta", label: "Meta Tags" },
+      { path: "/admin/seo?tab=sitemap", label: "Sitemap" },
+      { path: "/admin/seo?tab=robots", label: "Robots.txt" },
+    ],
   },
   {
     path: "/admin/submissions",

@@ -205,6 +205,10 @@ export interface CmsSettings {
     case_studies?: CaseStudyItem[];
     blog_newsletter_cta?: BlogNewsletterCta;
   };
+  technical?: {
+    robots_txt?: string;
+    sitemap_site_url?: string;
+  };
 }
 
 const TOKEN_KEY = "aetherank_admin_token";

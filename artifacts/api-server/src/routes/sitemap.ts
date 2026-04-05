@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { db } from "@workspace/db";
-import { blogPostsTable } from "@workspace/db/schema";
+import { blogPostsTable, settingsTable } from "@workspace/db/schema";
 import { eq } from "drizzle-orm";
 
 const router = Router();
 
-const SITE_URL = process.env["SITE_URL"] ?? "https://aetherank.com";
+const DEFAULT_SITE_URL = process.env["SITE_URL"] ?? "https://aetherank.com";
 
 const STATIC_PAGES = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
@@ -27,22 +27,55 @@ const STATIC_PAGES = [
   { path: "/terms-of-service", priority: "0.3", changefreq: "yearly" },
 ];
 
+const DEFAULT_ROBOTS = (siteUrl: string) =>
+`User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/admin
+
+# Allow beneficial AI search agents
+User-agent: OAI-SearchBot
+Allow: /
+
+# Block OpenAI training crawler
+User-agent: GPTBot
+Disallow: /
+
+# Block Google AI training crawler
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`;
+
 function xmlEscape(str: string): string {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+async function getTechnicalSettings(): Promise<{ robots_txt?: string; sitemap_site_url?: string }> {
+  try {
+    const rows = await db.select().from(settingsTable).where(eq(settingsTable.key, "main")).limit(1);
+    const val = rows[0]?.value as Record<string, unknown> | undefined;
+    return (val?.technical as { robots_txt?: string; sitemap_site_url?: string }) ?? {};
+  } catch {
+    return {};
+  }
 }
 
 // ── GET /sitemap.xml ──────────────────────────────────────────────────────
 
 router.get("/sitemap.xml", async (_req, res) => {
   try {
-    const posts = await db
-      .select({
-        slug: blogPostsTable.slug,
-        updatedAt: blogPostsTable.updatedAt,
-      })
-      .from(blogPostsTable)
-      .where(eq(blogPostsTable.status, "published"));
+    const [posts, tech] = await Promise.all([
+      db
+        .select({ slug: blogPostsTable.slug, updatedAt: blogPostsTable.updatedAt })
+        .from(blogPostsTable)
+        .where(eq(blogPostsTable.status, "published")),
+      getTechnicalSettings(),
+    ]);
 
+    const SITE_URL = tech.sitemap_site_url?.trim() || DEFAULT_SITE_URL;
     const now = new Date().toISOString().split("T")[0];
 
     const staticUrls = STATIC_PAGES.map(
@@ -83,30 +116,13 @@ ${blogUrls}
 
 // ── GET /robots.txt ───────────────────────────────────────────────────────
 
-router.get("/robots.txt", (_req, res) => {
+router.get("/robots.txt", async (_req, res) => {
+  const tech = await getTechnicalSettings();
+  const SITE_URL = tech.sitemap_site_url?.trim() || DEFAULT_SITE_URL;
+  const content = tech.robots_txt ?? DEFAULT_ROBOTS(SITE_URL);
   res.setHeader("Content-Type", "text/plain");
-  res.send(
-`User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /admin/
-Disallow: /api/admin
-
-# Allow beneficial AI search agents
-User-agent: OAI-SearchBot
-Allow: /
-
-# Block OpenAI training crawler
-User-agent: GPTBot
-Disallow: /
-
-# Block Google AI training crawler
-User-agent: Google-Extended
-Disallow: /
-
-Sitemap: ${SITE_URL}/sitemap.xml
-`
-  );
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.send(content);
 });
 
 export default router;
