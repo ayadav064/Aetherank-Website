@@ -146,28 +146,19 @@ export default function RequestProposalPage() {
                     ))}
                   </div>
 
-                  {/* What's Included — emerald accent card */}
-                  <div className="relative rounded-2xl overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-emerald-700" />
-                    <div
-                      className="absolute inset-0 opacity-[0.06]"
-                      style={{
-                        backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
-                        backgroundSize: "24px 24px",
-                      }}
-                    />
-                    <div className="relative p-8">
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-white" />
-                        </div>
-                        <h3 className="text-xl font-bold text-white">Your Proposal Will Include</h3>
+                  {/* What's Included — dark card */}
+                  <div className="rounded-2xl bg-slate-900 overflow-hidden">
+                    <div className="h-1 bg-gradient-to-r from-emerald-400 to-emerald-600" />
+                    <div className="p-7">
+                      <div className="flex items-center gap-2.5 mb-5">
+                        <FileText className="w-5 h-5 text-emerald-400" />
+                        <h3 className="text-base font-bold text-white">Your Proposal Will Include</h3>
                       </div>
                       <div className="space-y-3">
                         {included.map((item) => (
-                          <div key={item} className="flex items-center gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-emerald-200 flex-shrink-0" />
-                            <span className="text-emerald-50 text-sm">{item}</span>
+                          <div key={item} className="flex items-start gap-3">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                            <span className="text-slate-300 text-sm leading-snug">{item}</span>
                           </div>
                         ))}
                       </div>
