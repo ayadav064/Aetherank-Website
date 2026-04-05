@@ -18,6 +18,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/services": "Services (Overview)",
   "/services/seo": "Services → SEO & GEO",
   "/services/ppc": "Services → PPC",
+  "/services/meta-ads": "Services → Meta Ads",
   "/services/social-media": "Services → Social Media",
   "/services/web-design-development": "Services → Web Design",
   "/services/content-marketing": "Services → Content Marketing",
