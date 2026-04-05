@@ -70,9 +70,11 @@ export function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center shadow-[0_4px_12px_rgba(16,185,129,0.35)] group-hover:shadow-[0_6px_16px_rgba(16,185,129,0.45)] transition-shadow">
-              <span className="text-white font-black text-lg leading-none">A</span>
-            </div>
+            <img
+              src="/logo-icon.png"
+              alt="Aetherank logo"
+              className="w-9 h-9 rounded-xl object-cover shadow-[0_4px_12px_rgba(16,185,129,0.35)] group-hover:shadow-[0_6px_16px_rgba(16,185,129,0.45)] transition-shadow"
+            />
             <span className="font-extrabold text-[1.15rem] text-slate-900 tracking-tight">
               Aetherank<span className="text-emerald-500">.</span>
             </span>
