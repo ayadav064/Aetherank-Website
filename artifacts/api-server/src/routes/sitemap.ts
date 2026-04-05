@@ -16,6 +16,7 @@ const STATIC_PAGES = [
   { path: "/services/web-design-development", priority: "0.8", changefreq: "monthly" },
   { path: "/services/content-marketing", priority: "0.8", changefreq: "monthly" },
   { path: "/services/orm", priority: "0.8", changefreq: "monthly" },
+  { path: "/services/meta-ads", priority: "0.8", changefreq: "monthly" },
   { path: "/about-us", priority: "0.7", changefreq: "monthly" },
   { path: "/case-studies", priority: "0.7", changefreq: "monthly" },
   { path: "/blog", priority: "0.8", changefreq: "weekly" },
@@ -85,7 +86,26 @@ ${blogUrls}
 router.get("/robots.txt", (_req, res) => {
   res.setHeader("Content-Type", "text/plain");
   res.send(
-    `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/admin\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+`User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/admin
+
+# Allow beneficial AI search agents
+User-agent: OAI-SearchBot
+Allow: /
+
+# Block OpenAI training crawler
+User-agent: GPTBot
+Disallow: /
+
+# Block Google AI training crawler
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
   );
 });
 
