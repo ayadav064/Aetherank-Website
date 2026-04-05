@@ -1682,9 +1682,11 @@ export function Footer() {
           
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl tracking-tighter">
-                A
-              </div>
+              <img
+                src="/logo-icon.png"
+                alt="Aetherank logo"
+                className="w-11 h-11 object-contain"
+              />
               <span className="font-display font-bold text-2xl text-white tracking-tight">
                 Aetherank.
               </span>
