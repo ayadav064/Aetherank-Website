@@ -10,7 +10,7 @@ interface PageHeroProps {
 
 export function PageHero({ badge, heading, subtext, children }: PageHeroProps) {
   return (
-    <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 -mt-[88px] pt-[calc(8rem+88px)] pb-20 relative overflow-hidden">
+    <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-32 pb-20 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
