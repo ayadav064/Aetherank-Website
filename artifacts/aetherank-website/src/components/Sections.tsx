@@ -1696,7 +1696,7 @@ export function Footer() {
                 alt="Aetherank logo"
                 className="w-11 h-11 object-contain"
               />
-              <span className="font-display font-bold text-2xl text-white tracking-tight">
+              <span className="font-display font-black text-2xl text-white tracking-tight">
                 Aetherank.
               </span>
             </div>
@@ -1704,11 +1704,6 @@ export function Footer() {
               {contact.footer_tagline || "India's premier AI-powered digital marketing agency. We turn clicks into clients."}
             </p>
             <div className="flex flex-wrap gap-3">
-              {contact.whatsapp && (
-                <a href={`https://wa.me/${contact.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-colors">
-                  <WhatsAppIcon className="w-4 h-4" />
-                </a>
-              )}
               {contact.instagram && (
                 <a href={contact.instagram !== "#" ? contact.instagram : undefined} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-500 hover:text-white transition-colors">
                   <Instagram className="w-4 h-4" />
