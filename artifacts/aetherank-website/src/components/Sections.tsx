@@ -1730,7 +1730,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold text-lg mb-6">Services</h4>
+            <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
+              <span className="w-5 h-px bg-emerald-400 shrink-0"></span>Services
+            </h4>
             <ul className="space-y-4">
               <li><Link href="/services/seo" className="hover:text-primary transition-colors">SEO & GEO Optimization</Link></li>
               <li><Link href="/services/ppc" className="hover:text-primary transition-colors">Google Ads (PPC)</Link></li>
@@ -1742,7 +1744,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold text-lg mb-6">Company</h4>
+            <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
+              <span className="w-5 h-px bg-emerald-400 shrink-0"></span>Company
+            </h4>
             <ul className="space-y-4">
               <li><Link href="/about-us" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
@@ -1752,7 +1756,9 @@ export function Footer() {
           </div>
 
           <div className="sm:col-span-2 lg:col-span-1">
-            <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
+            <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
+              <span className="w-5 h-px bg-emerald-400 shrink-0"></span>Contact Us
+            </h4>
             <ul className="space-y-4 text-slate-400">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
