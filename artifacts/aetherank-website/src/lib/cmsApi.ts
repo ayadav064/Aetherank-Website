@@ -241,6 +241,16 @@ export async function adminLogin(password: string): Promise<string> {
   return data.token;
 }
 
+export async function fetchPublicSettings(): Promise<CmsSettings | null> {
+  try {
+    const res = await fetch("/api/settings");
+    if (!res.ok) return null;
+    return (await res.json()) as CmsSettings;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchSettings(): Promise<CmsSettings | null> {
   const token = getToken();
   if (!token) return null;

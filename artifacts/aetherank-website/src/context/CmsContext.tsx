@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import {
-  fetchSettings,
+  fetchPublicSettings,
   type CmsSettings,
   type BlogNewsletterCta,
   DEFAULT_SEO,
@@ -75,7 +75,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSettings().then((s) => {
+    fetchPublicSettings().then((s) => {
       if (s) {
         const c = s.content ?? {};
         setSettings({

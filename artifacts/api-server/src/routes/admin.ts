@@ -28,6 +28,18 @@ router.get("/admin/verify", authMiddleware, (_req, res) => {
   res.json({ ok: true });
 });
 
+// ── Public Settings (no auth) ──────────────────────────────────────────────
+
+router.get("/settings", async (_req, res) => {
+  try {
+    const rows = await db.select().from(settingsTable);
+    const main = rows.find((r) => r.key === "main");
+    res.json(main?.value ?? {});
+  } catch {
+    res.status(500).json({ ok: false, error: "Failed to load settings" });
+  }
+});
+
 // ── CMS Settings ──────────────────────────────────────────────────────────
 
 router.get("/admin/settings", authMiddleware, async (_req, res) => {
