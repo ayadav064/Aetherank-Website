@@ -1694,7 +1694,7 @@ export function Footer() {
               <img
                 src="/logo-icon.png"
                 alt="Aetherank logo"
-                className="w-11 h-11 object-contain"
+                className="w-11 h-11 object-contain brightness-0 invert"
               />
               <span className="font-display font-black text-2xl text-white tracking-tight">
                 Aetherank.
