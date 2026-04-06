@@ -38,7 +38,8 @@ import {
   HeartHandshake,
   Linkedin,
   Instagram,
-  Facebook
+  Facebook,
+  Clock
 } from "lucide-react";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -1788,6 +1789,10 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary shrink-0" />
                 <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="hover:text-white transition-colors">{contact.phone}</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-primary shrink-0" />
+                <span>Mon–Fri, 9:30 AM – 6:30 PM</span>
               </li>
             </ul>
           </div>
