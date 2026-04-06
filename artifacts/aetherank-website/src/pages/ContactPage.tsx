@@ -79,7 +79,7 @@ export default function ContactPage() {
 
   const addresses = [
     { label: "Mumbai", value: contact.address_1 },
-    ...(contact.address_2 ? [{ label: "Virar Office", value: contact.address_2 }] : []),
+    ...(contact.address_2 ? [{ label: "Virar", value: contact.address_2 }] : []),
     ...(contact.address_3 ? [{ label: "USA", value: contact.address_3 }] : []),
   ];
 

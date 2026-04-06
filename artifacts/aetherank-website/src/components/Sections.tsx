@@ -1787,12 +1787,12 @@ export function Footer() {
                 <span>Mon–Fri, 9:30 AM – 6:30 PM</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary shrink-0" />
-                <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors break-all">{contact.email}</a>
-              </li>
-              <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary shrink-0" />
                 <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="hover:text-white transition-colors">{contact.phone}</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-primary shrink-0" />
+                <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors break-all">{contact.email}</a>
               </li>
             </ul>
           </div>
