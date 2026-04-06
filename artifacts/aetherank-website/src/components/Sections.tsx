@@ -1698,7 +1698,7 @@ export function Footer() {
                   className="w-7 h-7 object-contain"
                 />
               </div>
-              <span className="font-display font-black text-2xl text-white tracking-tight">
+              <span className="font-display font-bold text-2xl text-white tracking-tight">
                 Aetherank<span className="text-emerald-400">.</span>
               </span>
             </div>
