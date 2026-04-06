@@ -108,6 +108,43 @@
   }
 }
 
+/* Blog Post Responsive Prose Styles */
+.blog-prose {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.blog-prose table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
+}
+.blog-prose pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.blog-prose code {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+.blog-prose img {
+  max-width: 100%;
+  height: auto;
+}
+.blog-prose iframe {
+  max-width: 100%;
+}
+.blog-prose p,
+.blog-prose li,
+.blog-prose blockquote {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 /* Embla Carousel Base Styles */
 .embla {
   overflow: hidden;

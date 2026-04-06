@@ -97,7 +97,7 @@ function applyPostSeo({ title, excerpt, slug, image, author, date, category }: P
 function renderContent(line: string, index: number) {
   if (line.startsWith("## ")) {
     return (
-      <h2 key={index} className="text-2xl font-bold text-slate-900 mt-10 mb-4">
+      <h2 key={index} className="text-xl sm:text-2xl font-bold text-slate-900 mt-10 mb-4">
         {line.replace("## ", "")}
       </h2>
     );
@@ -108,14 +108,14 @@ function renderContent(line: string, index: number) {
         {line.split("\n").map((item, i) => (
           <li key={i} className="flex gap-2">
             <span className="text-emerald-500 mt-1 shrink-0">•</span>
-            <span>{item.replace(/^[-•]\s*/, "")}</span>
+            <span className="break-words min-w-0">{item.replace(/^[-•]\s*/, "")}</span>
           </li>
         ))}
       </ul>
     );
   }
   return (
-    <p key={index} className="text-slate-700 leading-relaxed text-lg">
+    <p key={index} className="text-slate-700 leading-relaxed text-base sm:text-lg break-words">
       {line}
     </p>
   );
@@ -177,8 +177,8 @@ function ApiPostContent({ post }: { post: BlogPost }) {
         </div>
 
         {/* Article body */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 pb-8 border-b border-slate-100 mb-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 overflow-x-hidden">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 pb-8 border-b border-slate-100 mb-10">
             {post.author && (
               <span className="flex items-center gap-1.5">
                 <User className="w-4 h-4 text-emerald-500" />
@@ -196,7 +196,7 @@ function ApiPostContent({ post }: { post: BlogPost }) {
           <FadeIn>
             {isHtml ? (
               <div
-                className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-a:text-emerald-600 prose-img:rounded-xl prose-img:shadow-md"
+                className="blog-prose prose prose-slate max-w-none prose-sm sm:prose-lg prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:max-w-full prose-pre:overflow-x-auto prose-code:break-words prose-p:break-words prose-p:leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             ) : (
