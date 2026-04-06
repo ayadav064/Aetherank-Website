@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { db } from "@workspace/db";
-import { settingsTable, newsletterSubscribersTable } from "@workspace/db/schema";
+import { settingsTable, newsletterSubscribersTable, mediaTable } from "@workspace/db/schema";
 import { authMiddleware, getAdminToken } from "../lib/auth";
 import { desc, eq } from "drizzle-orm";
+import { ObjectStorageService } from "../lib/objectStorage";
 
 const router = Router();
 
@@ -107,6 +108,62 @@ router.get("/admin/mail-status", authMiddleware, (_req, res) => {
     smtp_user: process.env["SMTP_USER"] ?? null,
     smtp_from: process.env["SMTP_FROM"] ?? null,
   });
+});
+
+// ── Media Library ─────────────────────────────────────────────────────────
+
+const objectStorageService = new ObjectStorageService();
+
+router.post("/admin/storage/request-url", authMiddleware, async (req, res) => {
+  const { name, size, contentType } = req.body as { name: string; size: number; contentType: string };
+  if (!name || !size || !contentType) {
+    res.status(400).json({ error: "Missing required fields" });
+    return;
+  }
+  try {
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    const objectPath = objectStorageService.normalizeObjectEntityPath(uploadURL);
+    res.json({ uploadURL, objectPath, metadata: { name, size, contentType } });
+  } catch {
+    res.status(500).json({ error: "Failed to generate upload URL" });
+  }
+});
+
+router.post("/admin/media", authMiddleware, async (req, res) => {
+  const { name, objectPath, contentType, size } = req.body as {
+    name: string;
+    objectPath: string;
+    contentType: string;
+    size: number;
+  };
+  if (!name || !objectPath || !contentType || !size) {
+    res.status(400).json({ error: "Missing required fields" });
+    return;
+  }
+  try {
+    const [row] = await db.insert(mediaTable).values({ name, objectPath, contentType, size }).returning();
+    res.json(row);
+  } catch {
+    res.status(500).json({ error: "Failed to record media" });
+  }
+});
+
+router.get("/admin/media", authMiddleware, async (_req, res) => {
+  try {
+    const rows = await db.select().from(mediaTable).orderBy(desc(mediaTable.createdAt));
+    res.json(rows);
+  } catch {
+    res.status(500).json({ error: "Failed to fetch media" });
+  }
+});
+
+router.delete("/admin/media/:id", authMiddleware, async (req, res) => {
+  try {
+    await db.delete(mediaTable).where(eq(mediaTable.id, parseInt(req.params["id"]!)));
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "Failed to delete media" });
+  }
 });
 
 export default router;

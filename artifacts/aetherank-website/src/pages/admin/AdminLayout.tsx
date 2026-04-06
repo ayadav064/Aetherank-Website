@@ -25,6 +25,7 @@ import {
   Plus,
   Inbox,
   Mail,
+  ImageIcon,
 } from "lucide-react";
 
 interface NavItem {
@@ -109,6 +110,11 @@ const NAV: NavItem[] = [
     label: "Subscribers",
     icon: Mail,
   },
+  {
+    path: "/admin/media",
+    label: "Media",
+    icon: ImageIcon,
+  },
 ];
 
 const ICON_COLORS: Record<string, string> = {
@@ -120,6 +126,7 @@ const ICON_COLORS: Record<string, string> = {
   SEO: "text-teal-400",
   Submissions: "text-amber-400",
   Subscribers: "text-emerald-400",
+  Media: "text-pink-400",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

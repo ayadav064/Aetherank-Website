@@ -26,13 +26,15 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - Rich blog CMS with TipTap editor
 - SEO management per-page
 - Contact forms, free audit, proposal request
+- Media Library at `/admin/media` — drag-and-drop uploads to object storage with image grid, copy URL, delete
 
 ### API Server (`artifacts/api-server`)
 - Express backend, port 8080
-- Routes: `/api/blog/posts`, `/api/admin/*`, `/api/submissions/*`, `/api/stats/*`, `/api/track`, `/api/newsletter/*`
+- Routes: `/api/blog/posts`, `/api/admin/*`, `/api/submissions/*`, `/api/stats/*`, `/api/track`, `/api/newsletter/*`, `/api/storage/*`
 - Sitemap served at `/sitemap.xml`, robots at `/robots.txt`
 - Authentication via `ADMIN_PASSWORD` env (default: `aetherank2026`)
 - Email notifications via SMTP (optional: SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM)
+- Object storage via Replit App Storage (GCS) for Media Library
 
 ## Database Tables
 
@@ -41,6 +43,7 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `settings` - CMS settings keyed by path (SEO) and named keys
 - `newsletter_subscribers` - Email newsletter list
 - `page_views` - Analytics page view tracking
+- `media` - Media library: uploaded files tracked with objectPath, contentType, size
 
 ## Key Commands
 

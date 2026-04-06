@@ -31,6 +31,7 @@ import BlogPostEditor from "@/pages/admin/BlogPostEditor";
 import AdminSubmissions from "@/pages/admin/AdminSubmissions";
 
 import AdminNewsletterSubscribers from "@/pages/admin/AdminNewsletterSubscribers";
+import AdminMediaLibrary from "@/pages/admin/AdminMediaLibrary";
 import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
 
@@ -67,6 +68,7 @@ function Router() {
       <Route path="/admin/home" component={ContentEditor} />
       <Route path="/admin/submissions" component={AdminSubmissions} />
       <Route path="/admin/subscribers" component={AdminNewsletterSubscribers} />
+      <Route path="/admin/media" component={AdminMediaLibrary} />
       <Route component={NotFound} />
     </Switch>
   );

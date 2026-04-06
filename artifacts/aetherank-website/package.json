@@ -85,6 +85,10 @@
     "@tiptap/react": "^3.22.0",
     "@tiptap/starter-kit": "^3.22.0",
     "@types/react-helmet": "^6.1.11",
+    "@uppy/aws-s3": "^5.1.0",
+    "@uppy/core": "^5.2.0",
+    "@uppy/dashboard": "^5.1.1",
+    "@uppy/react": "^5.2.0",
     "embla-carousel-autoplay": "^8.6.0",
     "react-helmet": "^6.1.0"
   }
