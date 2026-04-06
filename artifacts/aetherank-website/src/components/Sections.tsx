@@ -1756,19 +1756,10 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4 text-slate-400">
-              {contact.address_3 && (
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Headquarters</span>
-                    <span>{contact.address_3}</span>
-                  </div>
-                </li>
-              )}
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Mumbai</span>
+                  <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Headquartered in Mumbai</span>
                   <span>{contact.address_1}</span>
                 </div>
               </li>
@@ -1778,6 +1769,15 @@ export function Footer() {
                   <div>
                     <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Virar</span>
                     <span>{contact.address_2}</span>
+                  </div>
+                </li>
+              )}
+              {contact.address_3 && (
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">USA</span>
+                    <span>{contact.address_3}</span>
                   </div>
                 </li>
               )}
