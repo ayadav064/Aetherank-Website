@@ -1708,23 +1708,23 @@ export function Footer() {
                   <WhatsAppIcon className="w-4 h-4" />
                 </a>
               )}
-              {contact.instagram && contact.instagram !== "#" && (
-                <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-500 hover:text-white transition-colors">
+              {contact.instagram && (
+                <a href={contact.instagram !== "#" ? contact.instagram : undefined} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-500 hover:text-white transition-colors">
                   <Instagram className="w-4 h-4" />
                 </a>
               )}
-              {contact.facebook && contact.facebook !== "#" && (
-                <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0866FF] hover:text-white transition-colors">
+              {contact.facebook && (
+                <a href={contact.facebook !== "#" ? contact.facebook : undefined} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0866FF] hover:text-white transition-colors">
                   <Facebook className="w-4 h-4" />
                 </a>
               )}
-              {contact.linkedin && contact.linkedin !== "#" && (
-                <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0A66C2] hover:text-white transition-colors">
+              {contact.linkedin && (
+                <a href={contact.linkedin !== "#" ? contact.linkedin : undefined} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0A66C2] hover:text-white transition-colors">
                   <Linkedin className="w-4 h-4" />
                 </a>
               )}
-              {contact.twitter && contact.twitter !== "#" && (
-                <a href={contact.twitter} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white transition-colors">
+              {contact.twitter && (
+                <a href={contact.twitter !== "#" ? contact.twitter : undefined} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white transition-colors">
                   <XIcon className="w-4 h-4" />
                 </a>
               )}
