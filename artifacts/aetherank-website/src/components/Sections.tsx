@@ -1226,7 +1226,7 @@ export function About() {
                 <div>
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-emerald-300 text-xs font-bold uppercase tracking-wider">Headquartered in Mumbai</span>
+                    <span className="text-emerald-300 text-xs font-bold uppercase tracking-wider">Mumbai</span>
                   </div>
                   <p className="text-white text-xl font-extrabold">Serving India & Beyond</p>
                 </div>
@@ -1760,7 +1760,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Headquartered in Mumbai</span>
+                  <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Mumbai</span>
                   <span>{contact.address_1}</span>
                 </div>
               </li>
@@ -1783,16 +1783,16 @@ export function Footer() {
                 </li>
               )}
               <li className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-primary shrink-0" />
+                <span>Mon–Fri, 9:30 AM – 6:30 PM</span>
+              </li>
+              <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary shrink-0" />
                 <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors break-all">{contact.email}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary shrink-0" />
                 <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="hover:text-white transition-colors">{contact.phone}</a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-primary shrink-0" />
-                <span>Mon–Fri, 9:30 AM – 6:30 PM</span>
               </li>
             </ul>
           </div>

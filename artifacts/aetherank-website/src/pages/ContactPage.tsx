@@ -78,7 +78,7 @@ export default function ContactPage() {
   ];
 
   const addresses = [
-    { label: "Headquartered in Mumbai", value: contact.address_1 },
+    { label: "Mumbai", value: contact.address_1 },
     ...(contact.address_2 ? [{ label: "Virar Office", value: contact.address_2 }] : []),
     ...(contact.address_3 ? [{ label: "USA", value: contact.address_3 }] : []),
   ];
@@ -120,6 +120,17 @@ export default function ContactPage() {
                       </div>
                     </div>
 
+                    {/* Office Hours */}
+                    <div className="flex gap-5 items-start">
+                      <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+                        <Clock className="w-6 h-6 text-amber-600" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900 text-base">Office Hours</p>
+                        <p className="text-slate-500 text-sm mt-1">Mon–Fri, 9:30 AM – 6:30 PM</p>
+                      </div>
+                    </div>
+
                     {/* Phone */}
                     <div className="flex gap-5 items-start">
                       <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -149,17 +160,6 @@ export default function ContactPage() {
                         >
                           {contact.email}
                         </a>
-                      </div>
-                    </div>
-
-                    {/* Office Hours */}
-                    <div className="flex gap-5 items-start">
-                      <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-6 h-6 text-amber-600" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-slate-900 text-base">Office Hours</p>
-                        <p className="text-slate-500 text-sm mt-1">Mon–Fri, 9:30 AM – 6:30 PM</p>
                       </div>
                     </div>
                   </div>
