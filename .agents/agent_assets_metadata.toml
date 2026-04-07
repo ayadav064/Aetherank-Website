@@ -12,3 +12,9 @@ id = "0SdSSk9lhSno7zm8VsLoO"
 uri = "file://exports/aetherank-static-site.zip"
 type = "unspecified"
 title = "AetherRank Static Site — Home page blog updated (6.7MB)"
+
+[[outputs]]
+id = "-DJzkiqp0mvoTA7cGNUD-"
+uri = "file://artifacts/aetherank-website/exports/aetherank-static-site.zip"
+type = "unspecified"
+title = "aetherank-static-site.zip — All 22 Blog Posts (6.7 MB)"
