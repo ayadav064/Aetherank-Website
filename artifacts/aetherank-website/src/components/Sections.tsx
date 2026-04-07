@@ -1537,6 +1537,30 @@ export function ServiceFAQ({ faqs, headline, subtext }: ServiceFAQProps) {
 }
 
 // --- SERVICE RELATED POSTS ---
+function categoryMatches(articleCat: string, filterCat: string): boolean {
+  const a = articleCat.toLowerCase();
+  const f = filterCat.toLowerCase();
+  return a === f || a.includes(f) || f.includes(a);
+}
+
+const FALLBACK_RELATED = (category: string) =>
+  articles
+    .filter((a) => categoryMatches(a.category, category))
+    .slice(0, 2)
+    .map((a) => ({
+      id: 0,
+      title: a.title,
+      slug: a.slug,
+      category: a.category,
+      excerpt: a.excerpt,
+      image: a.image,
+      date: a.date,
+      readTime: a.readTime,
+      author: a.author,
+      content: "",
+      status: "published" as const,
+    }));
+
 export function ServiceRelatedPosts({ category }: { category: string }) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -1545,11 +1569,11 @@ export function ServiceRelatedPosts({ category }: { category: string }) {
     fetchBlogPosts()
       .then((all) => {
         const matched = all
-          .filter((p) => p.status === "published" && p.category.toLowerCase() === category.toLowerCase())
+          .filter((p) => p.status === "published" && categoryMatches(p.category, category))
           .slice(0, 2);
-        setPosts(matched);
+        setPosts(matched.length > 0 ? matched : FALLBACK_RELATED(category));
       })
-      .catch(() => setPosts([]))
+      .catch(() => setPosts(FALLBACK_RELATED(category)))
       .finally(() => setLoading(false));
   }, [category]);
 
