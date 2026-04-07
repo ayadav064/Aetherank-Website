@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { fetchBlogPosts, type BlogPost } from "@/lib/cmsApi";
+import { articles } from "@/data/articles";
 import { FadeIn } from "./ui/FadeIn";
 import { Link } from "wouter";
 import { useContactModal } from "./ContactModalContext";
@@ -1286,29 +1287,13 @@ export function About() {
 }
 
 // --- BLOG ---
-const FALLBACK_BLOGS = [
-  {
-    title: "Top 10 SEO, GEO Strategies for Indian Businesses in 2026",
-    category: "SEO, GEO",
-    date: "Oct 12, 2025",
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=70&auto=format",
-    slug: null,
-  },
-  {
-    title: "How AI is Transforming Digital Marketing in India",
-    category: "Trends",
-    date: "Sep 28, 2025",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=70&auto=format",
-    slug: null,
-  },
-  {
-    title: "Google Ads vs Facebook Ads: What Works Best?",
-    category: "PPC",
-    date: "Sep 15, 2025",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=70&auto=format",
-    slug: null,
-  },
-];
+const FALLBACK_BLOGS = articles.slice(0, 3).map((a) => ({
+  title: a.title,
+  category: a.category,
+  date: a.date,
+  image: a.image,
+  slug: a.slug,
+}));
 
 export function Blog() {
   const [posts, setPosts] = useState<{ title: string; category: string; date: string; image: string; slug: string | null }[]>([]);
