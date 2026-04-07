@@ -303,9 +303,16 @@ function StaticPostContent({ slug, article }: { slug: string; article: Article }
           </div>
 
           <FadeIn>
-            <div className="space-y-6">
-              {article.content.map((block, i) => renderContent(block, i))}
-            </div>
+            {article.content.length === 1 && article.content[0].trimStart().startsWith("<") ? (
+              <div
+                className="blog-prose prose prose-slate max-w-none prose-sm sm:prose-lg prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:max-w-full prose-code:break-words prose-p:break-words prose-p:leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: article.content[0] }}
+              />
+            ) : (
+              <div className="space-y-6">
+                {article.content.map((block, i) => renderContent(block, i))}
+              </div>
+            )}
           </FadeIn>
 
           <div className="mt-16 pt-8 border-t border-slate-100">
