@@ -5,7 +5,12 @@
  *
  * Netlify Forms stores submissions in the Netlify dashboard (100/month free).
  * Form names must match the forms defined in /public/netlify-forms.html
+ *
+ * VITE_API_BASE_URL: when set (e.g. https://your-backend.up.railway.app),
+ * submission calls go directly to the Railway backend instead of relative /api.
  */
+
+const API_BASE: string = (import.meta as unknown as { env: Record<string, string> }).env.VITE_API_BASE_URL ?? "";
 
 function encodeNetlifyForm(data: Record<string, string>): string {
   return Object.entries(data)
@@ -39,7 +44,7 @@ export async function submitContactForm(data: {
   message: string;
 }): Promise<SubmitResult> {
   try {
-    const res = await fetch("/api/submissions", {
+    const res = await fetch(`${API_BASE}/api/submissions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "contact", _hp: "", ...data }),
@@ -84,7 +89,7 @@ export async function submitAuditForm(data: {
   goals: string[];
 }): Promise<SubmitResult> {
   try {
-    const res = await fetch("/api/submissions", {
+    const res = await fetch(`${API_BASE}/api/submissions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "audit", ...data }),
@@ -120,7 +125,7 @@ export async function submitProposalForm(data: {
   timeline: string;
 }): Promise<SubmitResult> {
   try {
-    const res = await fetch("/api/submissions", {
+    const res = await fetch(`${API_BASE}/api/submissions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "proposal", ...data }),
@@ -140,5 +145,23 @@ export async function submitProposalForm(data: {
       timeline: data.timeline,
     });
     return { ok: true };
+  }
+}
+
+/** Newsletter subscribe */
+export async function submitNewsletterSubscribe(email: string): Promise<{ ok: boolean; message?: string; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/newsletter/subscribe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json() as { success?: boolean; message?: string; error?: string };
+    if (res.ok && data.success) return { ok: true, message: data.message ?? "You've been subscribed!" };
+    if (res.status === 429) return { ok: false, error: data.error ?? "Too many requests. Please try again later." };
+    throw new Error(data.error ?? "API error");
+  } catch {
+    await submitToNetlify("newsletter", { email });
+    return { ok: true, message: "You've been subscribed!" };
   }
 }

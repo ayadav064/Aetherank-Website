@@ -8,6 +8,7 @@ import { ArrowRight, Clock, User, Loader2 } from "lucide-react";
 import { articles } from "@/data/articles";
 import { usePageContent, useBlogNewsletterCta } from "@/context/CmsContext";
 import { fetchBlogPosts, type BlogPost } from "@/lib/cmsApi";
+import { submitNewsletterSubscribe } from "@/lib/submitForm";
 
 const CATEGORY_COLOR: Record<string, string> = {
   "SEO, GEO": "bg-emerald-100 text-emerald-700",
@@ -51,24 +52,14 @@ export default function BlogPage() {
     if (!email.trim()) return;
     setSubState("submitting");
     setSubMsg("");
-    try {
-      const res = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = (await res.json()) as { success?: boolean; message?: string; error?: string };
-      if (res.ok && data.success) {
-        setSubState("success");
-        setSubMsg(data.message ?? "You've been subscribed!");
-        setEmail("");
-      } else {
-        setSubState("error");
-        setSubMsg(data.error ?? "Something went wrong. Please try again.");
-      }
-    } catch {
+    const result = await submitNewsletterSubscribe(email.trim());
+    if (result.ok) {
+      setSubState("success");
+      setSubMsg(result.message ?? "You've been subscribed!");
+      setEmail("");
+    } else {
       setSubState("error");
-      setSubMsg("Network error. Please try again.");
+      setSubMsg(result.error ?? "Something went wrong. Please try again.");
     }
   }
 

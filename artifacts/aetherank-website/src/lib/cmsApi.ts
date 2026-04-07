@@ -1,3 +1,11 @@
+/**
+ * When VITE_API_BASE_URL is set (e.g. https://your-backend.up.railway.app),
+ * public API calls (blog, newsletter) will use the Railway backend directly.
+ * This allows the Netlify static frontend to load live blog posts and accept subscriptions.
+ * Leave empty in local dev — Vite's proxy handles it.
+ */
+const API_BASE: string = (import.meta as unknown as { env: Record<string, string> }).env.VITE_API_BASE_URL ?? "";
+
 export interface SeoPageSettings {
   title: string;
   description: string;
@@ -969,7 +977,7 @@ export interface BlogPost {
   updatedAt: string;
 }
 
-const BLOG_BASE = "/api/blog/posts";
+const BLOG_BASE = `${API_BASE}/api/blog/posts`;
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   try {
