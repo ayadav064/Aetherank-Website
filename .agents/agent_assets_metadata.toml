@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "_os6anxx8LdYgA0R2nG4c"
+uri = "file://exports/aetherank-wordpress-reference.zip"
+type = "unspecified"
+title = "AetherRank WordPress Reference — HTML File (ZIP)"
