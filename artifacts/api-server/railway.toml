@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd ../.. && pnpm install && pnpm --filter @workspace/api-server run build && pnpm --filter @workspace/db run push"
+
+[deploy]
+startCommand = "node /app/artifacts/api-server/dist/index.mjs"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[deploy.healthcheck]
+path = "/api/healthz"
+timeout = 30

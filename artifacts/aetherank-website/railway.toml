@@ -1,0 +1,8 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd ../.. && pnpm install && pnpm --filter @workspace/aetherank-website run build"
+
+[deploy]
+startCommand = "cd /app && PORT=$PORT pnpm --filter @workspace/aetherank-website run serve"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
