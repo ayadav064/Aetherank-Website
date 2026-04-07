@@ -3,9 +3,14 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
 import { existsSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 import router, { sitemapRouter } from "./routes";
 import { logger } from "./lib/logger";
 import { runSeed } from "./seed";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app: Express = express();
 
@@ -40,7 +45,13 @@ app.use("/api", router);
 const isProduction = process.env.NODE_ENV === "production";
 
 if (isProduction) {
-  const distDir = path.resolve(process.cwd(), "../aetherank-website/dist/public");
+  // Look for frontend build in ./public next to this file (for MilesWeb / any VPS)
+  // or fall back to the monorepo dev path
+  const distDir =
+    existsSync(path.resolve(__dirname, "public"))
+      ? path.resolve(__dirname, "public")
+      : path.resolve(process.cwd(), "../aetherank-website/dist/public");
+
   if (existsSync(distDir)) {
     app.use(express.static(distDir));
     app.use((_req, res) => {

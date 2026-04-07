@@ -18,3 +18,9 @@ id = "-DJzkiqp0mvoTA7cGNUD-"
 uri = "file://artifacts/aetherank-website/exports/aetherank-static-site.zip"
 type = "unspecified"
 title = "aetherank-static-site.zip — full content, no Railway needed"
+
+[[outputs]]
+id = "PaswPJXWdWeWd-U-HWV8B"
+uri = "file://artifacts/api-server/exports/aetherank-milesweb-deploy.zip"
+type = "unspecified"
+title = "aetherank-milesweb-deploy.zip — Full site + CMS for MilesWeb"
