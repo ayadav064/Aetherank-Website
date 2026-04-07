@@ -11,6 +11,7 @@ const XIcon = ({ className }: { className?: string }) => (
 );
 
 import { useContactContent } from "@/context/CmsContext";
+import { submitContactForm } from "@/lib/submitForm";
 
 interface FieldErrors { [field: string]: string }
 
@@ -40,29 +41,9 @@ export default function ContactPage() {
     setFieldErrors({});
 
     try {
-      const res = await fetch("/api/submissions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "contact", _hp: "", ...form }),
-      });
-
-      const json = await res.json() as { ok: boolean; errors?: FieldErrors; error?: string };
-
-      if (res.status === 429) {
-        setGlobalError(json.error ?? "Too many requests. Please wait a few minutes.");
-        return;
-      }
-
-      if (res.status === 422 && json.errors) {
-        setFieldErrors(json.errors);
-        return;
-      }
-
-      if (!res.ok || !json.ok) {
-        setGlobalError(json.error ?? "Something went wrong. Please try again.");
-        return;
-      }
-
+      const result = await submitContactForm(form);
+      if (result.errors) { setFieldErrors(result.errors); return; }
+      if (!result.ok) { setGlobalError(result.error ?? "Something went wrong. Please try again."); return; }
       setSubmitted(true);
     } catch {
       setGlobalError("Network error. Please check your connection and try again.");

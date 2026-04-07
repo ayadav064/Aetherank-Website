@@ -6,6 +6,7 @@ import {
   CheckCircle2, ArrowRight, Briefcase, Target, Users, TrendingUp,
   Loader2, Clock, ShieldCheck, FileText, AlertCircle
 } from "lucide-react";
+import { submitProposalForm } from "@/lib/submitForm";
 
 const services = [
   "SEO, GEO (Search Engine & Generative Engine Optimisation)",
@@ -93,12 +94,8 @@ export default function RequestProposalPage() {
     setSubmitting(true);
     setError("");
     try {
-      const res = await fetch("/api/submissions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "proposal", ...form, services: selectedServices }),
-      });
-      if (!res.ok) throw new Error("Failed");
+      const result = await submitProposalForm({ ...form, services: selectedServices });
+      if (!result.ok) { setError(result.error ?? "Something went wrong. Please try again."); return; }
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again.");

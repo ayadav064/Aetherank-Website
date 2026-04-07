@@ -6,6 +6,7 @@ import {
   ChevronRight, Star, AlertCircle, Loader2
 } from "lucide-react";
 import { usePageContent } from "@/context/CmsContext";
+import { submitAuditForm } from "@/lib/submitForm";
 
 const benefits = [
   { icon: <Search className="w-5 h-5" />, title: "Technical SEO, GEO Audit", desc: "Crawl errors, broken links, indexing issues, and site architecture problems that are costing you rankings." },
@@ -75,12 +76,8 @@ export default function FreeAuditPage() {
     setSubmitting(true);
     setError("");
     try {
-      const res = await fetch("/api/submissions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "audit", ...form }),
-      });
-      if (!res.ok) throw new Error("Failed");
+      const result = await submitAuditForm(form);
+      if (!result.ok) { setError(result.error ?? "Something went wrong. Please try again."); return; }
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again.");
