@@ -1,10 +1,17 @@
 /**
- * When VITE_API_BASE_URL is set (e.g. https://your-backend.up.railway.app),
- * public API calls (blog, newsletter) will use the Railway backend directly.
- * This allows the Netlify static frontend to load live blog posts and accept subscriptions.
- * Leave empty in local dev — Vite's proxy handles it.
+ * Blog source priority (set in Netlify environment variables):
+ *
+ * 1. VITE_WP_API_URL  — WordPress REST API root, e.g. https://yoursite.com/wp-json
+ *    Posts are fetched live from WordPress. No backend needed.
+ *
+ * 2. VITE_API_BASE_URL — Railway Express backend, e.g. https://your-app.up.railway.app
+ *    Used when WordPress is not configured.
+ *
+ * 3. Static fallback — 22 built-in articles baked into the bundle.
+ *    Used automatically when neither env var is set.
  */
 const API_BASE: string = (import.meta as unknown as { env: Record<string, string> }).env.VITE_API_BASE_URL ?? "";
+const WP_API: string = (import.meta as unknown as { env: Record<string, string> }).env.VITE_WP_API_URL ?? "";
 
 export interface SeoPageSettings {
   title: string;
@@ -979,7 +986,105 @@ export interface BlogPost {
 
 const BLOG_BASE = `${API_BASE}/api/blog/posts`;
 
+// --------------- WordPress REST API helpers ---------------
+
+interface WpPost {
+  id: number;
+  slug: string;
+  date: string;
+  title: { rendered: string };
+  excerpt: { rendered: string };
+  content: { rendered: string };
+  _embedded?: {
+    author?: Array<{ name: string }>;
+    "wp:featuredmedia"?: Array<{ source_url: string }>;
+    "wp:term"?: Array<Array<{ name: string }>>;
+  };
+}
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8220;/g, "\u201c")
+    .replace(/&#8221;/g, "\u201d")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
+function estimateReadTime(html: string): string {
+  const words = stripHtml(html).split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+function wpPostToBlogPost(wp: WpPost): BlogPost {
+  const author = wp._embedded?.author?.[0]?.name ?? "Aetherank Team";
+  const image = wp._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "";
+  const category = wp._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "General";
+  const tags = (wp._embedded?.["wp:term"]?.[1] ?? []).map((t) => t.name);
+  const excerpt = stripHtml(wp.excerpt.rendered);
+  const content = wp.content.rendered;
+  const date = new Date(wp.date).toLocaleDateString("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return {
+    id: String(wp.id),
+    title: stripHtml(wp.title.rendered),
+    slug: wp.slug,
+    excerpt,
+    content,
+    category,
+    tags,
+    author,
+    date,
+    image,
+    status: "published",
+    readTime: estimateReadTime(content),
+    seo: {
+      title: stripHtml(wp.title.rendered),
+      description: excerpt.slice(0, 160),
+      keywords: tags.join(", "),
+      schema: "",
+    },
+    sortOrder: 0,
+    createdAt: wp.date,
+    updatedAt: wp.date,
+  };
+}
+
+async function fetchFromWordPress(): Promise<BlogPost[]> {
+  const res = await fetch(
+    `${WP_API}/wp/v2/posts?_embed&per_page=100&status=publish`,
+  );
+  if (!res.ok) throw new Error(`WP ${res.status}`);
+  const posts = (await res.json()) as WpPost[];
+  return posts.map(wpPostToBlogPost);
+}
+
+async function fetchOneFromWordPress(slug: string): Promise<BlogPost | null> {
+  const res = await fetch(`${WP_API}/wp/v2/posts?_embed&slug=${encodeURIComponent(slug)}`);
+  if (!res.ok) return null;
+  const posts = (await res.json()) as WpPost[];
+  return posts.length > 0 ? wpPostToBlogPost(posts[0]) : null;
+}
+
+// --------------- Public blog API (priority: WP → Railway → static) ---------------
+
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
+  if (WP_API) {
+    try {
+      return await fetchFromWordPress();
+    } catch {
+      // fall through to Railway
+    }
+  }
   try {
     const res = await fetch(BLOG_BASE);
     if (!res.ok) return [];
@@ -990,6 +1095,14 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function fetchBlogPost(idOrSlug: string): Promise<BlogPost | null> {
+  if (WP_API) {
+    try {
+      const post = await fetchOneFromWordPress(idOrSlug);
+      if (post) return post;
+    } catch {
+      // fall through to Railway
+    }
+  }
   try {
     const res = await fetch(`${BLOG_BASE}/${idOrSlug}`);
     if (!res.ok) return null;
