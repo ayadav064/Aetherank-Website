@@ -185,10 +185,10 @@ function ApiPostContent({ post }: { post: BlogPost }) {
                 {post.author}
               </span>
             )}
-            {post.publishedAt && (
+            {(post.date || post.createdAt) && (
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4 text-emerald-500" />
-                {new Date(post.publishedAt).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
+                {post.date || new Date(post.createdAt).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
               </span>
             )}
           </div>
