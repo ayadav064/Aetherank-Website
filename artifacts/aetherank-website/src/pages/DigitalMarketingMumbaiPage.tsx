@@ -6,72 +6,15 @@ import {
   BarChart2, Users, Star, MapPin, Award, Search, Building2,
 } from "lucide-react";
 import { ServiceFAQ, ServiceRelatedPosts } from "@/components/Sections";
+import { usePageContent, useServicePageData } from "@/context/CmsContext";
 
-const FAQS = [
-  {
-    q: "Why hire a digital marketing agency in Mumbai?",
-    a: "Mumbai is India's commercial capital, home to some of the most competitive industries — real estate, finance, fashion, hospitality, and retail. A Mumbai-focused agency understands the local consumer, Marathi-speaking audience segments, and hyper-local competition, giving your campaigns an immediate edge.",
-  },
-  {
-    q: "What digital marketing services do you offer in Mumbai?",
-    a: "We offer SEO, GEO (AI search optimisation), Google Ads, Meta & Instagram Ads, LinkedIn Ads for B2B, Social Media Management, Content Marketing, Web Design, and Online Reputation Management — all tailored for the Mumbai market.",
-  },
-  {
-    q: "Do you offer local SEO for specific Mumbai areas?",
-    a: "Absolutely. We optimise for hyper-local searches like 'digital marketing agency in Andheri', 'SEO company in Bandra', and 'Google Ads expert in Lower Parel'. We build and manage your Google Business Profile, local citations, and neighbourhood-level content.",
-  },
-  {
-    q: "How quickly can you start campaigns in Mumbai?",
-    a: "We launch within 7 business days of onboarding. We start with a free audit, build your strategy, and begin campaign execution — all simultaneously to minimise time-to-results.",
-  },
-  {
-    q: "What industries do you serve in Mumbai?",
-    a: "Real estate, retail & e-commerce, hospitality & restaurants, finance & fintech, fashion & lifestyle, healthcare & clinics, education & coaching, and professional services (legal, CA, consulting).",
-  },
-  {
-    q: "What is your pricing for Mumbai clients?",
-    a: "Packages start at ₹15,000/month for startups and SMEs. Growth plans with full-funnel management start at ₹35,000/month. We offer a 100% free audit before you commit to anything.",
-  },
-];
-
-const BENEFITS = [
-  { icon: <Search className="w-5 h-5" />, title: "Mumbai-Focused SEO", desc: "Rank for high-intent local searches in Andheri, Bandra, Powai, Lower Parel, Thane, Navi Mumbai, and across Greater Mumbai." },
-  { icon: <TrendingUp className="w-5 h-5" />, title: "Meta & Instagram Ads", desc: "Mumbai's consumers are social-first. Our Instagram and Facebook campaigns deliver leads at the lowest possible cost-per-acquisition." },
-  { icon: <Globe className="w-5 h-5" />, title: "AI Search (GEO)", desc: "Get your brand recommended by ChatGPT and Google AI Overviews when Mumbai users ask for your type of product or service." },
-  { icon: <BarChart2 className="w-5 h-5" />, title: "Google Ads & PPC", desc: "ROI-driven Google Search and Display campaigns targeting Mumbai's competitive keywords with proven bidding strategies." },
-  { icon: <Building2 className="w-5 h-5" />, title: "Real Estate Marketing", desc: "Specialised campaigns for Mumbai builders, brokers, and co-working spaces — driving quality inquiries for premium and affordable projects." },
-  { icon: <Zap className="w-5 h-5" />, title: "Fast Results, Full Transparency", desc: "Weekly progress updates, live dashboards, and no lock-in contracts. See exactly what you're getting for every rupee spent." },
-];
-
-const PROCESS = [
-  { step: "01", title: "Free Mumbai Market Audit", desc: "Comprehensive analysis of your website, keyword rankings, competitors in Mumbai, and existing ad performance." },
-  { step: "02", title: "Localised Strategy Blueprint", desc: "A custom plan targeting the right Mumbai neighbourhoods, audiences, and platforms — aligned to your budget and goals." },
-  { step: "03", title: "7-Day Campaign Launch", desc: "We go live with SEO, paid ads, content, and social media — simultaneously — within one week of sign-off." },
-  { step: "04", title: "Monthly Reports & Growth Reviews", desc: "Detailed reports covering traffic, leads, rankings, ROAS, and next-month priorities. You always know what's next." },
-];
-
-const PRICING = [
-  {
-    name: "Starter",
-    price: "₹15,000/mo",
-    desc: "Ideal for small Mumbai businesses entering digital marketing.",
-    features: ["Local SEO – 10 keywords", "Google My Business optimisation", "Google Ads management", "Monthly report"],
-    popular: false,
-  },
-  {
-    name: "Growth",
-    price: "₹35,000/mo",
-    desc: "Full-funnel campaigns for Mumbai brands ready to scale.",
-    features: ["SEO + GEO – 30 keywords", "Google & Meta Ads", "Instagram management", "Bi-weekly strategy call", "Priority support"],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    desc: "Aggressive multi-platform marketing for established Mumbai businesses.",
-    features: ["Unlimited keywords", "All ad platforms", "Dedicated account manager", "Weekly calls + live dashboard", "CRO & landing pages"],
-    popular: false,
-  },
+const BENEFIT_ICONS = [
+  <Search className="w-5 h-5" />,
+  <TrendingUp className="w-5 h-5" />,
+  <Globe className="w-5 h-5" />,
+  <BarChart2 className="w-5 h-5" />,
+  <Building2 className="w-5 h-5" />,
+  <Zap className="w-5 h-5" />,
 ];
 
 const MUMBAI_AREAS = [
@@ -81,6 +24,9 @@ const MUMBAI_AREAS = [
 ];
 
 export default function DigitalMarketingMumbaiPage() {
+  const content = usePageContent("/digital-marketing-company-mumbai");
+  const serviceData = useServicePageData("/digital-marketing-company-mumbai");
+
   return (
     <Layout>
       {/* Hero */}
@@ -91,18 +37,18 @@ export default function DigitalMarketingMumbaiPage() {
               <MapPin className="w-4 h-4" /> Mumbai's #1 Digital Marketing Agency
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-              Digital Marketing Company{" "}
-              <span className="text-primary">in Mumbai</span>
+              {content.headline}{" "}
+              <span className="text-primary">{content.headline_highlight}</span>
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-10">
-              AI-powered SEO, Google Ads, Meta & Instagram Ads for Mumbai businesses. More leads, more revenue — with zero guesswork and complete transparency.
+              {content.subheadline}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/free-audit"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:-translate-y-1"
               >
-                Get Free Mumbai Audit <ArrowRight className="w-5 h-5 ml-2" />
+                {content.cta_text ?? "Get Free Mumbai Audit"} <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link
                 href="/request-proposal"
@@ -139,11 +85,11 @@ export default function DigitalMarketingMumbaiPage() {
             <p className="text-slate-600 mt-4 max-w-2xl mx-auto">We combine AI-driven strategy with deep knowledge of the Mumbai market to deliver campaigns that outperform the competition.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {BENEFITS.map((b, i) => (
+            {serviceData.benefits.map((b, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full">
                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary mb-4 shadow-sm">
-                    {b.icon}
+                    {BENEFIT_ICONS[i % BENEFIT_ICONS.length]}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{b.title}</h3>
                   <p className="text-slate-600">{b.desc}</p>
@@ -161,7 +107,7 @@ export default function DigitalMarketingMumbaiPage() {
             <FadeIn>
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Process for Mumbai Clients</h2>
               <div className="space-y-8">
-                {PROCESS.map((item, i) => (
+                {serviceData.process_steps.map((item, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="w-12 h-12 shrink-0 bg-primary/10 text-primary font-bold rounded-full flex items-center justify-center">
                       {item.step}
@@ -204,7 +150,7 @@ export default function DigitalMarketingMumbaiPage() {
             <p className="text-slate-600 mt-4">Transparent pricing. No hidden costs. Cancel anytime.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {PRICING.map((plan, i) => (
+            {serviceData.pricing.map((plan, i) => (
               <div key={i} className={`p-8 rounded-3xl border relative ${plan.popular ? "border-primary shadow-xl" : "border-slate-200"}`}>
                 {plan.popular && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -251,7 +197,7 @@ export default function DigitalMarketingMumbaiPage() {
 
       <ServiceRelatedPosts category="SEO" />
       <ServiceFAQ
-        faqs={FAQS}
+        faqs={serviceData.faqs?.length ? serviceData.faqs : []}
         headline={<>Digital Marketing Questions<br /><span className="text-primary">for Mumbai Businesses</span></>}
         subtext="Answers to the most common questions from Mumbai entrepreneurs, SMEs, and startups about growing online."
       />

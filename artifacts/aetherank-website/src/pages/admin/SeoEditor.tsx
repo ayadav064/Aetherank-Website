@@ -40,6 +40,8 @@ const PAGE_LABELS: Record<string, string> = {
   "/contact": "Contact",
   "/free-audit": "Free Audit",
   "/request-proposal": "Request Proposal",
+  "/digital-marketing-company-india": "Landing: Digital Marketing India",
+  "/digital-marketing-company-mumbai": "Landing: Digital Marketing Mumbai",
 };
 
 const DEFAULT_ROBOTS_TXT = (siteUrl: string) =>

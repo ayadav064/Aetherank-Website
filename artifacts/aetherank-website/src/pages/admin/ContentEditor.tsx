@@ -77,6 +77,8 @@ const PAGE_LABELS: Record<string, string> = {
   "/free-audit": "Free Audit Page",
   "/request-proposal": "Request Proposal Page",
   "/contact": "Contact Page",
+  "/digital-marketing-company-india": "Landing: Digital Marketing India",
+  "/digital-marketing-company-mumbai": "Landing: Digital Marketing Mumbai",
 };
 
 const SERVICE_PAGE_LABELS: Record<string, string> = {
@@ -87,6 +89,8 @@ const SERVICE_PAGE_LABELS: Record<string, string> = {
   "/services/web-design-development": "Web Design & Dev",
   "/services/content-marketing": "Content Marketing",
   "/services/orm": "ORM",
+  "/digital-marketing-company-india": "Landing: India",
+  "/digital-marketing-company-mumbai": "Landing: Mumbai",
 };
 
 export default function ContentEditor() {

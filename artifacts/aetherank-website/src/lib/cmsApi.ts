@@ -570,6 +570,18 @@ export const DEFAULT_PAGE_CONTENT: Record<string, PageHeroContent> = {
     subheadline: "Our team in Mumbai is ready to help you dominate your market. Reach out and let's start a conversation.",
     cta_text: "Send Message",
   },
+  "/digital-marketing-company-india": {
+    headline: "Best Digital Marketing",
+    headline_highlight: "Company in India",
+    subheadline: "AI-powered SEO, Google Ads, Meta Ads, and social media marketing that drives real leads and revenue for Indian businesses — with full transparency and no lock-in contracts.",
+    cta_text: "Get Free Marketing Audit",
+  },
+  "/digital-marketing-company-mumbai": {
+    headline: "Digital Marketing Company",
+    headline_highlight: "in Mumbai",
+    subheadline: "AI-powered SEO, Google Ads, Meta & Instagram Ads for Mumbai businesses. More leads, more revenue — with zero guesswork and complete transparency.",
+    cta_text: "Get Free Mumbai Audit",
+  },
 };
 
 export const DEFAULT_STATS: StatItem[] = [
@@ -860,6 +872,64 @@ export const DEFAULT_SERVICE_PAGES: Record<string, ServicePageData> = {
       { q: "How long does it take to see results from Meta Ads?", a: "Meta Ads can drive traffic and leads from day one, but the algorithm needs 7–14 days in a 'learning phase' before performance stabilises. Meaningful ROAS and conversion optimisation typically happens from week 3 onwards. We set realistic expectations and provide weekly performance updates throughout." },
       { q: "Do you manage both Facebook and Instagram ads together?", a: "Yes. Meta's Ads Manager lets us run campaigns across Facebook, Instagram, Messenger, and the Audience Network from a single interface. We tailor creative formats to each placement — Reels for Instagram, Feed posts for Facebook, Stories for both — to maximise engagement and conversions on every surface." },
       { q: "How do you track conversions and ROI from Meta Ads?", a: "We install and verify the Meta Pixel and Conversion API on your website, set up custom conversion events (purchases, leads, sign-ups), and connect your ad account to your CRM where applicable. This gives us accurate attribution data, closing the loop between ad spend and actual revenue — not just clicks." },
+    ],
+  },
+  "/digital-marketing-company-india": {
+    benefits: [
+      { title: "SEO + AI Search (GEO)", desc: "Rank on Google AND appear in ChatGPT, Perplexity, and Google AI Overviews so you capture every type of search intent across India." },
+      { title: "Performance-Driven PPC", desc: "ROI-focused Google Ads and Meta campaigns with granular targeting by city, language, and device for the Indian market." },
+      { title: "Pan-India Local SEO", desc: "Dominate Google Maps and local packs in every city you operate — Mumbai, Delhi, Bangalore, Hyderabad, Pune and beyond." },
+      { title: "Data-Backed Strategy", desc: "Every decision is driven by analytics. We connect Google Analytics 4, Search Console, and custom dashboards for real-time insights." },
+      { title: "Social Media Growth", desc: "Instagram, LinkedIn, YouTube, and Facebook strategies that build audiences and convert followers into paying customers." },
+      { title: "AI-Powered Content", desc: "High-quality blog posts, landing pages, and ad creatives produced at scale with AI assistance and human expertise." },
+    ],
+    process_steps: [
+      { step: "01", title: "Free Website & Marketing Audit", desc: "We analyse your current website, SEO rankings, ad spend, and competitors across India — completely free." },
+      { step: "02", title: "Custom Strategy Blueprint", desc: "A tailored 90-day plan covering channels, budget allocation, and KPIs specific to your industry and target cities." },
+      { step: "03", title: "Campaign Launch", desc: "Our team sets up and launches all campaigns within 7 days — ads, content, SEO, and social media in parallel." },
+      { step: "04", title: "Monthly Reporting & Optimisation", desc: "Detailed monthly reports with keyword rankings, traffic, leads, ROAS, and a clear plan for the month ahead." },
+    ],
+    pricing: [
+      { name: "Starter", price: "₹15,000/mo", desc: "Perfect for small businesses and startups entering digital marketing.", features: ["SEO – 10 keywords", "Google Ads management", "Monthly report", "Email support"] },
+      { name: "Growth", price: "₹35,000/mo", desc: "Full-funnel marketing for growing brands ready to scale across India.", popular: true, features: ["SEO + GEO – 30 keywords", "Google & Meta Ads", "Social Media (2 platforms)", "Bi-weekly strategy call", "Priority support"] },
+      { name: "Enterprise", price: "Custom", desc: "Comprehensive multi-city campaigns for established businesses.", features: ["Unlimited keywords", "Full-channel campaigns", "Dedicated account manager", "Weekly calls + live dashboard", "CRO & landing pages"] },
+    ],
+    faqs: [
+      { q: "Why should I choose a digital marketing agency in India?", a: "India offers world-class talent at competitive prices. Agencies like Aetherank combine deep local market knowledge with global best practices — covering SEO, PPC, Meta Ads, content, and AI-driven strategies — to deliver measurable ROI for Indian and international brands." },
+      { q: "Which cities do you serve across India?", a: "We serve clients pan-India including Mumbai, Delhi NCR, Bangalore, Hyderabad, Pune, Chennai, Ahmedabad, Kolkata, Surat, and all Tier-2 and Tier-3 cities. All campaign management is done remotely with weekly video calls and monthly reporting." },
+      { q: "What digital marketing services do you offer in India?", a: "We offer SEO & GEO (AI search), Google PPC, Meta & Instagram Ads, Social Media Management, Content Marketing, Web Design & Development, and Online Reputation Management. Every engagement begins with a free website audit." },
+      { q: "How long before we see results?", a: "PPC and Meta Ads can deliver leads within the first week. SEO typically shows meaningful ranking improvements in 3–6 months. We track 25+ KPIs monthly and share transparent reports so you always know what's working." },
+      { q: "Do you work with small businesses and startups in India?", a: "Yes. Our starter plans begin at ₹15,000/month, making professional digital marketing accessible to SMEs and startups. We scale your campaigns as your business grows." },
+      { q: "What makes Aetherank different from other Indian digital marketing agencies?", a: "We integrate AI-powered tools into every campaign — from ChatGPT-optimised content to AI-driven ad bidding — giving you an unfair advantage in 2026. All work is done in-house with full transparency; no outsourcing." },
+    ],
+  },
+  "/digital-marketing-company-mumbai": {
+    benefits: [
+      { title: "Mumbai-Focused SEO", desc: "Rank for high-intent local searches in Andheri, Bandra, Powai, Lower Parel, Thane, Navi Mumbai, and across Greater Mumbai." },
+      { title: "Meta & Instagram Ads", desc: "Mumbai's consumers are social-first. Our Instagram and Facebook campaigns deliver leads at the lowest possible cost-per-acquisition." },
+      { title: "AI Search (GEO)", desc: "Get your brand recommended by ChatGPT and Google AI Overviews when Mumbai users ask for your type of product or service." },
+      { title: "Google Ads & PPC", desc: "ROI-driven Google Search and Display campaigns targeting Mumbai's competitive keywords with proven bidding strategies." },
+      { title: "Real Estate Marketing", desc: "Specialised campaigns for Mumbai builders, brokers, and co-working spaces — driving quality inquiries for premium and affordable projects." },
+      { title: "Fast Results, Full Transparency", desc: "Weekly progress updates, live dashboards, and no lock-in contracts. See exactly what you're getting for every rupee spent." },
+    ],
+    process_steps: [
+      { step: "01", title: "Free Mumbai Market Audit", desc: "Comprehensive analysis of your website, keyword rankings, competitors in Mumbai, and existing ad performance." },
+      { step: "02", title: "Localised Strategy Blueprint", desc: "A custom plan targeting the right Mumbai neighbourhoods, audiences, and platforms — aligned to your budget and goals." },
+      { step: "03", title: "7-Day Campaign Launch", desc: "We go live with SEO, paid ads, content, and social media — simultaneously — within one week of sign-off." },
+      { step: "04", title: "Monthly Reports & Growth Reviews", desc: "Detailed reports covering traffic, leads, rankings, ROAS, and next-month priorities. You always know what's next." },
+    ],
+    pricing: [
+      { name: "Starter", price: "₹15,000/mo", desc: "Ideal for small Mumbai businesses entering digital marketing.", features: ["Local SEO – 10 keywords", "Google My Business optimisation", "Google Ads management", "Monthly report"] },
+      { name: "Growth", price: "₹35,000/mo", desc: "Full-funnel campaigns for Mumbai brands ready to scale.", popular: true, features: ["SEO + GEO – 30 keywords", "Google & Meta Ads", "Instagram management", "Bi-weekly strategy call", "Priority support"] },
+      { name: "Enterprise", price: "Custom", desc: "Aggressive multi-platform marketing for established Mumbai businesses.", features: ["Unlimited keywords", "All ad platforms", "Dedicated account manager", "Weekly calls + live dashboard", "CRO & landing pages"] },
+    ],
+    faqs: [
+      { q: "Why hire a digital marketing agency in Mumbai?", a: "Mumbai is India's commercial capital, home to some of the most competitive industries — real estate, finance, fashion, hospitality, and retail. A Mumbai-focused agency understands the local consumer, Marathi-speaking audience segments, and hyper-local competition, giving your campaigns an immediate edge." },
+      { q: "What digital marketing services do you offer in Mumbai?", a: "We offer SEO, GEO (AI search optimisation), Google Ads, Meta & Instagram Ads, LinkedIn Ads for B2B, Social Media Management, Content Marketing, Web Design, and Online Reputation Management — all tailored for the Mumbai market." },
+      { q: "Do you offer local SEO for specific Mumbai areas?", a: "Absolutely. We optimise for hyper-local searches like 'digital marketing agency in Andheri', 'SEO company in Bandra', and 'Google Ads expert in Lower Parel'. We build and manage your Google Business Profile, local citations, and neighbourhood-level content." },
+      { q: "How quickly can you start campaigns in Mumbai?", a: "We launch within 7 business days of onboarding. We start with a free audit, build your strategy, and begin campaign execution — all simultaneously to minimise time-to-results." },
+      { q: "What industries do you serve in Mumbai?", a: "Real estate, retail & e-commerce, hospitality & restaurants, finance & fintech, fashion & lifestyle, healthcare & clinics, education & coaching, and professional services (legal, CA, consulting)." },
+      { q: "What is your pricing for Mumbai clients?", a: "Packages start at ₹15,000/month for startups and SMEs. Growth plans with full-funnel management start at ₹35,000/month. We offer a 100% free audit before you commit to anything." },
     ],
   },
 };
