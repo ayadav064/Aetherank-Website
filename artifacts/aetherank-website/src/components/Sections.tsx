@@ -16,6 +16,7 @@ import {
   useFaqs,
   useContactContent,
   useCaseStudies,
+  useNavigation,
 } from "@/context/CmsContext";
 import { 
   Search, 
@@ -1692,6 +1693,7 @@ export function FinalCTA() {
 export function Footer() {
   const { openModal } = useContactModal();
   const contact = useContactContent();
+  const navigation = useNavigation();
 
   return (
     <footer className="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-800">
@@ -1738,31 +1740,22 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
-              <span className="w-5 h-px bg-emerald-400 shrink-0"></span>Services
-            </h4>
-            <ul className="space-y-4">
-              <li><Link href="/services/seo" className="hover:text-primary transition-colors">SEO & GEO Optimization</Link></li>
-              <li><Link href="/services/ppc" className="hover:text-primary transition-colors">Google Ads (PPC)</Link></li>
-              <li><Link href="/services/meta-ads" className="hover:text-primary transition-colors">Meta Ads</Link></li>
-              <li><Link href="/services/social-media" className="hover:text-primary transition-colors">Social Media</Link></li>
-              <li><Link href="/services/web-design-development" className="hover:text-primary transition-colors">Web Design & Development</Link></li>
-              <li><Link href="/services/content-marketing" className="hover:text-primary transition-colors">Content Marketing</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
-              <span className="w-5 h-px bg-emerald-400 shrink-0"></span>Company
-            </h4>
-            <ul className="space-y-4">
-              <li><Link href="/about-us" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
-              <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
-            </ul>
-          </div>
+          {navigation.footer_columns.map((col) => (
+            <div key={col.heading}>
+              <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">
+                <span className="w-5 h-px bg-emerald-400 shrink-0"></span>{col.heading}
+              </h4>
+              <ul className="space-y-4">
+                {col.links.map((link) => (
+                  <li key={link.path}>
+                    <Link href={link.path} className="hover:text-primary transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="text-white font-bold text-xs uppercase tracking-[0.18em] mb-6 flex items-center gap-2">

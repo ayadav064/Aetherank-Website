@@ -3,6 +3,7 @@ import {
   fetchPublicSettings,
   type CmsSettings,
   type BlogNewsletterCta,
+  type NavigationSettings,
   DEFAULT_SEO,
   DEFAULT_CONTENT,
   DEFAULT_PAGE_CONTENT,
@@ -18,6 +19,7 @@ import {
   DEFAULT_ABOUT_PAGE,
   DEFAULT_CASE_STUDIES,
   DEFAULT_BLOG_NEWSLETTER_CTA,
+  DEFAULT_NAVIGATION,
 } from "@/lib/cmsApi";
 
 interface CmsContextValue {
@@ -46,6 +48,18 @@ function mergeAboutPage(saved: Record<string, unknown>): CmsSettings["content"][
     team_roles: Array.isArray(saved["team_roles"]) ? saved["team_roles"] as typeof DEFAULT_ABOUT_PAGE.team_roles : DEFAULT_ABOUT_PAGE.team_roles,
     india_points: Array.isArray(saved["india_points"]) ? saved["india_points"] as string[] : DEFAULT_ABOUT_PAGE.india_points,
     india_stats: Array.isArray(saved["india_stats"]) ? saved["india_stats"] as typeof DEFAULT_ABOUT_PAGE.india_stats : DEFAULT_ABOUT_PAGE.india_stats,
+  };
+}
+
+function mergeNavigation(saved: NavigationSettings | undefined): NavigationSettings {
+  if (!saved) return DEFAULT_NAVIGATION;
+  return {
+    header: Array.isArray(saved.header) && saved.header.length > 0
+      ? saved.header
+      : DEFAULT_NAVIGATION.header,
+    footer_columns: Array.isArray(saved.footer_columns) && saved.footer_columns.length > 0
+      ? saved.footer_columns
+      : DEFAULT_NAVIGATION.footer_columns,
   };
 }
 
@@ -113,6 +127,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
               ? { ...DEFAULT_BLOG_NEWSLETTER_CTA, ...(c.blog_newsletter_cta as BlogNewsletterCta) }
               : DEFAULT_BLOG_NEWSLETTER_CTA,
           },
+          navigation: mergeNavigation(s.navigation),
         });
       }
       setLoading(false);
@@ -199,4 +214,9 @@ export function useContactContent() {
 export function useBlogNewsletterCta() {
   const { settings } = useCms();
   return settings.content.blog_newsletter_cta ?? DEFAULT_BLOG_NEWSLETTER_CTA;
+}
+
+export function useNavigation(): NavigationSettings {
+  const { settings } = useCms();
+  return settings.navigation ?? DEFAULT_NAVIGATION;
 }

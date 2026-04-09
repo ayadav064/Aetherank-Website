@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X, ArrowRight, ChevronDown, Search, MousePointerClick, Share2, Monitor, FileText, Star, Megaphone } from "lucide-react";
+import { useNavigation } from "@/context/CmsContext";
 
 const serviceLinks = [
   { name: "SEO & GEO Optimization", path: "/services/seo", icon: Search, desc: "Rank higher on Google & AI search" },
@@ -20,6 +21,7 @@ export function Navbar() {
   const [location] = useLocation();
   const servicesRef = useRef<HTMLDivElement>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -46,13 +48,11 @@ export function Navbar() {
     closeTimeout.current = setTimeout(() => setIsServicesOpen(false), 120);
   };
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Case Studies", path: "/case-studies" },
-    { name: "About Us", path: "/about-us" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
-  ];
+  // Home and Services are always displayed (hardcoded with special rendering).
+  // All other header items come from the CMS so admins can add/remove/reorder.
+  const navLinks = navigation.header
+    .filter((item) => item.path !== "/" && item.path !== "/services")
+    .map((item) => ({ name: item.label, path: item.path }));
 
   const isActive = (path: string) => location === path;
   const isServicesActive = location.startsWith("/services");
@@ -148,7 +148,7 @@ export function Navbar() {
               </div>
             </div>
 
-            {navLinks.slice(1).map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.path}
@@ -246,7 +246,7 @@ export function Navbar() {
               </div>
             </div>
 
-            {navLinks.slice(1).map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.path}

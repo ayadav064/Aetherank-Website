@@ -201,6 +201,53 @@ export interface BlogNewsletterCta {
   placeholder: string;
 }
 
+export interface NavigationLink {
+  label: string;
+  path: string;
+}
+
+export interface FooterColumn {
+  heading: string;
+  links: NavigationLink[];
+}
+
+export interface NavigationSettings {
+  header: NavigationLink[];
+  footer_columns: FooterColumn[];
+}
+
+export const DEFAULT_NAVIGATION: NavigationSettings = {
+  header: [
+    { label: "Home", path: "/" },
+    { label: "Case Studies", path: "/case-studies" },
+    { label: "About Us", path: "/about-us" },
+    { label: "Blog", path: "/blog" },
+    { label: "Contact", path: "/contact" },
+  ],
+  footer_columns: [
+    {
+      heading: "Services",
+      links: [
+        { label: "SEO & GEO Optimization", path: "/services/seo" },
+        { label: "Google Ads (PPC)", path: "/services/ppc" },
+        { label: "Meta Ads", path: "/services/meta-ads" },
+        { label: "Social Media", path: "/services/social-media" },
+        { label: "Web Design & Development", path: "/services/web-design-development" },
+        { label: "Content Marketing", path: "/services/content-marketing" },
+      ],
+    },
+    {
+      heading: "Company",
+      links: [
+        { label: "About Us", path: "/about-us" },
+        { label: "Case Studies", path: "/case-studies" },
+        { label: "Blog", path: "/blog" },
+        { label: "Contact", path: "/contact" },
+      ],
+    },
+  ],
+};
+
 export interface CmsSettings {
   seo: Record<string, SeoPageSettings>;
   content: {
@@ -226,6 +273,7 @@ export interface CmsSettings {
     robots_txt?: string;
     sitemap_site_url?: string;
   };
+  navigation?: NavigationSettings;
 }
 
 const TOKEN_KEY = "aetherank_admin_token";
