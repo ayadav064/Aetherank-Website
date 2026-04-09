@@ -33,6 +33,8 @@ import AdminSubmissions from "@/pages/admin/AdminSubmissions";
 import AdminNewsletterSubscribers from "@/pages/admin/AdminNewsletterSubscribers";
 import AdminMediaLibrary from "@/pages/admin/AdminMediaLibrary";
 import AdminNavigation from "@/pages/admin/AdminNavigation";
+import DigitalMarketingIndiaPage from "@/pages/DigitalMarketingIndiaPage";
+import DigitalMarketingMumbaiPage from "@/pages/DigitalMarketingMumbaiPage";
 import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
 
@@ -59,6 +61,8 @@ function Router() {
       <Route path="/request-proposal" component={RequestProposalPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/terms-of-service" component={TermsOfServicePage} />
+      <Route path="/digital-marketing-company-india" component={DigitalMarketingIndiaPage} />
+      <Route path="/digital-marketing-company-mumbai" component={DigitalMarketingMumbaiPage} />
       <Route path="/admin" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/admin/seo" component={SeoEditor} />
