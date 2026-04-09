@@ -24,3 +24,9 @@ id = "PaswPJXWdWeWd-U-HWV8B"
 uri = "file://artifacts/api-server/exports/aetherank-milesweb-deploy.zip"
 type = "unspecified"
 title = "aetherank-milesweb-deploy.zip — Local storage, no R2 needed"
+
+[[outputs]]
+id = "JwctAV9vqUninkxHxkzIe"
+uri = "file://artifacts/api-server/exports/aetherank-milesweb-deploy.tar.gz"
+type = "unspecified"
+title = "Aetherank — MilesWeb Deployment Package (8.1 MB)"
