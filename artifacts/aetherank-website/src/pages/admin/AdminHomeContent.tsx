@@ -193,6 +193,7 @@ export default function AdminHomeContent() {
           testimonials,
           faqs,
         },
+        navigation: current?.navigation,
       };
       await saveSettings(merged);
       setSavedMsg("Home content saved!");

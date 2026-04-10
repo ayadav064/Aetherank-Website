@@ -240,6 +240,7 @@ export default function ContentEditor() {
           case_studies: caseStudies,
           blog_newsletter_cta: blogNewsletterCta,
         },
+        navigation: current?.navigation,
       };
       await saveSettings(merged);
       setSavedMsg("Content saved!");

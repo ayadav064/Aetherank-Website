@@ -121,6 +121,7 @@ export default function SeoEditor() {
           robots_txt: robotsTxt,
           sitemap_site_url: sitemapSiteUrl,
         },
+        navigation: current?.navigation,
       };
       await saveSettings(merged);
       setSavedMsg("Saved!");
