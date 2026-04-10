@@ -27,7 +27,6 @@ import {
 
 export default function AdminNavigation() {
   const [, navigate] = useLocation();
-  const [settings, setSettings] = useState<CmsSettings | null>(null);
   const [nav, setNav] = useState<NavigationSettings>(DEFAULT_NAVIGATION);
   const [activeTab, setActiveTab] = useState<"header" | "footer">("header");
   const [saving, setSaving] = useState(false);
@@ -39,20 +38,16 @@ export default function AdminNavigation() {
     const tab = params.get("tab");
     if (tab === "footer") setActiveTab("footer");
     fetchSettings().then((s) => {
-      if (s) {
-        setSettings(s);
-        setNav(s.navigation ?? DEFAULT_NAVIGATION);
-      }
+      if (s) setNav(s.navigation ?? DEFAULT_NAVIGATION);
     });
   }, [navigate]);
 
   async function handleSave() {
-    if (!settings) return;
     setSaving(true);
     try {
-      const updated: CmsSettings = { ...settings, navigation: nav };
+      const current = await fetchSettings();
+      const updated: CmsSettings = { ...(current ?? { seo: {}, content: {} as CmsSettings["content"] }), navigation: nav };
       await saveSettings(updated);
-      setSettings(updated);
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } finally {
