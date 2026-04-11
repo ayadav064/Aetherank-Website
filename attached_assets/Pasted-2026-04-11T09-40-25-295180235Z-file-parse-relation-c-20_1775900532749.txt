@@ -1,0 +1,100 @@
+2026-04-11T09:40:25.295180235Z     file: 'parse_relation.c',
+2026-04-11T09:40:25.295182915Z     line: '1449',
+2026-04-11T09:40:25.295185586Z     routine: 'parserOpenTable'
+2026-04-11T09:40:25.295188156Z   }
+2026-04-11T09:40:25.295190566Z }
+2026-04-11T09:40:25.295538648Z {"level":30,"time":1775900425295,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":33,"method":"GET","url":"/api/admin/stats"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":172,"msg":"request errored"}
+2026-04-11T09:40:26.128731882Z {"level":30,"time":1775900426128,"pid":68,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-595c74c8db-dpj87","req":{"id":75,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:29.792544951Z {"level":30,"time":1775900429792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":34,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:29.793460529Z {"level":30,"time":1775900429793,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":35,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:31.128904918Z {"level":30,"time":1775900431128,"pid":68,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-595c74c8db-dpj87","req":{"id":76,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+2026-04-11T09:40:34.610830196Z {"level":30,"time":1775900434610,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":36,"method":"GET","url":"/api/admin/media"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":26,"msg":"request errored"}
+2026-04-11T09:40:34.793173308Z {"level":30,"time":1775900434792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":37,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:36.128388495Z {"level":30,"time":1775900436128,"pid":68,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-595c74c8db-dpj87","req":{"id":77,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:39.792220836Z {"level":30,"time":1775900439792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":38,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:40.299303468Z {"level":30,"time":1775900440299,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":39,"method":"POST","url":"/api/admin/storage/request-url"},"res":{"statusCode":200},"responseTime":107,"msg":"request completed"}
+2026-04-11T09:40:44.79185211Z {"level":30,"time":1775900444791,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":40,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+2026-04-11T09:40:45.098707861Z {"level":30,"time":1775900445098,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":41,"method":"GET","url":"/api/admin/settings"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":110,"msg":"request errored"}
+2026-04-11T09:40:45.191715247Z _DrizzleQueryError: Failed query: select count(*) from "blog_posts" where "blog_posts"."status" = $1
+2026-04-11T09:40:45.191731979Z params: published
+2026-04-11T09:40:45.191736919Z     at NodePgPreparedQuery.queryWithCache (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:43958:15)
+2026-04-11T09:40:45.191741709Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-11T09:40:45.191745739Z     at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44191:22
+2026-04-11T09:40:45.191778842Z     at async Promise.all (index 1)
+2026-04-11T09:40:45.191795452Z     at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:45183:60 {
+2026-04-11T09:40:45.191798853Z   query: 'select count(*) from "blog_posts" where "blog_posts"."status" = $1',
+2026-04-11T09:40:45.191802143Z   params: [ 'published' ],
+2026-04-11T09:40:45.191806683Z   cause: error: relation "blog_posts" does not exist
+2026-04-11T09:40:45.191809583Z       at file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:32643:15
+2026-04-11T09:40:45.191812084Z       at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-11T09:40:45.191814534Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44198:18
+2026-04-11T09:40:45.191816914Z       at async NodePgPreparedQuery.queryWithCache (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:43956:16)
+2026-04-11T09:40:45.191819454Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44191:22
+2026-04-11T09:40:45.191822174Z       at async Promise.all (index 1)
+2026-04-11T09:40:45.191824594Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:45183:60 {
+2026-04-11T09:40:45.191826985Z     length: 109,
+2026-04-11T09:40:45.191829655Z     severity: 'ERROR',
+2026-04-11T09:40:45.191832225Z     code: '42P01',
+2026-04-11T09:40:45.191834495Z     detail: undefined,
+2026-04-11T09:40:45.191849456Z     hint: undefined,
+2026-04-11T09:40:45.191852386Z     position: '22',
+2026-04-11T09:40:45.191854906Z     internalPosition: undefined,
+2026-04-11T09:40:45.191857306Z     internalQuery: undefined,
+2026-04-11T09:40:45.191859656Z     where: undefined,
+2026-04-11T09:40:45.191862197Z     schema: undefined,
+2026-04-11T09:40:45.191864647Z     table: undefined,
+2026-04-11T09:40:45.191866897Z     column: undefined,
+2026-04-11T09:40:45.191869317Z     dataType: undefined,
+2026-04-11T09:40:45.191871727Z     constraint: undefined,
+2026-04-11T09:40:45.191874308Z     file: 'parse_relation.c',
+2026-04-11T09:40:45.191876938Z     line: '1449',
+2026-04-11T09:40:45.191879348Z     routine: 'parserOpenTable'
+2026-04-11T09:40:45.191881758Z   }
+2026-04-11T09:40:45.191884328Z }
+2026-04-11T09:40:45.192449044Z {"level":30,"time":1775900445192,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":42,"method":"GET","url":"/api/admin/stats"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":191,"msg":"request errored"}
+2026-04-11T09:40:48.094016273Z _DrizzleQueryError: Failed query: select count(*) from "blog_posts"
+2026-04-11T09:40:48.094046435Z params: 
+2026-04-11T09:40:48.094051945Z     at NodePgPreparedQuery.queryWithCache (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:43958:15)
+2026-04-11T09:40:48.094056765Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-11T09:40:48.094060646Z     at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44191:22
+2026-04-11T09:40:48.094065256Z     at async Promise.all (index 0)
+2026-04-11T09:40:48.094082917Z     at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:45183:60 {
+2026-04-11T09:40:48.094085577Z   query: 'select count(*) from "blog_posts"',
+2026-04-11T09:40:48.094088297Z   params: [],
+2026-04-11T09:40:48.094091118Z   cause: error: relation "blog_posts" does not exist
+2026-04-11T09:40:48.094093308Z       at file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:32643:15
+2026-04-11T09:40:48.094095478Z       at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-11T09:40:48.094106188Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44198:18
+2026-04-11T09:40:48.094109099Z       at async NodePgPreparedQuery.queryWithCache (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:43956:16)
+2026-04-11T09:40:48.094111179Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:44191:22
+2026-04-11T09:40:48.094113249Z       at async Promise.all (index 0)
+2026-04-11T09:40:48.094115349Z       at async file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:45183:60 {
+2026-04-11T09:40:48.094117439Z     length: 109,
+2026-04-11T09:40:48.094120239Z     severity: 'ERROR',
+2026-04-11T09:40:48.09412244Z     code: '42P01',
+2026-04-11T09:40:48.09412444Z     detail: undefined,
+2026-04-11T09:40:48.09412654Z     hint: undefined,
+2026-04-11T09:40:48.09412859Z     position: '22',
+2026-04-11T09:40:48.0941313Z     internalPosition: undefined,
+2026-04-11T09:40:48.09413327Z     internalQuery: undefined,
+2026-04-11T09:40:48.09413531Z     where: undefined,
+2026-04-11T09:40:48.09413739Z     schema: undefined,
+2026-04-11T09:40:48.094139501Z     table: undefined,
+2026-04-11T09:40:48.094141551Z     column: undefined,
+2026-04-11T09:40:48.094143561Z     dataType: undefined,
+2026-04-11T09:40:48.094145551Z     constraint: undefined,
+2026-04-11T09:40:48.094147531Z     file: 'parse_relation.c',
+2026-04-11T09:40:48.094149551Z     line: '1449',
+2026-04-11T09:40:48.094151591Z     routine: 'parserOpenTable'
+2026-04-11T09:40:48.094154131Z   }
+2026-04-11T09:40:48.094156372Z }
+2026-04-11T09:40:48.094698706Z {"level":30,"time":1775900448094,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":43,"method":"GET","url":"/api/admin/stats"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":91,"msg":"request errored"}
+2026-04-11T09:40:48.116698706Z {"level":30,"time":1775900448116,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":44,"method":"GET","url":"/api/admin/settings"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28263:43)\n    at ServerResponse.onResponseComplete (file:///opt/render/project/src/artifacts/api-server/dist/index.mjs:28313:18)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":101,"msg":"request errored"}
+2026-04-11T09:40:49.792360551Z {"level":30,"time":1775900449792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":45,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:54.792094812Z {"level":30,"time":1775900454791,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":46,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+2026-04-11T09:40:59.792402211Z {"level":30,"time":1775900459792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":47,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:40:59.793417905Z {"level":30,"time":1775900459793,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":48,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:41:04.793277885Z {"level":30,"time":1775900464792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":49,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:41:09.808833087Z {"level":30,"time":1775900469802,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":50,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+2026-04-11T09:41:14.792551877Z {"level":30,"time":1775900474792,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":51,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+2026-04-11T09:41:19.791889916Z {"level":30,"time":1775900479791,"pid":67,"hostname":"srv-d7cvc177f7vs739k0rng-hibernate-78cbdfd6f5-plkwx","req":{"id":52,"method":"GET","url":"/api/healthz"},"res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
