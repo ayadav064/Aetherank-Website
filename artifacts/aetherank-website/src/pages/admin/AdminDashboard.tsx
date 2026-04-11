@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useLocation, Link } from "wouter";
 import {
   fetchSettings,
@@ -305,17 +305,26 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [expandedServices, setExpandedServices] = useState(true);
 
+  const checkApi = useCallback(() => {
+    const token = getToken();
+    if (!token) { navigate("/admin"); return; }
+    setApiOnline(null);
+    fetchSettings().then((s) => { setSettings(s); setApiOnline(!!s); });
+    fetch("/api/admin/stats", { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d && d.blog && d.submissions) setStats(d as DashboardStats); })
+      .catch(() => null);
+  }, [navigate]);
+
   useEffect(() => {
     if (!getToken()) { navigate("/admin"); return; }
-    fetchSettings().then((s) => { setSettings(s); setApiOnline(!!s); });
-    const token = getToken();
-    if (token) {
-      fetch("/api/admin/stats", { headers: { Authorization: `Bearer ${token}` } })
-        .then((r) => r.ok ? r.json() : null)
-        .then((d) => { if (d && d.blog && d.submissions) setStats(d as DashboardStats); })
-        .catch(() => null);
-    }
-  }, [navigate]);
+    checkApi();
+    // Auto-retry once after 3 s in case server was still starting up
+    const t = setTimeout(() => {
+      checkApi();
+    }, 3000);
+    return () => clearTimeout(t);
+  }, [navigate, checkApi]);
 
   const seo = settings?.seo ?? DEFAULT_SEO;
   const content = settings?.content ?? DEFAULT_CONTENT;
@@ -355,9 +364,19 @@ export default function AdminDashboard() {
             {apiOnline === null ? <AlertCircle className="w-4 h-4 animate-pulse shrink-0" />
               : apiOnline ? <CheckCircle2 className="w-4 h-4 shrink-0" />
               : <AlertCircle className="w-4 h-4 shrink-0" />}
-            {apiOnline === null ? "Connecting to server…"
-              : apiOnline ? "Connected — all changes save to PostgreSQL."
-              : "Server offline — start the API server to save changes."}
+            <span className="flex-1">
+              {apiOnline === null ? "Connecting to server…"
+                : apiOnline ? "Connected — all changes save to PostgreSQL."
+                : "Server offline — the API server may still be starting up."}
+            </span>
+            {apiOnline === false && (
+              <button
+                onClick={checkApi}
+                className="ml-auto text-xs font-medium underline underline-offset-2 hover:opacity-70"
+              >
+                Retry
+              </button>
+            )}
           </div>
 
           {/* Quick Stats */}
