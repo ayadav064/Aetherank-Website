@@ -311,8 +311,8 @@ export default function AdminDashboard() {
     const token = getToken();
     if (token) {
       fetch("/api/admin/stats", { headers: { Authorization: `Bearer ${token}` } })
-        .then((r) => r.json())
-        .then((d) => setStats(d as DashboardStats))
+        .then((r) => r.ok ? r.json() : null)
+        .then((d) => { if (d && d.blog && d.submissions) setStats(d as DashboardStats); })
         .catch(() => null);
     }
   }, [navigate]);
