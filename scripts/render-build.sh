@@ -20,5 +20,8 @@ cd ../..
 echo "==> Copying frontend into backend..."
 cp -r artifacts/aetherank-website/dist/public artifacts/api-server/dist/public
 
+echo "==> Syncing database schema..."
+node_modules/.bin/drizzle-kit push --config lib/db/drizzle.config.ts || echo "DB push skipped (no DATABASE_URL or already in sync)"
+
 echo "==> Build complete!"
 ls -lh artifacts/api-server/dist/
