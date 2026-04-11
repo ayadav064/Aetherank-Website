@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, Link } from "wouter";
 import {
-  fetchSettings,
+  fetchSettingsTyped,
   getToken,
   type CmsSettings,
   DEFAULT_SEO,
@@ -309,7 +309,15 @@ export default function AdminDashboard() {
     const token = getToken();
     if (!token) { navigate("/admin"); return; }
     setApiOnline(null);
-    fetchSettings().then((s) => { setSettings(s); setApiOnline(!!s); });
+    fetchSettingsTyped().then((result) => {
+      if (!result.ok) {
+        if (result.reason === "unauthorized") { navigate("/admin"); return; }
+        setApiOnline(false);
+        return;
+      }
+      setSettings(result.settings);
+      setApiOnline(true);
+    });
     fetch("/api/admin/stats", { headers: { Authorization: `Bearer ${token}` } })
       .then((r) => r.ok ? r.json() : null)
       .then((d) => { if (d && d.blog && d.submissions) setStats(d as DashboardStats); })

@@ -314,6 +314,10 @@ export async function fetchPublicSettings(): Promise<CmsSettings | null> {
   }
 }
 
+export type FetchSettingsResult =
+  | { ok: true; settings: CmsSettings }
+  | { ok: false; reason: "unauthorized" | "offline" };
+
 export async function fetchSettings(): Promise<CmsSettings | null> {
   const token = getToken();
   if (!token) return null;
@@ -325,6 +329,24 @@ export async function fetchSettings(): Promise<CmsSettings | null> {
     return (await res.json()) as CmsSettings;
   } catch {
     return null;
+  }
+}
+
+export async function fetchSettingsTyped(): Promise<FetchSettingsResult> {
+  const token = getToken();
+  if (!token) return { ok: false, reason: "unauthorized" };
+  try {
+    const res = await fetch("/api/admin/settings", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 401 || res.status === 403) {
+      clearToken();
+      return { ok: false, reason: "unauthorized" };
+    }
+    if (!res.ok) return { ok: false, reason: "offline" };
+    return { ok: true, settings: (await res.json()) as CmsSettings };
+  } catch {
+    return { ok: false, reason: "offline" };
   }
 }
 
