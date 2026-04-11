@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: Aetherank-Website
+    runtime: node
+    plan: free
+    branch: main
+    buildCommand: npm install -g pnpm && pnpm install && pnpm --filter @workspace/aetherank-website run build && pnpm --filter @workspace/api-server run build && cp -r artifacts/aetherank-website/dist/public artifacts/api-server/dist/public
+    startCommand: node artifacts/api-server/dist/index.mjs
+    healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
