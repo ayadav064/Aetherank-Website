@@ -82,6 +82,7 @@ export default function AdminMediaLibrary() {
         const xhr = new XMLHttpRequest();
         xhr.open("PUT", uploadURL);
         xhr.setRequestHeader("Content-Type", file.type);
+        if (token) xhr.setRequestHeader("Authorization", `Bearer ${token}`);
         xhr.upload.onprogress = (e) => {
           if (e.lengthComputable) {
             const pct = Math.round((e.loaded / e.total) * 100);
