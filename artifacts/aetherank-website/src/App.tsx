@@ -37,6 +37,7 @@ import DigitalMarketingIndiaPage from "@/pages/DigitalMarketingIndiaPage";
 import DigitalMarketingMumbaiPage from "@/pages/DigitalMarketingMumbaiPage";
 import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
+import AdminErrorBoundary from "@/components/AdminErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -64,17 +65,39 @@ function Router() {
       <Route path="/digital-marketing-company-india" component={DigitalMarketingIndiaPage} />
       <Route path="/digital-marketing-company-mumbai" component={DigitalMarketingMumbaiPage} />
       <Route path="/admin" component={AdminLogin} />
-      <Route path="/admin/dashboard" component={AdminDashboard} />
-      <Route path="/admin/seo" component={SeoEditor} />
-      <Route path="/admin/content" component={ContentEditor} />
-      <Route path="/admin/blog" component={BlogPostList} />
-      <Route path="/admin/blog/new" component={BlogPostEditor} />
-      <Route path="/admin/blog/edit/:id" component={BlogPostEditor} />
-      <Route path="/admin/home" component={ContentEditor} />
-      <Route path="/admin/submissions" component={AdminSubmissions} />
-      <Route path="/admin/subscribers" component={AdminNewsletterSubscribers} />
-      <Route path="/admin/media" component={AdminMediaLibrary} />
-      <Route path="/admin/navigation" component={AdminNavigation} />
+      <Route path="/admin/dashboard">
+        <AdminErrorBoundary><AdminDashboard /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/seo">
+        <AdminErrorBoundary><SeoEditor /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/content">
+        <AdminErrorBoundary><ContentEditor /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/blog/new">
+        <AdminErrorBoundary><BlogPostEditor /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/blog/edit/:id">
+        <AdminErrorBoundary><BlogPostEditor /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/blog">
+        <AdminErrorBoundary><BlogPostList /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/home">
+        <AdminErrorBoundary><ContentEditor /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/submissions">
+        <AdminErrorBoundary><AdminSubmissions /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/subscribers">
+        <AdminErrorBoundary><AdminNewsletterSubscribers /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/media">
+        <AdminErrorBoundary><AdminMediaLibrary /></AdminErrorBoundary>
+      </Route>
+      <Route path="/admin/navigation">
+        <AdminErrorBoundary><AdminNavigation /></AdminErrorBoundary>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
