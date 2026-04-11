@@ -114,6 +114,21 @@ router.get("/admin/mail-status", authMiddleware, (_req, res) => {
 
 const objectStorageService = new ObjectStorageService();
 
+// Track pending upload tokens: uuid → expiry timestamp (ms)
+// Tokens are issued by request-url (authenticated) and consumed on PUT.
+const pendingUploads = new Map<string, number>();
+const UPLOAD_TOKEN_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+function isValidUploadToken(uuid: string): boolean {
+  const expiry = pendingUploads.get(uuid);
+  if (!expiry) return false;
+  if (Date.now() > expiry) {
+    pendingUploads.delete(uuid);
+    return false;
+  }
+  return true;
+}
+
 router.post("/admin/storage/request-url", authMiddleware, async (req, res) => {
   const { name, size, contentType } = req.body as { name: string; size: number; contentType: string };
   if (!name || !size || !contentType) {
@@ -122,6 +137,11 @@ router.post("/admin/storage/request-url", authMiddleware, async (req, res) => {
   }
   try {
     const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    // Extract the uuid from the upload URL and register it as a valid token
+    const uuidMatch = uploadURL.match(/\/upload\/([a-f0-9-]+)$/);
+    if (uuidMatch) {
+      pendingUploads.set(uuidMatch[1], Date.now() + UPLOAD_TOKEN_TTL_MS);
+    }
     const objectPath = objectStorageService.normalizeObjectEntityPath(uploadURL);
     res.json({ uploadURL, objectPath, metadata: { name, size, contentType } });
   } catch {
@@ -133,15 +153,22 @@ router.post("/admin/storage/request-url", authMiddleware, async (req, res) => {
  * PUT /admin/storage/upload/:uuid
  *
  * Unified upload endpoint for both R2 and local-disk modes.
- * The browser PUTs the raw file body here; this handler proxies to R2
- * (if configured) or saves to disk. This avoids browser-to-R2 CORS issues.
+ * Auth: the uuid was issued by request-url (which requires auth), so it acts
+ * as a one-time upload token — no Bearer header required on the PUT itself.
+ * This avoids XHR header issues and browser-to-R2 CORS problems.
  */
-router.put("/admin/storage/upload/:uuid", authMiddleware, async (req, res) => {
+router.put("/admin/storage/upload/:uuid", async (req, res) => {
   const { uuid } = req.params as { uuid: string };
   if (!uuid || uuid.includes("..") || uuid.includes("/")) {
     res.status(400).json({ error: "Invalid upload id" });
     return;
   }
+  if (!isValidUploadToken(uuid)) {
+    res.status(401).json({ error: "Upload token invalid or expired" });
+    return;
+  }
+  // Consume the token (one-time use)
+  pendingUploads.delete(uuid);
 
   const contentType = req.headers["content-type"] ?? "application/octet-stream";
   const contentLength = req.headers["content-length"]
