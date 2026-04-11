@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { createWriteStream } from "fs";
-import path from "path";
 import { db } from "@workspace/db";
 import { settingsTable, newsletterSubscribersTable, mediaTable } from "@workspace/db/schema";
 import { authMiddleware, getAdminToken } from "../lib/auth";
 import { desc, eq } from "drizzle-orm";
-import { ObjectStorageService, getUploadDir } from "../lib/objectStorage";
+import { ObjectStorageService } from "../lib/objectStorage";
 
 const router = Router();
 
@@ -134,30 +132,29 @@ router.post("/admin/storage/request-url", authMiddleware, async (req, res) => {
 /**
  * PUT /admin/storage/upload/:uuid
  *
- * Local-storage upload endpoint — only used when R2 is NOT configured.
- * The browser PUTs the raw file body here; we save it to the uploads/ folder.
+ * Unified upload endpoint for both R2 and local-disk modes.
+ * The browser PUTs the raw file body here; this handler proxies to R2
+ * (if configured) or saves to disk. This avoids browser-to-R2 CORS issues.
  */
-router.put("/admin/storage/upload/:uuid", authMiddleware, (req, res) => {
+router.put("/admin/storage/upload/:uuid", authMiddleware, async (req, res) => {
   const { uuid } = req.params as { uuid: string };
   if (!uuid || uuid.includes("..") || uuid.includes("/")) {
     res.status(400).json({ error: "Invalid upload id" });
     return;
   }
 
-  const uploadDir = getUploadDir();
-  const filePath = path.join(uploadDir, uuid);
-  const writeStream = createWriteStream(filePath);
+  const contentType = req.headers["content-type"] ?? "application/octet-stream";
+  const contentLength = req.headers["content-length"]
+    ? Number(req.headers["content-length"])
+    : undefined;
 
-  req.pipe(writeStream);
-
-  writeStream.on("finish", () => {
+  try {
+    await objectStorageService.uploadStream(uuid, req, contentType, contentLength);
     res.status(200).json({ ok: true });
-  });
-
-  writeStream.on("error", (err) => {
-    req.log?.error({ err }, "Local upload write error");
+  } catch (err) {
+    req.log?.error({ err }, "Upload error");
     if (!res.headersSent) res.status(500).json({ error: "Upload failed" });
-  });
+  }
 });
 
 router.post("/admin/media", authMiddleware, async (req, res) => {

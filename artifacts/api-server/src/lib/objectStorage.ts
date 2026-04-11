@@ -83,23 +83,52 @@ export class ObjectStorageService {
   /**
    * Generate an upload URL.
    *
-   * R2 mode  → Cloudflare presigned PUT URL (browser uploads directly to R2).
-   * Local mode → relative API endpoint `/api/admin/storage/upload/{uuid}`
-   *              (browser PUTs to this Express endpoint; file saved to disk).
+   * Always returns a relative API endpoint `/api/admin/storage/upload/{uuid}`.
+   * The Express handler proxies the upload to R2 or disk depending on config.
+   * This avoids CORS issues that arise when the browser uploads directly to R2.
    */
   async getObjectEntityUploadURL(): Promise<string> {
-    if (isR2Configured()) {
-      const { bucketName } = getR2Config();
-      const key = `uploads/${randomUUID()}`;
-      const client = createR2Client();
-      const { PutObjectCommand } = await import("@aws-sdk/client-s3");
-      const putCommand = new PutObjectCommand({ Bucket: bucketName, Key: key });
-      return getSignedUrl(client, putCommand, { expiresIn: 900 });
-    }
-
-    // Local storage: return a relative URL pointing at this Express server
     const uuid = randomUUID();
     return `/api/admin/storage/upload/${uuid}`;
+  }
+
+  /**
+   * Upload a Node.js Readable stream to R2 or disk.
+   * Called by the Express upload handler after receiving the request body.
+   */
+  async uploadStream(
+    uuid: string,
+    stream: NodeJS.ReadableStream,
+    contentType: string,
+    contentLength?: number,
+  ): Promise<void> {
+    if (isR2Configured()) {
+      const { bucketName } = getR2Config();
+      const key = `uploads/${uuid}`;
+      const client = createR2Client();
+      const { PutObjectCommand } = await import("@aws-sdk/client-s3");
+      await client.send(
+        new PutObjectCommand({
+          Bucket: bucketName,
+          Key: key,
+          Body: stream as unknown as ReadableStream,
+          ContentType: contentType,
+          ...(contentLength ? { ContentLength: contentLength } : {}),
+        }),
+      );
+      return;
+    }
+
+    // Local disk
+    const uploadDir = getUploadDir();
+    const filePath = path.join(uploadDir, uuid);
+    const { createWriteStream: cws } = await import("fs");
+    const ws = cws(filePath);
+    await new Promise<void>((resolve, reject) => {
+      stream.pipe(ws);
+      ws.on("finish", resolve);
+      ws.on("error", reject);
+    });
   }
 
   /**
