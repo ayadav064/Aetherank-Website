@@ -1,6 +1,6 @@
 import { db } from "@workspace/db";
 import { blogPostsTable, settingsTable } from "@workspace/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 const SEED_POSTS = [
   {
@@ -1689,7 +1689,14 @@ export async function runSeed(): Promise<void> {
       .values({ key: "main", value: SEED_SETTINGS, updatedAt: new Date() })
       .onConflictDoUpdate({
         target: settingsTable.key,
-        set: { value: SEED_SETTINGS, updatedAt: new Date() },
+        // Merge strategy: SEED_SETTINGS provides defaults for any missing top-level keys,
+        // but existing DB value wins for keys already present (e.g. navigation, content).
+        // This preserves all admin-edited data (footer menus, header links, etc.)
+        // across server restarts and redeploys.
+        set: {
+          value: sql`${JSON.stringify(SEED_SETTINGS)}::jsonb || ${settingsTable.value}`,
+          updatedAt: new Date(),
+        },
       });
     console.log("[seed] Synced CMS settings");
 
