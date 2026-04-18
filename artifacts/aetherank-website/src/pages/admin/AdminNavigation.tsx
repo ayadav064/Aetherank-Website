@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "wouter";
 import AdminLayout from "./AdminLayout";
+import { useCms } from "@/context/CmsContext";
 import {
   fetchSettings,
   saveSettings,
@@ -27,6 +28,7 @@ import {
 
 export default function AdminNavigation() {
   const [, navigate] = useLocation();
+  const { refreshSettings } = useCms();
   const [nav, setNav] = useState<NavigationSettings>(DEFAULT_NAVIGATION);
   const [activeTab, setActiveTab] = useState<"header" | "footer">("header");
   const [saving, setSaving] = useState(false);
@@ -48,6 +50,7 @@ export default function AdminNavigation() {
       const current = await fetchSettings();
       const updated: CmsSettings = { ...(current ?? { seo: {}, content: {} as CmsSettings["content"] }), navigation: nav };
       await saveSettings(updated);
+      await refreshSettings();
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } finally {

@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "wouter";
+import { useCms } from "@/context/CmsContext";
 import {
   fetchSettings,
   saveSettings,
@@ -114,6 +115,7 @@ function AccordionPanel({
 
 export default function AdminHomeContent() {
   const [, navigate] = useLocation();
+  const { refreshSettings } = useCms();
 
   const [hero, setHero] = useState<HeroContent>({ ...DEFAULT_CONTENT.hero });
   const [stats, setStats] = useState<StatItem[]>(DEFAULT_STATS.map((s) => ({ ...s })));
@@ -196,6 +198,7 @@ export default function AdminHomeContent() {
         navigation: current?.navigation,
       };
       await saveSettings(merged);
+      await refreshSettings();
       setSavedMsg("Home content saved!");
       setTimeout(() => setSavedMsg(""), 3000);
     } catch (err: unknown) {

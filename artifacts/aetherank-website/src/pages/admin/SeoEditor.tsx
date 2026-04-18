@@ -10,6 +10,7 @@ import {
   DEFAULT_CONTENT,
 } from "@/lib/cmsApi";
 import AdminLayout from "./AdminLayout";
+import { useCms } from "@/context/CmsContext";
 import {
   Search,
   Save,
@@ -76,6 +77,7 @@ export default function SeoEditor() {
   const [, navigate] = useLocation();
   const search = useSearch();
   const tab = (new URLSearchParams(search).get("tab") ?? "meta") as ActiveTab;
+  const { refreshSettings } = useCms();
 
   const [seo, setSeo] = useState<SeoMap>({ ...DEFAULT_SEO });
   const [robotsTxt, setRobotsTxt] = useState("");
@@ -124,6 +126,7 @@ export default function SeoEditor() {
         navigation: current?.navigation,
       };
       await saveSettings(merged);
+      await refreshSettings();
       setSavedMsg("Saved!");
       setTimeout(() => setSavedMsg(""), 3000);
     } catch (err: unknown) {

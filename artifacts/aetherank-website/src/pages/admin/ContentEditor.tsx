@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useLocation, useSearch } from "wouter";
+import { useCms } from "@/context/CmsContext";
 import {
   fetchSettings,
   saveSettings,
@@ -95,6 +96,7 @@ const SERVICE_PAGE_LABELS: Record<string, string> = {
 
 export default function ContentEditor() {
   const [, navigate] = useLocation();
+  const { refreshSettings } = useCms();
 
   // Existing state
   const [hero, setHero] = useState<HeroContent>({ ...DEFAULT_CONTENT.hero });
@@ -243,6 +245,7 @@ export default function ContentEditor() {
         navigation: current?.navigation,
       };
       await saveSettings(merged);
+      await refreshSettings();
       setSavedMsg("Content saved!");
       setTimeout(() => setSavedMsg(""), 3000);
     } catch (err: unknown) {

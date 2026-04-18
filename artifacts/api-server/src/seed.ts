@@ -1700,6 +1700,35 @@ export async function runSeed(): Promise<void> {
       });
     console.log("[seed] Synced CMS settings");
 
+    // Force-update seo.*.schema and seo.*.faq_schema on every restart.
+    // These fields contain domain URLs and structured-data that must stay in sync
+    // with the seed — the top-level merge above cannot update nested keys because
+    // DB value wins, so we patch each schema subfield individually using the
+    // update() builder (same drizzle context as onConflictDoUpdate above).
+    const seedSeo = (SEED_SETTINGS as Record<string, unknown>).seo as Record<
+      string,
+      { schema?: string; faq_schema?: string }
+    >;
+    for (const [page, pageData] of Object.entries(seedSeo)) {
+      if (pageData.schema) {
+        await db
+          .update(settingsTable)
+          .set({
+            value: sql`jsonb_set(${settingsTable.value}, ARRAY['seo', ${page}, 'schema'], to_jsonb(${pageData.schema}::text))`,
+          })
+          .where(eq(settingsTable.key, "main"));
+      }
+      if (pageData.faq_schema) {
+        await db
+          .update(settingsTable)
+          .set({
+            value: sql`jsonb_set(${settingsTable.value}, ARRAY['seo', ${page}, 'faq_schema'], to_jsonb(${pageData.faq_schema}::text))`,
+          })
+          .where(eq(settingsTable.key, "main"));
+      }
+    }
+    console.log("[seed] Force-patched SEO schema fields");
+
     console.log("[seed] Seed complete");
   } catch (err) {
     console.error("[seed] Seed error:", err);
