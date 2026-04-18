@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 const router = Router();
 
-const DEFAULT_SITE_URL = process.env["SITE_URL"] ?? "https://aetherank.com";
+const DEFAULT_SITE_URL = process.env["SITE_URL"] ?? "https://aetherank.in";
 
 const STATIC_PAGES = [
   { path: "/", priority: "1.0", changefreq: "weekly" },

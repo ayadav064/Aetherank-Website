@@ -13,4 +13,4 @@ Disallow: /
 User-agent: Google-Extended
 Disallow: /
 
-Sitemap: https://aetherank.com/sitemap.xml
+Sitemap: https://aetherank.in/sitemap.xml

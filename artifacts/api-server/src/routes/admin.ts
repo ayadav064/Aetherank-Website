@@ -35,6 +35,8 @@ router.get("/settings", async (_req, res) => {
   try {
     const rows = await db.select().from(settingsTable);
     const main = rows.find((r) => r.key === "main");
+    // Never cache settings — admin changes must reflect immediately on the public site
+    res.setHeader("Cache-Control", "no-store");
     res.json(main?.value ?? {});
   } catch {
     res.status(500).json({ ok: false, error: "Failed to load settings" });

@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { useCms } from "@/context/CmsContext";
 import { DEFAULT_SEO } from "@/lib/cmsApi";
 
-const SITE_ORIGIN = "https://aetherank.com";
+const SITE_ORIGIN = "https://aetherank.in";
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/opengraph.jpg`;
 
 function setMeta(name: string, content: string) {

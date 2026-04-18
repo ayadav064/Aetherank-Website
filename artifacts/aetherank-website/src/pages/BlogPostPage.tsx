@@ -7,7 +7,7 @@ import { getArticleBySlug, type Article } from "@/data/articles";
 import { fetchBlogPost, type BlogPost } from "@/lib/cmsApi";
 import NotFound from "@/pages/not-found";
 
-const SITE = "https://aetherank.com";
+const SITE = "https://aetherank.in";
 const DEFAULT_IMAGE = `${SITE}/opengraph.jpg`;
 
 function setMetaName(name: string, content: string) {

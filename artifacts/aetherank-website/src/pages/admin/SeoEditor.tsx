@@ -79,7 +79,7 @@ export default function SeoEditor() {
 
   const [seo, setSeo] = useState<SeoMap>({ ...DEFAULT_SEO });
   const [robotsTxt, setRobotsTxt] = useState("");
-  const [sitemapSiteUrl, setSitemapSiteUrl] = useState("https://aetherank.com");
+  const [sitemapSiteUrl, setSitemapSiteUrl] = useState("https://aetherank.in");
   const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState("");
   const [error, setError] = useState("");
@@ -91,7 +91,7 @@ export default function SeoEditor() {
     fetchSettings().then((s) => {
       if (s?.seo) setSeo({ ...DEFAULT_SEO, ...s.seo });
       const tech = s?.technical;
-      const url = tech?.sitemap_site_url?.trim() || "https://aetherank.com";
+      const url = tech?.sitemap_site_url?.trim() || "https://aetherank.in";
       setSitemapSiteUrl(url);
       setRobotsTxt(tech?.robots_txt ?? DEFAULT_ROBOTS_TXT(url));
       setLoading(false);
