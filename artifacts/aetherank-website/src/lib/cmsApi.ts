@@ -306,7 +306,9 @@ export async function adminLogin(password: string): Promise<string> {
 
 export async function fetchPublicSettings(): Promise<CmsSettings | null> {
   try {
-    const res = await fetch("/api/settings");
+    // cache: 'no-store' prevents the browser returning a 304 from its local cache,
+    // which would silently serve stale meta-tag data even after an admin save.
+    const res = await fetch("/api/settings", { cache: "no-store" });
     if (!res.ok) return null;
     return (await res.json()) as CmsSettings;
   } catch {
