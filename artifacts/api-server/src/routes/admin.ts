@@ -49,6 +49,8 @@ router.get("/admin/settings", authMiddleware, async (_req, res) => {
   try {
     const rows = await db.select().from(settingsTable);
     const main = rows.find((r) => r.key === "main");
+    // Never cache — admin must always see the latest saved values
+    res.setHeader("Cache-Control", "no-store");
     res.json(main?.value ?? {});
   } catch {
     res.status(500).json({ ok: false, error: "Failed to load settings" });

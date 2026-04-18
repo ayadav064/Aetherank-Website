@@ -325,6 +325,7 @@ export async function fetchSettings(): Promise<CmsSettings | null> {
   if (!token) return null;
   try {
     const res = await fetch("/api/admin/settings", {
+      cache: "no-store",
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) return null;
@@ -339,6 +340,7 @@ export async function fetchSettingsTyped(): Promise<FetchSettingsResult> {
   if (!token) return { ok: false, reason: "unauthorized" };
   try {
     const res = await fetch("/api/admin/settings", {
+      cache: "no-store",
       headers: { Authorization: `Bearer ${token}` },
     });
     if (res.status === 401 || res.status === 403) {
