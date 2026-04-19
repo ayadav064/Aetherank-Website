@@ -96,6 +96,25 @@ function injectSeo(html: string, pageSeo: SeoPageSettings, pagePath: string): st
   const SITE_ORIGIN = "https://aetherank.in";
   const canonicalUrl = `${SITE_ORIGIN}${pagePath === "/" ? "" : pagePath}`;
 
+  // ── Strip ALL hardcoded JSON-LD blocks from index.html so CMS always wins ──
+  // index.html has a baked-in Organization/WebSite/LocalBusiness schema that
+  // would conflict with (and override) whatever is saved in the CMS editor.
+  html = html.replace(
+    /<script\s+type="application\/ld\+json"[\s\S]*?<\/script>/gi,
+    "",
+  );
+
+  // ── Strip duplicate meta tags that index.html already has ──────────────────
+  // We will re-inject the correct page-specific values below.
+  html = html.replace(/<meta\s+name="description"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+name="keywords"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+property="og:title"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+property="og:description"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+property="og:url"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+name="twitter:title"[^>]*>/gi, "");
+  html = html.replace(/<meta\s+name="twitter:description"[^>]*>/gi, "");
+  html = html.replace(/<link\s+rel="canonical"[^>]*>/gi, "");
+
   const tags: string[] = [];
 
   // ── Schema markup (JSON-LD) ───────────────────────────────────────────────
@@ -122,9 +141,7 @@ function injectSeo(html: string, pageSeo: SeoPageSettings, pagePath: string): st
   }
 
   // ── Meta tags (title, description, OG, Twitter) ──────────────────────────
-  // Only inject what's explicitly saved so we don't stomp the index.html defaults.
   if (pageSeo.title) {
-    // Replace existing <title> or append a new one
     html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(pageSeo.title)}</title>`);
     tags.push(`<meta property="og:title" content="${escapeHtml(pageSeo.title)}" />`);
     tags.push(`<meta name="twitter:title" content="${escapeHtml(pageSeo.title)}" />`);
@@ -146,7 +163,7 @@ function injectSeo(html: string, pageSeo: SeoPageSettings, pagePath: string): st
 
   if (tags.length === 0) return html;
 
-  // Inject all tags just before </head>
+  // Inject all clean tags just before </head>
   const injection = tags.join("\n  ") + "\n";
   return html.replace("</head>", `  ${injection}</head>`);
 }
