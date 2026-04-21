@@ -3,7 +3,7 @@ import { usePageContent } from "@/context/CmsContext";
 import { useAboutPageContent } from "@/context/CmsContext";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { FinalCTA } from "@/components/Sections";
-import { Target, Users, Zap, Heart, CheckCircle2, MapPin, Award, Globe, ArrowRight, DollarSign, Clock } from "lucide-react";
+import { Target, Users, Zap, Heart, CheckCircle2, MapPin, Award, Globe, ArrowRight, IndianRupee, Clock } from "lucide-react";
 import { Link } from "wouter";
 
 const STAT_ICONS = [MapPin, Award, Globe, Users];
@@ -11,7 +11,7 @@ const STAT_ICONS = [MapPin, Award, Globe, Users];
 const VALUE_ICONS = [Target, Users, Zap, Heart];
 const VALUE_ACCENTS = ["emerald", "blue", "purple", "rose"];
 
-const INDIA_STAT_ICONS = [DollarSign, Globe, Award, Clock];
+const INDIA_STAT_ICONS = [IndianRupee, Globe, Award, Clock];
 
 const accentMap: Record<string, { bg: string; text: string; ring: string }> = {
   emerald: { bg: "bg-emerald-50", text: "text-emerald-600", ring: "ring-emerald-100" },
