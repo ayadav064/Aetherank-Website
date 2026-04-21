@@ -47,7 +47,7 @@ export function Layout({ children }: LayoutProps) {
     <ContactModalProvider>
       <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-emerald-500/20 selection:text-emerald-900 flex flex-col">
         <Navbar />
-        <main className="flex-grow pt-[88px]">
+        <main className="flex-grow pt-[68px]">
           {children}
         </main>
         <Footer />
