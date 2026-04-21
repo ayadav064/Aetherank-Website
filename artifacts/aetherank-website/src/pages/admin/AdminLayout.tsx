@@ -174,157 +174,172 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f0f0f1]">
-      {/* ── Top Admin Bar ── */}
-      <header className="h-9 bg-[#1d2327] flex items-center justify-between px-4 shrink-0 z-50 fixed top-0 left-0 right-0">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded bg-emerald-500 flex items-center justify-center">
-              <span className="text-slate-950 font-black text-[10px]">A</span>
+    <div className="min-h-screen flex bg-[#f0f0f1]">
+
+      {/* ── Left Sidebar ── */}
+      <aside className="w-[240px] shrink-0 flex flex-col fixed left-0 top-0 bottom-0 z-50 overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #0f1923 0%, #111c27 60%, #0d1a20 100%)" }}>
+
+        {/* ── Brand header ── */}
+        <div className="px-5 py-5 border-b border-white/5">
+          <div className="flex items-center gap-3">
+            {/* Favicon logo */}
+            <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 shadow-lg shadow-emerald-900/40 ring-1 ring-emerald-500/30">
+              <img src="/favicon.png" alt="Aetherank" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-sm font-semibold">Aetherank CMS</span>
-          </div>
-          <div className="hidden sm:flex items-center gap-1 text-slate-400 text-xs">
-            <span className="text-slate-600">|</span>
-            <a
-              href="/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:text-white transition-colors px-2 py-0.5 rounded hover:bg-slate-700"
-            >
-              <Home className="w-3 h-3" />
-              Visit Site
-            </a>
+            <div>
+              <p className="text-white font-bold text-[15px] leading-none tracking-tight">Aetherank</p>
+              <p className="text-emerald-400/70 text-[11px] mt-1 font-medium tracking-wide">CMS Dashboard</p>
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <button className="p-1.5 text-slate-400 hover:text-white rounded hover:bg-slate-700 transition-colors relative">
-            <Bell className="w-3.5 h-3.5" />
-          </button>
+
+        {/* ── Navigation ── */}
+        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5 scrollbar-none">
+          {NAV.map((item) => {
+            const Icon = item.icon;
+            const color = ICON_COLORS[item.label] ?? "text-slate-400";
+            const isDashboard = !item.children;
+            const isPageActive = isDashboard
+              ? location === item.path
+              : location.includes(item.path.split("?")[0].replace("/admin/", ""));
+
+            if (isDashboard) {
+              return (
+                <Link key={item.path} href={item.path}>
+                  <div className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium cursor-pointer transition-all duration-150 ${
+                    isPageActive
+                      ? "bg-emerald-500/15 text-white shadow-sm"
+                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  }`}>
+                    <span className={`flex items-center justify-center w-7 h-7 rounded-md shrink-0 transition-colors ${
+                      isPageActive ? "bg-emerald-500/20 text-emerald-400" : `bg-white/5 ${color} group-hover:bg-white/10`
+                    }`}>
+                      <Icon className="w-[15px] h-[15px]" />
+                    </span>
+                    {item.label}
+                    {isPageActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />}
+                  </div>
+                </Link>
+              );
+            }
+
+            const isOpen = openGroups[item.label];
+
+            return (
+              <div key={item.label}>
+                <button
+                  onClick={() => toggleGroup(item.label)}
+                  className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150 ${
+                    isPageActive
+                      ? "bg-emerald-500/15 text-white"
+                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  <span className={`flex items-center justify-center w-7 h-7 rounded-md shrink-0 transition-colors ${
+                    isPageActive ? "bg-emerald-500/20 text-emerald-400" : `bg-white/5 ${color} group-hover:bg-white/10`
+                  }`}>
+                    <Icon className="w-[15px] h-[15px]" />
+                  </span>
+                  <span className="flex-1 text-left">{item.label}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                {isOpen && item.children && (
+                  <div className="mt-0.5 ml-3 pl-7 border-l border-white/5 space-y-0.5 pb-1">
+                    {item.children.map((child) => {
+                      const active = isChildActive(child.path);
+                      return (
+                        <Link key={child.path} href={child.path}>
+                          <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] cursor-pointer transition-all duration-150 ${
+                            active
+                              ? "text-emerald-400 bg-emerald-500/10 font-semibold"
+                              : "text-slate-500 hover:text-white hover:bg-white/5"
+                          }`}>
+                            <span className={`w-1 h-1 rounded-full shrink-0 ${active ? "bg-emerald-400" : "bg-slate-600"}`} />
+                            {child.label}
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* ── Bottom section ── */}
+        <div className="px-2 py-3 border-t border-white/5 space-y-0.5">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-150"
+          >
+            <span className="flex items-center justify-center w-7 h-7 rounded-md bg-white/5 shrink-0">
+              <ExternalLink className="w-[15px] h-[15px]" />
+            </span>
+            View Website
+          </a>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1.5 px-2.5 py-1 text-slate-400 hover:text-white hover:bg-slate-700 rounded text-xs transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all duration-150"
           >
-            <User className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Admin</span>
+            <span className="flex items-center justify-center w-7 h-7 rounded-md bg-white/5 shrink-0">
+              <LogOut className="w-[15px] h-[15px]" />
+            </span>
+            Log Out
           </button>
-        </div>
-      </header>
 
-      <div className="flex flex-1 pt-9">
-        {/* ── Left Sidebar ── */}
-        <aside className="w-[220px] shrink-0 bg-[#1d2327] min-h-[calc(100vh-36px)] fixed left-0 top-9 bottom-0 overflow-y-auto z-40">
-          {/* Site brand */}
-          <div className="px-4 py-5 border-b border-[#2c3338]">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center shadow-lg">
-                <span className="text-slate-950 font-black text-sm">A</span>
-              </div>
-              <div>
-                <p className="text-white font-bold text-sm leading-none">Aetherank</p>
-                <p className="text-[#a7aaad] text-xs mt-0.5">aetherank.com</p>
-              </div>
+          {/* Admin badge */}
+          <div className="mt-2 mx-1 px-3 py-2.5 rounded-lg bg-white/4 border border-white/5 flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
+              <User className="w-3.5 h-3.5 text-emerald-400" />
             </div>
+            <div className="min-w-0">
+              <p className="text-white text-[12px] font-semibold leading-none">Admin</p>
+              <p className="text-slate-500 text-[11px] mt-0.5 truncate">aetherank.com</p>
+            </div>
+            <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400 shrink-0 shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
           </div>
+        </div>
+      </aside>
 
-          {/* Navigation */}
-          <nav className="py-2">
-            {NAV.map((item) => {
-              const Icon = item.icon;
-              const color = ICON_COLORS[item.label] ?? "text-slate-400";
-              const isDashboard = !item.children;
-              const isPageActive = isDashboard
-                ? location === item.path
-                : location.includes(item.path.split("?")[0].replace("/admin/", ""));
-
-              if (isDashboard) {
-                return (
-                  <Link key={item.path} href={item.path}>
-                    <div
-                      className={`flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors border-l-[3px] ${
-                        isPageActive
-                          ? "bg-[#2c3338] text-white border-emerald-500"
-                          : "text-[#a7aaad] border-transparent hover:bg-[#2c3338] hover:text-white"
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 shrink-0 ${isPageActive ? "text-emerald-400" : color}`} />
-                      {item.label}
-                    </div>
-                  </Link>
-                );
-              }
-
-              const isOpen = openGroups[item.label];
-
-              return (
-                <div key={item.label}>
-                  <button
-                    onClick={() => toggleGroup(item.label)}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors border-l-[3px] ${
-                      isPageActive
-                        ? "bg-[#2c3338] text-white border-emerald-500"
-                        : "text-[#a7aaad] border-transparent hover:bg-[#2c3338] hover:text-white"
-                    }`}
-                  >
-                    <Icon className={`w-4 h-4 shrink-0 ${isPageActive ? "text-emerald-400" : color}`} />
-                    <span className="flex-1 text-left">{item.label}</span>
-                    <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-
-                  {isOpen && item.children && (
-                    <div className="bg-[#101517]">
-                      {item.children.map((child) => {
-                        const active = isChildActive(child.path);
-                        return (
-                          <Link key={child.path} href={child.path}>
-                            <div
-                              className={`flex items-center gap-2 pl-11 pr-4 py-2 text-xs cursor-pointer transition-colors ${
-                                active
-                                  ? "text-white bg-[#2c3338]"
-                                  : "text-[#a7aaad] hover:bg-[#2c3338] hover:text-white"
-                              }`}
-                            >
-                              <span className={`w-1 h-1 rounded-full shrink-0 ${active ? "bg-emerald-400" : "bg-slate-600"}`} />
-                              {child.label}
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </nav>
-
-          {/* Bottom links */}
-          <div className="border-t border-[#2c3338] mt-2 py-2">
+      {/* ── Main Content ── */}
+      <main className="flex-1 ml-[240px] min-h-screen overflow-auto">
+        {/* ── Top Bar ── */}
+        <header className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-40 shadow-sm">
+          <div className="flex items-center gap-2 text-slate-400 text-xs">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-slate-500 font-medium">Aetherank CMS</span>
+          </div>
+          <div className="flex items-center gap-3">
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#a7aaad] hover:bg-[#2c3338] hover:text-white transition-colors border-l-[3px] border-transparent"
+              className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-600 transition-colors font-medium"
             >
-              <ExternalLink className="w-4 h-4 shrink-0" />
-              View Website
+              <ExternalLink className="w-3.5 h-3.5" />
+              Visit Site
             </a>
+            <div className="w-px h-4 bg-slate-200" />
+            <button className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors">
+              <Bell className="w-4 h-4" />
+            </button>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[#a7aaad] hover:bg-red-900/30 hover:text-red-400 transition-colors border-l-[3px] border-transparent"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors font-medium"
             >
-              <LogOut className="w-4 h-4 shrink-0" />
+              <LogOut className="w-3.5 h-3.5" />
               Log Out
             </button>
           </div>
-        </aside>
+        </header>
 
-        {/* ── Main Content ── */}
-        <main className="flex-1 ml-[220px] min-h-[calc(100vh-36px)] overflow-auto">
-          {children}
-        </main>
-      </div>
+        {children}
+      </main>
     </div>
   );
 }
