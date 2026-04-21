@@ -270,3 +270,21 @@
   height: 0;
   pointer-events: none;
 }
+ /* Table */
+    .data-table {
+      width: 100%; border-collapse: collapse;
+      margin: 24px 0; font-size: 14px;
+    }
+    .data-table th {
+      background: #0F172B;
+      color: #ffffff;
+      padding: 12px 16px;
+      text-align: left; font-weight: 600;
+    }
+    .data-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #334155;
+    }
+    .data-table tr:nth-child(even) td { background: #F8FAFC; }
+    .data-table tr:hover td { background: #F1F5F9; }
