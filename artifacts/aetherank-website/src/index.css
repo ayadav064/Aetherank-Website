@@ -270,6 +270,81 @@
   height: 0;
   pointer-events: none;
 }
+  /* Stat callout */
+    .stat-box {
+      background: #0F172B;
+      border-left: 4px solid #00BC7D;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 28px 0;
+    }
+    .stat-box-num {
+      font-size: 48px; font-weight: 800;
+      color: #00BC7D; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-box-label {
+      font-size: 15px; color: #94A3B8;
+    }
+    .stat-box-source {
+      font-size: 12px; color: #64748B;
+      margin-top: 8px;
+    }
+
+    /* Stat grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card-num {
+      font-size: 36px; font-weight: 800;
+      color: #00BC7D;
+    }
+    .stat-card-label {
+      font-size: 13px; color: #64748B;
+      margin-top: 4px;
+    }
+
+    /* Tip box */
+    .tip-box {
+      background: rgba(0,188,125,0.07);
+      border: 1px solid rgba(0,188,125,0.3);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .tip-box-title {
+      font-weight: 700; color: #00BC7D;
+      font-size: 14px; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .tip-box p {
+      margin: 0; font-size: 15px; color: #334155;
+    }
+
+    /* Warning box */
+    .warn-box {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .warn-box-title {
+      font-weight: 700; color: #EF4444;
+      font-size: 14px; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .warn-box p { margin: 0; font-size: 15px; color: #334155; }
  /* Table */
     .data-table {
       width: 100%; border-collapse: collapse;
