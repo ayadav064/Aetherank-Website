@@ -71,7 +71,7 @@ export function Hero() {
   const certBadges = ["Google Partner", "Meta Business", "HubSpot", "Clutch.co"];
 
   return (
-    <section className="relative pt-28 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
+    <section className="relative pt-20 pb-10 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f040_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f040_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Emerald glow top-right */}
@@ -138,8 +138,8 @@ export function Hero() {
 
             {/* Social proof row */}
             <FadeIn delay={0.4}>
-              <div className="flex flex-wrap items-center gap-3 mb-7">
-                <div className="flex -space-x-2.5">
+              <div className="flex flex-col xs:flex-row flex-wrap items-start xs:items-center gap-3 mb-6">
+                <div className="flex -space-x-2.5 shrink-0">
                   {avatarSeeds.map((src, i) => (
                     <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow ring-1 ring-slate-100">
                       <img loading="lazy" decoding="async" src={src} alt="Client" className="w-full h-full object-cover" />
@@ -150,7 +150,7 @@ export function Hero() {
                   <div className="flex text-amber-400 mb-0.5">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
                   </div>
-                  <p className="text-sm font-semibold text-slate-600">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600 leading-snug">
                     Rated 4.9/5 &bull; Trusted by <span className="text-emerald-600 font-bold">100+ brands</span> across India
                   </p>
                 </div>
@@ -159,10 +159,10 @@ export function Hero() {
 
             {/* Cert badges */}
             <FadeIn delay={0.5}>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest mr-1">Certified:</span>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest w-full sm:w-auto">Certified:</span>
                 {certBadges.map(name => (
-                  <span key={name} className="px-3 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-500 shadow-sm">
+                  <span key={name} className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-500 shadow-sm whitespace-nowrap">
                     {name}
                   </span>
                 ))}
