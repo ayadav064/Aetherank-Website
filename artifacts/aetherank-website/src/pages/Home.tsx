@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="-mt-[88px]"> {/* Adjust for layout padding to let hero go under nav */}
+      <div className="-mt-[68px]"> {/* Adjust for layout padding to let hero go under nav */}
         <Hero />
         <AIAdvantage />
         <GrowthPartner />
