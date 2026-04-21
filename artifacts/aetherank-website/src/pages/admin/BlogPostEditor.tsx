@@ -19,6 +19,8 @@ import {
   CheckCircle2,
   AlertCircle,
   ExternalLink,
+  Code2,
+  Eye,
 } from "lucide-react";
 
 type Tab = "content" | "seo";
@@ -92,6 +94,7 @@ export default function BlogPostEditor() {
   const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState("");
   const [error, setError] = useState("");
+  const [htmlMode, setHtmlMode] = useState(false);
 
   useEffect(() => {
     if (!getToken()) { navigate("/admin"); return; }
@@ -290,21 +293,90 @@ export default function BlogPostEditor() {
                 </div>
               </div>
 
-              {/* Visual editor */}
+              {/* Visual / HTML editor */}
               <div className="bg-white border border-[#c3c4c7] rounded shadow-sm overflow-hidden">
-                <div className="px-4 py-3 border-b border-[#c3c4c7] bg-[#f6f7f7]">
-                  <h3 className="text-[#1d2327] text-sm font-semibold">Post Content</h3>
-                  <p className="text-[#646970] text-xs mt-0.5">
-                    Use the toolbar to format your content — headings, bold, lists, links, images and more.
-                  </p>
+                <div className="px-4 py-3 border-b border-[#c3c4c7] bg-[#f6f7f7] flex items-center justify-between">
+                  <div>
+                    <h3 className="text-[#1d2327] text-sm font-semibold">Post Content</h3>
+                    <p className="text-[#646970] text-xs mt-0.5">
+                      {htmlMode
+                        ? "Edit raw HTML — paste tables, custom markup, embeds directly."
+                        : "Use the toolbar to format your content — headings, bold, lists, links, images and more."}
+                    </p>
+                  </div>
+                  {/* Visual ↔ HTML toggle */}
+                  <div className="flex items-center bg-[#f0f0f1] border border-[#c3c4c7] rounded p-0.5 gap-0.5 shrink-0">
+                    <button
+                      onClick={() => setHtmlMode(false)}
+                      title="Visual Editor"
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all ${
+                        !htmlMode
+                          ? "bg-white text-[#2271b1] shadow-sm border border-[#c3c4c7]"
+                          : "text-[#646970] hover:text-[#1d2327]"
+                      }`}
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      Visual
+                    </button>
+                    <button
+                      onClick={() => setHtmlMode(true)}
+                      title="HTML Source Editor"
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all ${
+                        htmlMode
+                          ? "bg-white text-[#2271b1] shadow-sm border border-[#c3c4c7]"
+                          : "text-[#646970] hover:text-[#1d2327]"
+                      }`}
+                    >
+                      <Code2 className="w-3.5 h-3.5" />
+                      HTML
+                    </button>
+                  </div>
                 </div>
                 <div className="p-4">
-                  <RichTextEditor
-                    value={post.content}
-                    onChange={(html) => set("content", html)}
-                    placeholder="Start writing your post…"
-                    minHeight={420}
-                  />
+                  {htmlMode ? (
+                    <div className="space-y-2">
+                      <textarea
+                        value={post.content}
+                        onChange={(e) => set("content", e.target.value)}
+                        rows={28}
+                        spellCheck={false}
+                        placeholder={`<p>Start writing...</p>\n\n<!-- Table example -->\n<table>\n  <thead>\n    <tr><th>Column 1</th><th>Column 2</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Row 1</td><td>Data</td></tr>\n  </tbody>\n</table>`}
+                        className="w-full bg-[#1e1e2e] text-[#cdd6f4] border border-[#c3c4c7] rounded px-4 py-3 text-sm font-mono leading-relaxed focus:outline-none focus:border-[#2271b1] resize-y"
+                        style={{ tabSize: 2 }}
+                      />
+                      <div className="bg-amber-50 border border-amber-200 rounded p-3">
+                        <p className="text-amber-800 text-xs font-semibold mb-1.5">📋 Table Template — copy & paste:</p>
+                        <pre className="text-amber-900 text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre">{`<table>
+  <thead>
+    <tr>
+      <th>Header 1</th>
+      <th>Header 2</th>
+      <th>Header 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Row 1, Col 1</td>
+      <td>Row 1, Col 2</td>
+      <td>Row 1, Col 3</td>
+    </tr>
+    <tr>
+      <td>Row 2, Col 1</td>
+      <td>Row 2, Col 2</td>
+      <td>Row 2, Col 3</td>
+    </tr>
+  </tbody>
+</table>`}</pre>
+                      </div>
+                    </div>
+                  ) : (
+                    <RichTextEditor
+                      value={post.content}
+                      onChange={(html) => set("content", html)}
+                      placeholder="Start writing your post…"
+                      minHeight={420}
+                    />
+                  )}
                 </div>
               </div>
 
