@@ -138,14 +138,16 @@ export function Hero() {
 
             {/* Social proof row */}
             <FadeIn delay={0.4}>
-              <div className="flex flex-col items-center lg:items-start gap-2 mb-6">
-                <div className="flex -space-x-2.5">
+              <div className="flex flex-col items-center lg:flex-row lg:items-center gap-3 mb-6">
+                {/* Avatars */}
+                <div className="flex -space-x-2.5 shrink-0">
                   {avatarSeeds.map((src, i) => (
                     <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow ring-1 ring-slate-100">
                       <img loading="lazy" decoding="async" src={src} alt="Client" className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
+                {/* Stars + text */}
                 <div className="flex flex-col items-center lg:items-start">
                   <div className="flex text-amber-400 mb-0.5">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
@@ -159,8 +161,8 @@ export function Hero() {
 
             {/* Cert badges */}
             <FadeIn delay={0.5}>
-              <div className="flex flex-col items-center lg:items-start gap-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Certified:</span>
+              <div className="flex flex-col items-center lg:flex-row lg:items-center gap-2 flex-wrap">
+                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest shrink-0">Certified:</span>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                   {certBadges.map(name => (
                     <span key={name} className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-500 shadow-sm whitespace-nowrap">
