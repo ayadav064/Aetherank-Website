@@ -152,14 +152,14 @@ function ApiPostContent({ post }: { post: BlogPost }) {
     <Layout>
       <div className="bg-white">
         {/* Hero */}
-        <div className="relative h-[400px] sm:h-[480px] overflow-hidden">
+        <div className="relative h-[460px] sm:h-[520px] overflow-hidden">
           <img
             src={
               post.image ||
               "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80"
             }
             alt={post.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent" />
           <div className="absolute inset-0 flex items-end">
@@ -265,11 +265,11 @@ function StaticPostContent({ slug, article }: { slug: string; article: Article }
   return (
     <Layout>
       <div className="bg-white">
-        <div className="relative h-[400px] sm:h-[480px] overflow-hidden">
+        <div className="relative h-[460px] sm:h-[520px] overflow-hidden">
           <img
             src={article.image}
             alt={article.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent" />
           <div className="absolute inset-0 flex items-end">
