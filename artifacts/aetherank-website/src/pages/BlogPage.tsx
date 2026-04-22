@@ -108,11 +108,11 @@ export default function BlogPage() {
                 <Link href={`/blog/${featured.slug}`} className="block group">
                   <div className="rounded-3xl overflow-hidden border border-slate-100 shadow-sm bg-white hover:shadow-lg transition-shadow">
                     <div className="grid lg:grid-cols-2">
-                      <div className="relative h-64 lg:h-auto overflow-hidden">
+                      <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[360px] overflow-hidden">
                         <img
                           src={featured.image}
                           alt={featured.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10" />
                       </div>
@@ -164,11 +164,11 @@ export default function BlogPage() {
                 <FadeIn key={article.slug} delay={i * 0.1}>
                   <Link href={`/blog/${article.slug}`} className="group block h-full">
                     <article className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative aspect-video overflow-hidden bg-slate-100">
                         <img
                           src={article.image}
                           alt={article.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="p-6 flex flex-col flex-grow">
