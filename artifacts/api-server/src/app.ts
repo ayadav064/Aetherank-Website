@@ -2,7 +2,7 @@
  * app.ts — Vite SSR + SEO injection
  *
  * Serves the React app with true server-side rendering:
- * 1. Loads the compiled entry-server.mjs (Vite SSR build)
+ * 1. Load the compiled entry-server.mjs (Vite SSR build)
  * 2. Pre-fetches CMS settings from the DB
  * 3. Calls render(url, cmsData) → full HTML string
  * 4. Injects per-page SEO tags (schema, meta, canonical, OG)
