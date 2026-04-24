@@ -91,14 +91,11 @@ export default defineConfig({
       },
 
   ssr: {
-    // Packages that use browser APIs and must stay client-only.
-    // They are excluded from the SSR bundle; on the server they're
-    // skipped because the components that use them only mount via useEffect.
-    noExternal: ["wouter"],
-    external: [
-      "framer-motion",   // Animation library — renders static markup on server
-      "recharts",
-    ],
+    // Bundle wouter so Vite processes its ESM exports correctly
+    noExternal: ["wouter", "framer-motion"],
+    // recharts uses browser canvas — exclude it; components using it must
+    // guard with typeof window !== 'undefined' or lazy-load client-side
+    external: ["recharts"],
   },
 
   server: {
