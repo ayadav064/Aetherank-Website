@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 echo "==> Installing pnpm..."
 npm install -g pnpm
@@ -7,21 +7,17 @@ npm install -g pnpm
 echo "==> Installing workspace dependencies..."
 pnpm install
 
-echo "==> Building frontend..."
-cd artifacts/aetherank-website
+echo "==> Building frontend, SSR renderer, and backend..."
+cd artifacts/api-server
 BASE_PATH=/ NODE_ENV=production pnpm run build
 cd ../..
 
-echo "==> Building backend..."
-cd artifacts/api-server
-pnpm run build
-cd ../..
-
-echo "==> Copying frontend into backend..."
-cp -r artifacts/aetherank-website/dist/public artifacts/api-server/dist/public
+echo "==> Verifying SSR output..."
+test -f artifacts/api-server/dist/server/entry-server.mjs
 
 echo "==> Syncing database schema..."
 node_modules/.bin/drizzle-kit push --config lib/db/drizzle.config.ts || echo "DB push skipped (no DATABASE_URL or already in sync)"
 
 echo "==> Build complete!"
 ls -lh artifacts/api-server/dist/
+ls -lh artifacts/api-server/dist/server/
