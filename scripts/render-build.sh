@@ -5,6 +5,7 @@ echo "==> Installing pnpm..."
 npm install -g pnpm
 
 echo "==> Installing workspace dependencies..."
+pnpm store prune || true
 pnpm install
 
 echo "==> Building frontend, SSR renderer, and backend..."
