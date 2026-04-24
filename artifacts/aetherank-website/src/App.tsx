@@ -51,11 +51,11 @@ import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
 import AdminErrorBoundary from "@/components/AdminErrorBoundary";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false, staleTime: 30_000 } },
+});
 
 interface AppProps {
-  /** Passed by entry-server.tsx during SSR; undefined on the client. */
-  ssrUrl?: string;
   /** Pre-fetched CMS data from the server; avoids a loading flash on SSR. */
   initialCmsData?: Record<string, unknown>;
 }
