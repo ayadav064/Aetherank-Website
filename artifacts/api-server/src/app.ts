@@ -279,34 +279,29 @@ if (isProduction) {
         const pageSeo = getSeoForPath(cmsData, pagePath);
         const renderer = await loadSsrRenderer(distDir);
 
-        let appHtml = "";
-        let serverHeadTags = "";
-
-        if (renderer) {
-          // ── Full SSR path ────────────────────────────────────────────────
-          const result = await renderer(pagePath, cmsData);
-          appHtml = result.html;
-          serverHeadTags = result.headTags; // includes window.__INITIAL_CMS__ script
-        }
-
         if (!renderer) {
-          res.setHeader("X-SSR", "unavailable");
-          return res
-            .status(503)
-            .type("text/plain")
-            .send("SSR renderer unavailable");
+          // SSR bundle not built yet — serve SPA with meta/schema injection.
+          // Users get a working site; crawlers still get meta tags & schema.
+          logger.warn({ pagePath }, "SSR renderer not available — serving SPA with meta injection");
+          const headInjection = buildHeadTags(pageSeo, pagePath, "");
+          const html = assembleHtml(baseHtml, "", headInjection, pageSeo);
+          res.setHeader("Cache-Control", "no-store");
+          res.setHeader("X-SSR", "meta-only");
+          return res.type("html").send(html);
         }
 
-        const headInjection = buildHeadTags(pageSeo, pagePath, serverHeadTags);
-        const html = assembleHtml(baseHtml, appHtml, headInjection, pageSeo);
+        // ── Full SSR path ────────────────────────────────────────────────
+        const result = await renderer(pagePath, cmsData);
+        const headInjection = buildHeadTags(pageSeo, pagePath, result.headTags);
+        const html = assembleHtml(baseHtml, result.html, headInjection, pageSeo);
 
         res.setHeader("Cache-Control", "no-store");
         res.setHeader("X-SSR", "full");
         return res.type("html").send(html);
       } catch (err) {
-        logger.error({ err, pagePath }, "SSR render error");
-        res.setHeader("X-SSR", "error");
-        return res.status(500).type("text/plain").send("SSR render failed");
+        // Any SSR crash — fall back to the working SPA, never show error to users
+        logger.error({ err, pagePath }, "SSR render error — falling back to SPA");
+        return res.type("html").send(baseHtml);
       }
     });
 
