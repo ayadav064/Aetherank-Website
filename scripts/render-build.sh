@@ -4,9 +4,12 @@ set -euo pipefail
 echo "==> Installing pnpm..."
 npm install -g pnpm
 
+echo "==> Deleting corrupted lockfile..."
+# pnpm-lock.yaml has stale checksums from packages republished on npm.
+# Deleting it forces pnpm to resolve and download everything fresh.
+rm -f pnpm-lock.yaml
+
 echo "==> Installing workspace dependencies..."
-# Use a fresh store dir inside the project so Render's cached store is bypassed.
-# This guarantees clean downloads every build — no stale checksum conflicts.
 pnpm install --no-frozen-lockfile --store-dir /opt/render/project/src/.pnpm-store
 
 echo "==> Building frontend, SSR renderer, and backend..."
