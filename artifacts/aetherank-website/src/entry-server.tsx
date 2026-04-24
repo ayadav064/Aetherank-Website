@@ -10,56 +10,31 @@
 import { renderToString } from "react-dom/server";
 import { Router as WouterRouter } from "wouter";
 import { memoryLocation } from "wouter/memory-location";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import App from "./App";
-import "./index.css";
+// NOTE: do NOT import index.css here — Node cannot process CSS files
 
 export interface RenderResult {
   html: string;
   headTags: string;
 }
 
-/**
- * Render the app to an HTML string for a given URL path.
- * initialCmsData is pre-fetched by the Express server and injected
- * so CmsContext has real data during the SSR pass (no loading state).
- */
 export async function render(
   url: string,
   initialCmsData?: Record<string, unknown>
 ): Promise<RenderResult> {
   const { hook, searchHook } = memoryLocation({ path: url, static: true });
 
-  // Fresh QueryClient per request to avoid state bleeding between users
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // On the server we never retry — either we have data or we don't
-        retry: false,
-        staleTime: Infinity,
-      },
-    },
-  });
-
-  // Inject CMS data into a global so CmsProvider can read it synchronously
-  // during the SSR render pass. This prevents the "loading" flash and
-  // ensures the HTML Googlebot receives matches what the user sees.
-  if (initialCmsData) {
-    (globalThis as Record<string, unknown>).__INITIAL_CMS__ = initialCmsData;
-  }
+  // Dynamically import App to avoid CSS/browser-only top-level side effects
+  const { default: App } = await import("./App");
 
   const appHtml = renderToString(
+    // WouterRouter provides location context for the Switch/Route inside App
     <WouterRouter hook={hook} searchHook={searchHook}>
-      <QueryClientProvider client={queryClient}>
-        <App ssrUrl={url} initialCmsData={initialCmsData} />
-      </QueryClientProvider>
+      {/* App creates its own QueryClientProvider — do NOT double-wrap here */}
+      <App initialCmsData={initialCmsData} />
     </WouterRouter>
   );
 
-  // Clean up global after render
-  delete (globalThis as Record<string, unknown>).__INITIAL_CMS__;
-
-  // Serialise CMS data so the client can hydrate without a round-trip
+  // Serialise CMS data so the client can hydrate without a round-trip fetch
   const serializedCmsData = initialCmsData
     ? JSON.stringify(initialCmsData).replace(/</g, "\\u003c")
     : "";
@@ -67,8 +42,5 @@ export async function render(
     ? `<script>window.__INITIAL_CMS__ = ${serializedCmsData};</script>`
     : "";
 
-  return {
-    html: appHtml,
-    headTags: cmsScript,
-  };
+  return { html: appHtml, headTags: cmsScript };
 }
