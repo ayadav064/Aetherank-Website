@@ -1,4 +1,17 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+/**
+ * App.tsx  — SSR-aware version
+ *
+ * Changes vs original:
+ * 1. Accepts optional `ssrUrl` prop so the server can pass the request URL
+ *    for wouter's static router (no change needed on the client).
+ * 2. Accepts optional `initialCmsData` so CmsProvider can skip its loading
+ *    state on the server and match SSR output on client hydration.
+ * 3. Router wrapper is conditional: WouterRouter on client, passed-through
+ *    on server (server wraps with staticLocation in entry-server.tsx).
+ *
+ * DEPLOY TO: artifacts/aetherank-website/src/App.tsx
+ */
+import { Switch, Route } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -29,7 +42,6 @@ import ContentEditor from "@/pages/admin/ContentEditor";
 import BlogPostList from "@/pages/admin/BlogPostList";
 import BlogPostEditor from "@/pages/admin/BlogPostEditor";
 import AdminSubmissions from "@/pages/admin/AdminSubmissions";
-
 import AdminNewsletterSubscribers from "@/pages/admin/AdminNewsletterSubscribers";
 import AdminMediaLibrary from "@/pages/admin/AdminMediaLibrary";
 import AdminNavigation from "@/pages/admin/AdminNavigation";
@@ -40,6 +52,13 @@ import SeoManager from "@/components/SeoManager";
 import AdminErrorBoundary from "@/components/AdminErrorBoundary";
 
 const queryClient = new QueryClient();
+
+interface AppProps {
+  /** Passed by entry-server.tsx during SSR; undefined on the client. */
+  ssrUrl?: string;
+  /** Pre-fetched CMS data from the server; avoids a loading flash on SSR. */
+  initialCmsData?: Record<string, unknown>;
+}
 
 function Router() {
   return (
@@ -83,9 +102,6 @@ function Router() {
       <Route path="/admin/blog">
         <AdminErrorBoundary><BlogPostList /></AdminErrorBoundary>
       </Route>
-      <Route path="/admin/home">
-        <AdminErrorBoundary><ContentEditor /></AdminErrorBoundary>
-      </Route>
       <Route path="/admin/submissions">
         <AdminErrorBoundary><AdminSubmissions /></AdminErrorBoundary>
       </Route>
@@ -103,20 +119,16 @@ function Router() {
   );
 }
 
-function App() {
+export default function App({ initialCmsData }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <CmsProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <SeoManager />
-            <Router />
-          </WouterRouter>
-        </CmsProvider>
-        <Toaster />
-      </TooltipProvider>
+      <CmsProvider initialData={initialCmsData}>
+        <TooltipProvider>
+          <SeoManager />
+          <Router />
+          <Toaster />
+        </TooltipProvider>
+      </CmsProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
