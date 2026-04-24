@@ -9,7 +9,7 @@
  */
 import { renderToString } from "react-dom/server";
 import { Router as WouterRouter } from "wouter";
-import { staticLocation } from "wouter/static";
+import { memoryLocation } from "wouter/memory-location";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App";
 import "./index.css";
@@ -28,6 +28,8 @@ export async function render(
   url: string,
   initialCmsData?: Record<string, unknown>
 ): Promise<RenderResult> {
+  const { hook, searchHook } = memoryLocation({ path: url, static: true });
+
   // Fresh QueryClient per request to avoid state bleeding between users
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -47,7 +49,7 @@ export async function render(
   }
 
   const appHtml = renderToString(
-    <WouterRouter hook={staticLocation(url)}>
+    <WouterRouter hook={hook} searchHook={searchHook}>
       <QueryClientProvider client={queryClient}>
         <App ssrUrl={url} initialCmsData={initialCmsData} />
       </QueryClientProvider>
@@ -58,8 +60,11 @@ export async function render(
   delete (globalThis as Record<string, unknown>).__INITIAL_CMS__;
 
   // Serialise CMS data so the client can hydrate without a round-trip
-  const cmsScript = initialCmsData
-    ? `<script>window.__INITIAL_CMS__ = ${JSON.stringify(initialCmsData)};</script>`
+  const serializedCmsData = initialCmsData
+    ? JSON.stringify(initialCmsData).replace(/</g, "\\u003c")
+    : "";
+  const cmsScript = serializedCmsData
+    ? `<script>window.__INITIAL_CMS__ = ${serializedCmsData};</script>`
     : "";
 
   return {
