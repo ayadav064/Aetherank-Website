@@ -4,33 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
-    <!-- Primary Meta Tags -->
+    <!-- Primary Meta Tags — overridden per-page by SSR injection in app.ts -->
     <title>Aetherank | Digital Marketing Agency in Mumbai</title>
-    <meta name="description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design & Content Marketing." />
+    <meta name="description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design &amp; Content Marketing." />
     <meta name="keywords" content="digital marketing agency Mumbai, SEO services India, PPC advertising, social media marketing, content marketing, web design Mumbai" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#00c896" />
 
-    <!-- Canonical -->
+    <!-- Canonical — overridden per-page by SSR -->
     <link rel="canonical" href="https://aetherank.in/" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="favicon.svg" color="#10b981">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="msapplication-TileColor" content="#10b981" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook — overridden per-page by SSR -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aetherank.in/" />
     <meta property="og:site_name" content="Aetherank" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content="Aetherank | Digital Marketing Agency in Mumbai" />
-    <meta property="og:description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design & Content Marketing." />
+    <meta property="og:description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design &amp; Content Marketing." />
     <meta property="og:image" content="https://aetherank.in/opengraph.jpg" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="720" />
@@ -40,16 +36,16 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@aetherank" />
     <meta name="twitter:title" content="Aetherank | Digital Marketing Agency in Mumbai" />
-    <meta name="twitter:description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design & Content Marketing." />
+    <meta name="twitter:description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design &amp; Content Marketing." />
     <meta name="twitter:image" content="https://aetherank.in/opengraph.jpg" />
 
-    <!-- DNS prefetch + preconnect for external resources -->
+    <!-- DNS prefetch + preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-    <!-- Fonts: async load to avoid render blocking -->
+    <!-- Fonts: async load -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
     <link
       rel="stylesheet"
@@ -61,75 +57,17 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
     </noscript>
 
-    <!-- Preload hero image (LCP element) -->
+    <!-- Preload hero image (LCP) -->
     <link
       rel="preload"
       as="image"
       href="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=70&auto=format"
     />
 
-    <!-- Organization + WebSite Schema (always visible to crawlers in static HTML) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://aetherank.in/#organization",
-          "name": "Aetherank",
-          "url": "https://aetherank.in",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://aetherank.in/favicon.svg"
-          },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+91-80109-60269",
-            "contactType": "customer service"
-          },
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Rustomjee Global City, J-27 163, Near ClubOne, Virar West",
-            "addressLocality": "Mumbai",
-            "addressRegion": "Maharashtra",
-            "postalCode": "401303",
-            "addressCountry": "IN"
-          },
-          "sameAs": [
-            "https://www.instagram.com/aetherank",
-            "https://www.linkedin.com/company/aetherank"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://aetherank.in/#website",
-          "name": "Aetherank",
-          "url": "https://aetherank.in",
-          "publisher": { "@id": "https://aetherank.in/#organization" }
-        },
-        {
-          "@type": "LocalBusiness",
-          "@id": "https://aetherank.in/#localbusiness",
-          "name": "Aetherank Digital Marketing Agency",
-          "url": "https://aetherank.in",
-          "telephone": "+91-80109-60269",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Rustomjee Global City, J-27 163, Near ClubOne, Virar West",
-            "addressLocality": "Mumbai",
-            "addressRegion": "Maharashtra",
-            "postalCode": "401303",
-            "addressCountry": "IN"
-          },
-          "priceRange": "₹₹",
-          "openingHours": "Mo-Fr 09:00-18:00"
-        }
-      ]
-    }
-    </script>
+    <!--ssr-head-->
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root"><!--ssr-body--></div>
+    <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>
