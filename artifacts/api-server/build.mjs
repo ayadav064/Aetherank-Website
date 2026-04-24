@@ -1,7 +1,7 @@
 /**
  * build.mjs — builds the API server + Vite client + Vite SSR bundle
  *
- * Build orders:
+ * Build order:
  *   1. Vite client build  → aetherank-website/dist/public/
  *   2. Vite SSR build     → aetherank-website/dist/server/entry-server.mjs
  *   3. esbuild API server → api-server/dist/index.mjs
