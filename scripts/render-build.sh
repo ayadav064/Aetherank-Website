@@ -6,7 +6,7 @@ npm install -g pnpm
 
 echo "==> Installing workspace dependencies..."
 pnpm store prune || true
-pnpm install
+pnpm install --no-frozen-lockfile
 
 echo "==> Building frontend, SSR renderer, and backend..."
 cd artifacts/api-server
