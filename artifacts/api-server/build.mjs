@@ -16,12 +16,19 @@ import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 import { rm, cp } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 
 globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const websiteDir = path.resolve(artifactDir, "../aetherank-website");
+
+function runPnpm(args, options) {
+  const npmExecPath = process.env.npm_execpath;
+  const command = npmExecPath ? process.execPath : "pnpm";
+  const commandArgs = npmExecPath ? [npmExecPath, ...args] : args;
+  execFileSync(command, commandArgs, options);
+}
 
 async function buildAll() {
   // ── 1. Clean API dist ─────────────────────────────────────────────────────
@@ -30,7 +37,7 @@ async function buildAll() {
 
   // ── 2. Vite client build ──────────────────────────────────────────────────
   console.log("\n🔨 Building Vite client bundle…");
-  execSync("npx vite build --config vite.config.ts", {
+  runPnpm(["exec", "vite", "build", "--config", "vite.config.ts"], {
     cwd: websiteDir,
     stdio: "inherit",
     env: { ...process.env, NODE_ENV: "production" },
@@ -39,43 +46,38 @@ async function buildAll() {
 
   // ── 3. Vite SSR build ─────────────────────────────────────────────────────
   console.log("\n🔨 Building Vite SSR bundle…");
-  try {
-    execSync("npx vite build --config vite.config.ts --ssr src/entry-server.tsx", {
-      cwd: websiteDir,
-      stdio: "inherit",
-      env: {
-        ...process.env,
-        NODE_ENV: "production",
-        BUILD_SSR: "1",
-      },
-    });
-    console.log("✅ Vite SSR build complete");
-  } catch (err) {
-    console.warn(
-      "⚠️  Vite SSR build failed — server will fall back to meta-only injection.",
-      err
-    );
-    // Non-fatal: the server degrades gracefully to schema/meta injection only
-  }
+  runPnpm(["exec", "vite", "build", "--config", "vite.config.ts"], {
+    cwd: websiteDir,
+    stdio: "inherit",
+    env: {
+      ...process.env,
+      NODE_ENV: "production",
+      BUILD_SSR: "1",
+    },
+  });
+  console.log("✅ Vite SSR build complete");
 
   // ── 4. Copy SSR bundle next to client dist so Express can find it ─────────
   // Express looks for: dist/public/../server/entry-server.mjs
   // which resolves to:  dist/server/entry-server.mjs
   const ssrSrc = path.resolve(websiteDir, "dist/server");
   const ssrDest = path.resolve(artifactDir, "dist/server");
-  if (existsSync(ssrSrc)) {
-    await cp(ssrSrc, ssrDest, { recursive: true });
-    console.log("✅ SSR bundle copied to api-server/dist/server/");
+  const ssrEntry = path.resolve(ssrSrc, "entry-server.mjs");
+  if (!existsSync(ssrEntry)) {
+    throw new Error(`SSR entry was not generated: ${ssrEntry}`);
   }
+  await cp(ssrSrc, ssrDest, { recursive: true });
+  console.log("✅ SSR bundle copied to api-server/dist/server/");
 
   // ── 5. Copy client dist (static assets) next to API dist ─────────────────
   // Express also looks for dist/public relative to __dirname (api dist)
   const clientSrc = path.resolve(websiteDir, "dist/public");
   const clientDest = path.resolve(artifactDir, "dist/public");
-  if (existsSync(clientSrc)) {
-    await cp(clientSrc, clientDest, { recursive: true });
-    console.log("✅ Client assets copied to api-server/dist/public/");
+  if (!existsSync(path.resolve(clientSrc, "index.html"))) {
+    throw new Error(`Client index.html was not generated: ${clientSrc}`);
   }
+  await cp(clientSrc, clientDest, { recursive: true });
+  console.log("✅ Client assets copied to api-server/dist/public/");
 
   // ── 6. esbuild API server ─────────────────────────────────────────────────
   console.log("\n🔨 Building Express API server…");
