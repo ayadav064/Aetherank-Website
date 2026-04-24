@@ -19,7 +19,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
 import { existsSync, readFileSync } from "fs";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { dirname } from "path";
 import router, { sitemapRouter } from "./routes";
 import { logger } from "./lib/logger";
@@ -226,13 +226,13 @@ async function loadSsrRenderer(distDir: string): Promise<RenderFn | null> {
   }
 
   try {
-    const mod = await import(ssrEntry);
+    const mod = await import(pathToFileURL(ssrEntry).href);
     ssrRender = mod.render as RenderFn;
     logger.info({ ssrEntry }, "✅ Vite SSR renderer loaded");
     return ssrRender;
   } catch (err) {
     ssrLoadError = err as Error;
-    logger.error({ err }, "Failed to load SSR renderer — falling back");
+    logger.error({ err }, "Failed to load SSR renderer");
     return null;
   }
 }
@@ -288,18 +288,25 @@ if (isProduction) {
           appHtml = result.html;
           serverHeadTags = result.headTags; // includes window.__INITIAL_CMS__ script
         }
-        // else: fall through with empty appHtml — client hydrates as SPA
-        // (meta/schema is still injected via buildHeadTags below)
+
+        if (!renderer) {
+          res.setHeader("X-SSR", "unavailable");
+          return res
+            .status(503)
+            .type("text/plain")
+            .send("SSR renderer unavailable");
+        }
 
         const headInjection = buildHeadTags(pageSeo, pagePath, serverHeadTags);
         const html = assembleHtml(baseHtml, appHtml, headInjection, pageSeo);
 
         res.setHeader("Cache-Control", "no-store");
-        res.setHeader("X-SSR", renderer ? "full" : "meta-only");
+        res.setHeader("X-SSR", "full");
         return res.type("html").send(html);
       } catch (err) {
-        logger.error({ err, pagePath }, "SSR render error — sending base HTML");
-        return res.type("html").send(baseHtml);
+        logger.error({ err, pagePath }, "SSR render error");
+        res.setHeader("X-SSR", "error");
+        return res.status(500).type("text/plain").send("SSR render failed");
       }
     });
 
