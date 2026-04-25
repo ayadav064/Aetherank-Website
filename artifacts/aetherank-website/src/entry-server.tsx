@@ -10,26 +10,76 @@
 
 // ─── Browser API polyfills (must be before any component import) ─────────────
 
+// Reusable no-op DOM element stub — framer-motion calls addEventListener on
+// document.body, document.documentElement, and ad-hoc elements during layout
+// projection setup. Every stub must have it or SSR blows up.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const domElementStub = (): any => ({
+  style: {},
+  classList: { add: () => {}, remove: () => {}, contains: () => false, toggle: () => {} },
+  setAttribute: () => {},
+  getAttribute: () => null,
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+  getBoundingClientRect: () => ({ top: 0, left: 0, bottom: 0, right: 0, width: 0, height: 0, x: 0, y: 0 }),
+  offsetWidth: 0,
+  offsetHeight: 0,
+  nodeType: 1,
+  childNodes: [],
+  appendChild: () => {},
+  removeChild: () => {},
+  contains: () => false,
+  ownerDocument: null as unknown,
+});
+
 if (typeof globalThis.window === "undefined") {
-  // Minimal window stub — just enough to stop framer-motion from throwing
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (globalThis as any).window = globalThis;
 }
 
-if (typeof globalThis.document === "undefined") {
+// window needs event methods too (motion-dom calls window.addEventListener)
+if (typeof (globalThis as any).addEventListener === "undefined") {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (globalThis as any).document = {
-    createElement: () => ({ style: {}, setAttribute: () => {}, addEventListener: () => {} }),
-    createElementNS: () => ({ style: {}, setAttribute: () => {}, addEventListener: () => {} }),
+  (globalThis as any).addEventListener = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).removeEventListener = () => {};
+}
+
+if (typeof (globalThis as any).getComputedStyle === "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).getComputedStyle = () => ({
+    getPropertyValue: () => "",
+    setProperty: () => {},
+  });
+}
+
+if (typeof globalThis.document === "undefined") {
+  const body = domElementStub();
+  const documentElement = domElementStub();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doc: any = {
+    createElement: domElementStub,
+    createElementNS: domElementStub,
+    createTextNode: () => ({ nodeType: 3 }),
     querySelector: () => null,
     querySelectorAll: () => [],
     getElementById: () => null,
-    body: { style: {}, classList: { add: () => {}, remove: () => {}, contains: () => false } },
-    head: { appendChild: () => {} },
+    getElementsByTagName: () => [],
+    body,
+    documentElement,
+    head: { appendChild: () => {}, querySelector: () => null },
     title: "",
     addEventListener: () => {},
     removeEventListener: () => {},
+    dispatchEvent: () => false,
+    readyState: "complete",
+    visibilityState: "visible",
   };
+  body.ownerDocument = doc;
+  documentElement.ownerDocument = doc;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).document = doc;
 }
 
 if (typeof globalThis.navigator === "undefined") {
