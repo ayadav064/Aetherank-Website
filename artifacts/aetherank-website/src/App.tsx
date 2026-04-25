@@ -11,7 +11,8 @@
  *
  * DEPLOY TO: artifacts/aetherank-website/src/App.tsx
  */
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
+import { useState, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -119,12 +120,24 @@ function Router() {
   );
 }
 
+/** Renders children only on the client — never during SSR. */
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <>{children}</>;
+}
+
 export default function App({ initialCmsData }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <CmsProvider initialData={initialCmsData}>
         <TooltipProvider>
-          <SeoManager />
+          {/* SeoManager uses useLocation() which requires a browser environment.
+              ClientOnly ensures it never renders during SSR. */}
+          <ClientOnly>
+            <SeoManager />
+          </ClientOnly>
           <Router />
           <Toaster />
         </TooltipProvider>
