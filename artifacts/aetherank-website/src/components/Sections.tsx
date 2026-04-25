@@ -1792,7 +1792,7 @@ export function Footer() {
               <ul className="space-y-4">
                 {col.links.map((link) => (
                   <li key={link.path}>
-                    <Link href={link.path} className="hover:text-primary transition-colors">
+                    <Link href={link.path} className="text-slate-300 hover:text-emerald-400 transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -1809,7 +1809,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Mumbai</span>
+                  <span className="block text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-0.5">Mumbai</span>
                   <span>{contact.address_1}</span>
                 </div>
               </li>
@@ -1817,7 +1817,7 @@ export function Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">Virar</span>
+                    <span className="block text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-0.5">Virar</span>
                     <span>{contact.address_2}</span>
                   </div>
                 </li>
@@ -1826,7 +1826,7 @@ export function Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <span className="block text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">USA</span>
+                    <span className="block text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-0.5">USA</span>
                     <span>{contact.address_3}</span>
                   </div>
                 </li>
@@ -1848,7 +1848,7 @@ export function Footer() {
 
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
           <p>© 2026 Aetherank.</p>
           <div className="flex gap-6">
             <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
