@@ -1054,7 +1054,7 @@ export function Services() {
                 </p>
                 <Link
                   href={service.link}
-                  className="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition-colors group/btn"
+                  className="inline-flex items-center text-slate-900 font-semibold hover:text-slate-600 transition-colors group/btn"
                 >
                   Learn More
                   <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
