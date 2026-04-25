@@ -992,11 +992,28 @@ const SERVICE_ICONS = [
   <ShieldCheck className="w-6 h-6" />,
 ];
 
+// Each service gets a distinct color identity: [iconBg, iconText, iconBorder, titleColor, hoverBorder, hoverShadow]
+const SERVICE_COLORS = [
+  // SEO — emerald
+  { iconBg: "bg-emerald-50",   iconText: "text-emerald-600",  iconBorder: "border-emerald-200", title: "text-emerald-700",  cardHover: "hover:border-emerald-300 hover:shadow-emerald-100" },
+  // PPC — blue
+  { iconBg: "bg-blue-50",      iconText: "text-blue-600",     iconBorder: "border-blue-200",    title: "text-blue-700",    cardHover: "hover:border-blue-300   hover:shadow-blue-100"   },
+  // Social Media — violet
+  { iconBg: "bg-violet-50",    iconText: "text-violet-600",   iconBorder: "border-violet-200",  title: "text-violet-700",  cardHover: "hover:border-violet-300 hover:shadow-violet-100" },
+  // Web Design — amber
+  { iconBg: "bg-amber-50",     iconText: "text-amber-600",    iconBorder: "border-amber-200",   title: "text-amber-700",   cardHover: "hover:border-amber-300  hover:shadow-amber-100"  },
+  // Content — rose
+  { iconBg: "bg-rose-50",      iconText: "text-rose-600",     iconBorder: "border-rose-200",    title: "text-rose-700",    cardHover: "hover:border-rose-300   hover:shadow-rose-100"   },
+  // Reputation — teal
+  { iconBg: "bg-teal-50",      iconText: "text-teal-600",     iconBorder: "border-teal-200",    title: "text-teal-700",    cardHover: "hover:border-teal-300   hover:shadow-teal-100"   },
+];
+
 export function Services() {
   const { openModal } = useContactModal();
   const servicesSection = useServicesSection();
   const services = servicesSection.cards.map((c, i) => ({
     icon: SERVICE_ICONS[i % SERVICE_ICONS.length],
+    colors: SERVICE_COLORS[i % SERVICE_COLORS.length],
     title: c.title,
     desc: c.desc,
     link: c.link,
@@ -1019,11 +1036,11 @@ export function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className="group h-full bg-white rounded-2xl p-8 border border-slate-200 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-white border border-slate-200 text-slate-700 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">
+              <div className={`group h-full bg-white rounded-2xl p-8 border border-slate-200 hover:shadow-xl transition-all duration-300 ${service.colors.cardHover}`}>
+                <div className={`w-14 h-14 rounded-xl border flex items-center justify-center mb-6 transition-colors ${service.colors.iconBg} ${service.colors.iconText} ${service.colors.iconBorder}`}>
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                <h3 className={`text-xl font-bold mb-3 ${service.colors.title}`}>{service.title}</h3>
                 <p className="text-slate-600 mb-6 leading-relaxed">
                   {service.desc}
                 </p>
