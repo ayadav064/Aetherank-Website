@@ -10,30 +10,34 @@ import NotFound from "@/pages/not-found";
 const SITE = "https://aetherank.in";
 const DEFAULT_IMAGE = `${SITE}/opengraph.jpg`;
 
+// All document.* helpers are client-only — guard every call.
 function setMetaName(name: string, content: string) {
-  if (!content) return;
+  if (!content || typeof document === "undefined") return;
   let el = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
   if (!el) { el = document.createElement("meta"); el.name = name; document.head.appendChild(el); }
   el.content = content;
 }
 function setMetaProp(property: string, content: string) {
-  if (!content) return;
+  if (!content || typeof document === "undefined") return;
   let el = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`);
   if (!el) { el = document.createElement("meta"); el.setAttribute("property", property); document.head.appendChild(el); }
   el.content = content;
 }
 function setCanonical(href: string) {
+  if (typeof document === "undefined") return;
   let el = document.querySelector<HTMLLinkElement>(`link[rel="canonical"]`);
   if (!el) { el = document.createElement("link"); el.rel = "canonical"; document.head.appendChild(el); }
   el.href = href;
 }
 function injectBlogSchema(json: string) {
+  if (typeof document === "undefined") return;
   const ID = "aetherank-blog-post-schema";
   let el = document.getElementById(ID);
   if (!el) { el = document.createElement("script"); el.id = ID; el.setAttribute("type", "application/ld+json"); document.head.appendChild(el); }
   el.textContent = json;
 }
 function removeBlogSchema() {
+  if (typeof document === "undefined") return;
   document.getElementById("aetherank-blog-post-schema")?.remove();
   document.getElementById("aetherank-faq-schema-ld")?.remove();
 }
@@ -48,31 +52,11 @@ interface PostSeoData {
   category?: string;
 }
 
-function applyPostSeo({ title, excerpt, slug, image, author, date, category }: PostSeoData) {
+/** Build the BlogPosting JSON-LD object (used both server-side and client-side) */
+function buildBlogSchema({ title, excerpt, slug, image, author, date, category }: PostSeoData) {
   const url = `${SITE}/blog/${slug}`;
   const img = image || DEFAULT_IMAGE;
-  const fullTitle = `${title} | Aetherank`;
-
-  document.title = fullTitle;
-  setMetaName("description", excerpt);
-  setMetaName("keywords", `${category ?? "digital marketing"}, aetherank blog, marketing insights india`);
-  setCanonical(url);
-
-  setMetaProp("og:type", "article");
-  setMetaProp("og:title", fullTitle);
-  setMetaProp("og:description", excerpt);
-  setMetaProp("og:url", url);
-  setMetaProp("og:image", img);
-  setMetaProp("og:site_name", "Aetherank");
-  setMetaProp("og:locale", "en_IN");
-
-  setMetaName("twitter:card", "summary_large_image");
-  setMetaName("twitter:site", "@aetherank");
-  setMetaName("twitter:title", fullTitle);
-  setMetaName("twitter:description", excerpt);
-  setMetaName("twitter:image", img);
-
-  injectBlogSchema(JSON.stringify({
+  return JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": title,
@@ -91,7 +75,33 @@ function applyPostSeo({ title, excerpt, slug, image, author, date, category }: P
     "mainEntityOfPage": { "@type": "WebPage", "@id": url },
     "articleSection": category ?? "Digital Marketing",
     "inLanguage": "en-IN",
-  }));
+  });
+}
+
+function applyPostSeo(data: PostSeoData) {
+  // Client-only: update live DOM meta tags on navigation
+  const { title, excerpt, slug, image, category } = data;
+  const url = `${SITE}/blog/${slug}`;
+  const img = image || DEFAULT_IMAGE;
+  const fullTitle = `${title} | Aetherank`;
+
+  if (typeof document !== "undefined") document.title = fullTitle;
+  setMetaName("description", excerpt);
+  setMetaName("keywords", `${category ?? "digital marketing"}, aetherank blog, marketing insights india`);
+  setCanonical(url);
+  setMetaProp("og:type", "article");
+  setMetaProp("og:title", fullTitle);
+  setMetaProp("og:description", excerpt);
+  setMetaProp("og:url", url);
+  setMetaProp("og:image", img);
+  setMetaProp("og:site_name", "Aetherank");
+  setMetaProp("og:locale", "en_IN");
+  setMetaName("twitter:card", "summary_large_image");
+  setMetaName("twitter:site", "@aetherank");
+  setMetaName("twitter:title", fullTitle);
+  setMetaName("twitter:description", excerpt);
+  setMetaName("twitter:image", img);
+  injectBlogSchema(buildBlogSchema(data));
 }
 
 function renderContent(line: string, index: number) {
@@ -135,21 +145,34 @@ function ApiPostContent({ post }: { post: BlogPost }) {
         .map((block) => block.trim())
         .filter(Boolean);
 
+  const seoData: PostSeoData = {
+    title: post.title,
+    excerpt: post.excerpt || post.content.replace(/<[^>]+>/g, "").slice(0, 160),
+    slug: post.slug,
+    image: post.image,
+    author: post.author,
+    date: post.date,
+    category: post.category,
+  };
+
+  // Client-only: update DOM meta tags when post changes
   useEffect(() => {
-    applyPostSeo({
-      title: post.title,
-      excerpt: post.excerpt || post.content.replace(/<[^>]+>/g, "").slice(0, 160),
-      slug: post.slug,
-      image: post.image,
-      author: post.author,
-      date: post.date,
-      category: post.category,
-    });
+    applyPostSeo(seoData);
     return () => removeBlogSchema();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
+
+  const schemaJson = buildBlogSchema(seoData);
 
   return (
     <Layout>
+      {/* Inline JSON-LD rendered in JSX so SSR sends it to crawlers.
+          The useEffect above keeps it updated on client-side navigation. */}
+      <script
+        type="application/ld+json"
+        id="aetherank-blog-post-schema"
+        dangerouslySetInnerHTML={{ __html: schemaJson }}
+      />
       <div className="bg-white">
         {/* Hero */}
         <div className="relative h-[460px] sm:h-[520px] overflow-hidden">
@@ -249,21 +272,31 @@ export default function BlogPostPage() {
 }
 
 function StaticPostContent({ slug, article }: { slug: string; article: Article }) {
+  const seoData: PostSeoData = {
+    title: article.title,
+    excerpt: article.excerpt,
+    slug,
+    image: article.image,
+    author: article.author,
+    date: article.date,
+    category: article.category,
+  };
+
   useEffect(() => {
-    applyPostSeo({
-      title: article.title,
-      excerpt: article.excerpt,
-      slug,
-      image: article.image,
-      author: article.author,
-      date: article.date,
-      category: article.category,
-    });
+    applyPostSeo(seoData);
     return () => removeBlogSchema();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article, slug]);
+
+  const schemaJson = buildBlogSchema(seoData);
 
   return (
     <Layout>
+      <script
+        type="application/ld+json"
+        id="aetherank-blog-post-schema"
+        dangerouslySetInnerHTML={{ __html: schemaJson }}
+      />
       <div className="bg-white">
         <div className="relative h-[460px] sm:h-[520px] overflow-hidden">
           <img
