@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { 
   Hero,
@@ -14,14 +13,10 @@ import {
 } from "@/components/Sections";
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Aetherank | Top Digital Marketing Agency in India";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "Scale your business with Aetherank, India's trusted AI-powered digital marketing agency based in India. We specialize in SEO, GEO, PPC, Social Media, and Web Design & Development.");
-    }
-  }, []);
-
+  // NOTE: title & meta are set server-side by app.ts (SSR) and updated
+  // client-side by SeoManager. Do NOT set document.title here — it fires
+  // after hydration and overwrites the SSR-injected value with a stale string,
+  // causing a flash and breaking hydration consistency.
   return (
     <Layout>
       <div className="-mt-[88px]"> {/* Adjust for layout padding to let hero go under nav */}
