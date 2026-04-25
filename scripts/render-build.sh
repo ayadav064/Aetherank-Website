@@ -4,9 +4,11 @@ set -euo pipefail
 echo "==> Installing pnpm..."
 npm install -g pnpm
 
-echo "==> Clearing stale pnpm stores..."
-rm -rf /opt/render/project/src/.pnpm-store 2>/dev/null || true
-pnpm store path 2>/dev/null | xargs rm -rf 2>/dev/null || true
+echo "==> Forcing clean pnpm state..."
+# Delete stale lockfile — checksums baked in are wrong (packages republished on npm)
+rm -f pnpm-lock.yaml
+# Use /tmp as store — guaranteed empty on every Render build, never cached
+pnpm config set store-dir /tmp/pnpm-store
 
 echo "==> Installing workspace dependencies..."
 pnpm install --no-frozen-lockfile --shamefully-hoist
