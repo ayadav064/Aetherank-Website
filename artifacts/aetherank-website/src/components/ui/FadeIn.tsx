@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface FadeInProps {
@@ -9,6 +9,9 @@ interface FadeInProps {
   fullWidth?: boolean;
 }
 
+// Detect SSR: typeof window is undefined on the server.
+const isServer = typeof window === "undefined";
+
 export function FadeIn({ 
   children, 
   delay = 0, 
@@ -16,6 +19,8 @@ export function FadeIn({
   className = "",
   fullWidth = false
 }: FadeInProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   const directions = {
     up: { y: 30, x: 0 },
     down: { y: -30, x: 0 },
@@ -23,6 +28,17 @@ export function FadeIn({
     right: { x: -30, y: 0 },
     none: { x: 0, y: 0 }
   };
+
+  // On the server (SSR) or when user prefers reduced motion:
+  // render children immediately visible so crawlers see full content
+  // and hydration matches the SSR output without a flash.
+  if (isServer || prefersReducedMotion) {
+    return (
+      <div className={`${fullWidth ? "w-full" : ""} ${className}`}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div
