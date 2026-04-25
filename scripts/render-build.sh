@@ -4,17 +4,19 @@ set -euo pipefail
 echo "==> Installing pnpm..."
 npm install -g pnpm
 
-echo "==> Deleting corrupted lockfile..."
-# pnpm-lock.yaml has stale checksums from packages republished on npm.
-# Deleting it forces pnpm to resolve and download everything fresh.
-rm -f pnpm-lock.yaml
-
 echo "==> Installing workspace dependencies..."
-pnpm install --no-frozen-lockfile --store-dir /opt/render/project/src/.pnpm-store
+# Use a fresh store dir inside the project — bypasses Render's cached store
+# which may have stale checksums from republished npm packages.
+# --shamefully-hoist puts all packages in node_modules so vite binary is
+# accessible at node_modules/.bin/vite without needing pnpm exec.
+pnpm install \
+  --no-frozen-lockfile \
+  --store-dir /opt/render/project/src/.pnpm-store \
+  --shamefully-hoist
 
 echo "==> Building frontend, SSR renderer, and backend..."
 cd artifacts/api-server
-BASE_PATH=/ NODE_ENV=production pnpm run build
+BASE_PATH=/ NODE_ENV=production node build.mjs
 cd ../..
 
 echo "==> Checking SSR output..."
