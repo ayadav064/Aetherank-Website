@@ -13,6 +13,14 @@ import App from "./App";
 import "./index.css";
 
 // __INITIAL_CMS__ is injected by the server into the HTML.
-// The CmsProvider reads this via window.__INITIAL_CMS__ to avoid
-// a loading flash and ensure hydration matches SSR output exactly.
-hydrateRoot(document.getElementById("root")!, <App />);
+// Pass it explicitly so the CmsProvider's initial useState() matches
+// the SSR render exactly — prevents a hydration mismatch / content flash.
+const initialCmsData =
+  (window as unknown as Record<string, unknown>).__INITIAL_CMS__ as
+  | Record<string, unknown>
+  | undefined;
+
+hydrateRoot(
+  document.getElementById("root")!,
+  <App initialCmsData={initialCmsData} />
+);
