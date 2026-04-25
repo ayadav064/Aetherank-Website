@@ -18,8 +18,8 @@ const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const websiteDir  = path.resolve(artifactDir, "../aetherank-website");
 const distDir     = path.resolve(artifactDir, "dist");
 
-// Call vite binary directly — never pnpm exec (needs lockfile)
-const viteBin = path.resolve(websiteDir, "node_modules/.bin/vite");
+// Use vite's actual JS entry, not the shell wrapper at .bin/vite
+const viteBin = path.resolve(websiteDir, "node_modules/vite/bin/vite.js");
 
 function vite(env = {}) {
   execSync(`node "${viteBin}" build --config vite.config.ts`, {
