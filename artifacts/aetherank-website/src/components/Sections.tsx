@@ -434,7 +434,7 @@ export function AIAdvantage() {
                     <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
                       <TrendingUp className="w-3 h-3 text-emerald-400" />
                       <span className="text-emerald-400 font-black text-sm">{s.stat}</span>
-                      <span className="text-slate-500 text-xs">{s.statLabel}</span>
+                      <span className="text-slate-300 text-xs">{s.statLabel}</span>
                     </div>
                   </div>
                 </div>
@@ -744,7 +744,7 @@ export function LocalSEOChecklist() {
 
                 {/* Actions */}
                 <div className="px-5 py-5 border-b border-white/[0.07]">
-                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">
                     20% Actions <span className="text-emerald-500">(Do First)</span>
                   </p>
                   <ul className="space-y-2.5 mb-4">
@@ -762,7 +762,7 @@ export function LocalSEOChecklist() {
 
                 {/* Why it matters */}
                 <div className="px-5 py-4">
-                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">Why It Matters</p>
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">Why It Matters</p>
                   <p className="text-slate-400 text-sm leading-relaxed mb-3">{row.why}</p>
                   <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-slate-400">
                     Proven by data
@@ -777,11 +777,11 @@ export function LocalSEOChecklist() {
 
             {/* Table header */}
             <div className="grid grid-cols-[160px_1fr_1fr] bg-white/[0.04] border-b border-white/10">
-              <div className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Bucket</div>
-              <div className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-l border-white/10">
+              <div className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Bucket</div>
+              <div className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-l border-white/10">
                 20% Actions <span className="text-emerald-500">(Do First)</span>
               </div>
-              <div className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-l border-white/10">Why It Matters</div>
+              <div className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest border-l border-white/10">Why It Matters</div>
             </div>
 
             {/* Rows */}
@@ -1148,11 +1148,11 @@ export function CaseStudies() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div>
                         <div className="text-2xl font-black text-primary">{item.metric1}</div>
-                        <div className="text-xs font-medium text-slate-500 uppercase tracking-wide mt-1">{item.label1}</div>
+                        <div className="text-xs font-medium text-slate-400 uppercase tracking-wide mt-1">{item.label1}</div>
                       </div>
                       <div>
                         <div className="text-2xl font-black text-slate-900">{item.metric2}</div>
-                        <div className="text-xs font-medium text-slate-500 uppercase tracking-wide mt-1">{item.label2}</div>
+                        <div className="text-xs font-medium text-slate-400 uppercase tracking-wide mt-1">{item.label2}</div>
                       </div>
                     </div>
                     <div className="text-sm font-semibold text-primary group-hover:translate-x-2 transition-transform inline-flex items-center">
