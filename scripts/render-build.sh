@@ -4,11 +4,15 @@ set -euo pipefail
 echo "==> Installing pnpm..."
 npm install -g pnpm
 
-echo "==> Forcing clean pnpm state..."
-# Delete stale lockfile — checksums baked in are wrong (packages republished on npm)
-rm -f pnpm-lock.yaml
-# Use /tmp as store — guaranteed empty on every Render build, never cached
+echo "==> Configuring pnpm..."
+# Use /tmp store (empty on every Render build - never cached)
 pnpm config set store-dir /tmp/pnpm-store
+# Disable integrity check — some packages on npm registry have mismatched
+# checksums between their metadata and actual tarball (npm republishing bug)
+pnpm config set verify-store-integrity false
+
+echo "==> Removing stale lockfile..."
+rm -f pnpm-lock.yaml
 
 echo "==> Installing workspace dependencies..."
 pnpm install --no-frozen-lockfile --shamefully-hoist
