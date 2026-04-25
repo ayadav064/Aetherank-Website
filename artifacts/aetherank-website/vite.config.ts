@@ -91,11 +91,14 @@ export default defineConfig({
       },
 
   ssr: {
-    // Bundle wouter so Vite processes its ESM exports correctly
-    noExternal: ["wouter", "framer-motion"],
-    // recharts uses browser canvas — exclude it; components using it must
-    // guard with typeof window !== 'undefined' or lazy-load client-side
-    external: ["recharts"],
+    // Bundle wouter so Vite resolves its conditional ESM exports correctly
+    noExternal: ["wouter"],
+    // framer-motion reads window/document at module-evaluation time when
+    // bundled by Vite SSR (it does feature-detection in its module root).
+    // Keeping it external means Node loads it as a real ESM package whose
+    // own package.json conditions pick the server-safe code path.
+    // recharts uses browser canvas — also must stay external.
+    external: ["framer-motion", "recharts"],
   },
 
   server: {
