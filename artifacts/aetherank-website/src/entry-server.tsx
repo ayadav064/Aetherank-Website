@@ -1,16 +1,7 @@
-/**
- * entry-server.tsx
- *
- * Vite SSR server entrys. This file runs on Node.js (inside Express)
- * and exports a single `render()` function that returns the full
- * HTML string for a given URL.
- *
- * DEPLOY TO: artifacts/aetherank-website/src/entry-server.tsx
- */
 import { renderToString } from "react-dom/server";
-import { Router as WouterRouter } from "wouter";
+import { Router } from "wouter";
 import { memoryLocation } from "wouter/memory-location";
-// NOTE: do NOT import index.css here — Node cannot process CSS files
+import App from "./App";
 
 export interface RenderResult {
   html: string;
@@ -21,30 +12,16 @@ export async function render(
   url: string,
   initialCmsData?: Record<string, unknown>
 ): Promise<RenderResult> {
-  const { hook, searchHook } = memoryLocation({ path: url, static: true });
-
-  // Dynamically import App to avoid CSS/browser-only top-level side effects
-  const { default: App } = await import("./App");
-
-  // framer-motion's whileInView uses IntersectionObserver which doesn't exist
-  // in Node. Setting this env var makes framer-motion skip viewport detection
-  // and render elements in their final (visible) state during SSR.
-  process.env.FRAMER_MOTION_SSR = "true";
+  const { hook } = memoryLocation({ path: url, static: true });
 
   const appHtml = renderToString(
-    // WouterRouter provides location context for the Switch/Route inside App
-    <WouterRouter hook={hook} searchHook={searchHook}>
-      {/* App creates its own QueryClientProvider — do NOT double-wrap here */}
+    <Router hook={hook}>
       <App initialCmsData={initialCmsData} />
-    </WouterRouter>
+    </Router>
   );
 
-  // Serialise CMS data so the client can hydrate without a round-trip fetch
-  const serializedCmsData = initialCmsData
-    ? JSON.stringify(initialCmsData).replace(/</g, "\\u003c")
-    : "";
-  const cmsScript = serializedCmsData
-    ? `<script>window.__INITIAL_CMS__ = ${serializedCmsData};</script>`
+  const cmsScript = initialCmsData
+    ? `<script>window.__INITIAL_CMS__=${JSON.stringify(initialCmsData).replace(/</g, "\\u003c")};</script>`
     : "";
 
   return { html: appHtml, headTags: cmsScript };
