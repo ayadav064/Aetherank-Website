@@ -4,11 +4,12 @@ set -euo pipefail
 echo "==> Installing pnpm..."
 npm install -g pnpm
 
-echo "==> Removing stale lockfile and pnpm store..."
-rm -f pnpm-lock.yaml
-rm -rf /root/.local/share/pnpm/store
-rm -rf /opt/render/project/src/.pnpm-store
-rm -rf ~/.pnpm-store
+echo "==> Removing stale lockfile and pnpm stores..."
+rm -f pnpm-lock.yaml || true
+rm -rf /root/.local/share/pnpm/store 2>/dev/null || true
+rm -rf /opt/render/project/src/.pnpm-store 2>/dev/null || true
+rm -rf ~/.pnpm-store 2>/dev/null || true
+rm -rf "$(pnpm store path 2>/dev/null)" 2>/dev/null || true
 
 echo "==> Installing workspace dependencies..."
 pnpm install --no-frozen-lockfile
