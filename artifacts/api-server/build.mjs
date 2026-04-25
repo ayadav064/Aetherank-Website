@@ -45,17 +45,16 @@ async function buildAll() {
 
   // 2. SSR build
   console.log("\n🔨 SSR build…");
-  try {
-    vite({ BUILD_SSR: "1" });
-    await cp(
-      path.resolve(websiteDir, "dist/server"),
-      path.resolve(distDir, "server"),
-      { recursive: true }
-    );
-    console.log("✅ dist/server/entry-server.mjs");
-  } catch (e) {
-    console.warn("⚠️  SSR build failed — site falls back to SPA+meta:", e.message);
-  }
+  // NOTE: do NOT wrap in try/catch here. If the SSR build fails, the deploy
+  // must fail loudly so Render shows the error in the build log.
+  // A silent fallback means the old broken SPA gets promoted to production.
+  vite({ BUILD_SSR: "1" });
+  await cp(
+    path.resolve(websiteDir, "dist/server"),
+    path.resolve(distDir, "server"),
+    { recursive: true }
+  );
+  console.log("✅ dist/server/entry-server.mjs");
 
   // 3. API server
   console.log("\n🔨 Express API server…");
