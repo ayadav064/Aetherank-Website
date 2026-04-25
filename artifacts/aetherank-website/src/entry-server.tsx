@@ -77,7 +77,7 @@ if (typeof globalThis.matchMedia === "undefined") {
 
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
-import { memoryLocation } from "wouter/memory-location";
+import { staticLocation } from "wouter/static-location";
 import App from "./App";
 
 export interface RenderResult {
@@ -89,7 +89,7 @@ export async function render(
   url: string,
   initialCmsData?: Record<string, unknown>
 ): Promise<RenderResult> {
-  const { hook } = memoryLocation({ path: url, static: true });
+  const hook = staticLocation(url);
 
   const appHtml = renderToString(
     <Router hook={hook}>
