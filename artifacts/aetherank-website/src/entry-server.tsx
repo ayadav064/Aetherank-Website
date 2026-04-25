@@ -26,6 +26,11 @@ export async function render(
   // Dynamically import App to avoid CSS/browser-only top-level side effects
   const { default: App } = await import("./App");
 
+  // framer-motion's whileInView uses IntersectionObserver which doesn't exist
+  // in Node. Setting this env var makes framer-motion skip viewport detection
+  // and render elements in their final (visible) state during SSR.
+  process.env.FRAMER_MOTION_SSR = "true";
+
   const appHtml = renderToString(
     // WouterRouter provides location context for the Switch/Route inside App
     <WouterRouter hook={hook} searchHook={searchHook}>
