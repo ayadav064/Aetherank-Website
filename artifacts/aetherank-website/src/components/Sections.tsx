@@ -512,7 +512,7 @@ export function SEOvsGEO() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
         {/* Section heading */}
-        <div className="text-center mb-12">
+        <div className="text-left mb-12">
           <FadeIn>
             <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-sm px-4 py-2 rounded-full mb-6">
               <Zap className="w-3.5 h-3.5 fill-current" /> The Future of Search
@@ -521,7 +521,7 @@ export function SEOvsGEO() {
               Generative Engine Optimization:<br className="hidden sm:block" />
               <span className="text-emerald-500"> The New SEO</span>
             </h2>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto">
+            <p className="text-slate-600 text-lg max-w-3xl">
               AI-powered search is transforming how people discover content—and GEO is quickly becoming the must-have capability for 2026. While traditional SEO chases keywords, GEO is built for AI-driven answer engines like ChatGPT, Perplexity, and Google's AI Overviews. With only{" "}
               <span className="text-emerald-600 font-bold">12%</span> of agencies offering GEO today, this is a rare white-space opportunity with surging demand.
             </p>
