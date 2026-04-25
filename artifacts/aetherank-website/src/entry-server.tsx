@@ -77,12 +77,26 @@ if (typeof globalThis.matchMedia === "undefined") {
 
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
-import { staticLocation } from "wouter/static-location";
 import App from "./App";
 
 export interface RenderResult {
   html: string;
   headTags: string;
+}
+
+/**
+ * A minimal static location hook for wouter SSR.
+ *
+ * wouter's built-in memoryLocation uses useSyncExternalStore without
+ * providing getServerSnapshot, which React 18's renderToString requires.
+ * This hook avoids the external store entirely — it just returns the URL
+ * as a constant, which is all SSR needs.
+ */
+function staticLocation(url: string) {
+  // Strip query string / hash — wouter only needs the pathname
+  const path = url.split("?")[0].split("#")[0] || "/";
+  // Hook signature: () => [currentPath, navigate]
+  return (): [string, (to: string) => void] => [path, () => {}];
 }
 
 export async function render(
