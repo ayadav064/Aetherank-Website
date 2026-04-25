@@ -2,8 +2,8 @@
  * SeoManager.tsx
  *
  * Manages client-side SEO tag updates on route changes.
- * All document.* calls are INSIDE useEffect — they never execute on the server.
- * The server (app.ts) handles SSR head injection directly from the DB.
+ * Never rendered during SSR — wrapped in <ClientOnly> in App.tsx.
+ * All document.* calls are inside useEffect (browser-only).
  */
 import { useEffect } from "react";
 import { useLocation } from "wouter";
@@ -20,7 +20,6 @@ export default function SeoManager() {
   useEffect(() => {
     if (loading) return;
 
-    // All document.* calls are inside useEffect — safe: never runs on Node.
     function setMeta(name: string, content: string) {
       if (!content) return;
       let el = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
@@ -74,7 +73,6 @@ export default function SeoManager() {
     if (pageSeo.keywords) setMeta("keywords", pageSeo.keywords);
 
     setCanonical(canonicalUrl || SITE_ORIGIN);
-
     setOgMeta("og:title", pageSeo.title);
     setOgMeta("og:description", pageSeo.description);
     setOgMeta("og:url", canonicalUrl || SITE_ORIGIN);
@@ -85,7 +83,6 @@ export default function SeoManager() {
     setOgMeta("og:image:width", "1200");
     setOgMeta("og:image:height", "630");
     setOgMeta("og:image:alt", "Aetherank Digital Marketing Agency");
-
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:site", "@aetherank");
     setMeta("twitter:title", pageSeo.title);
@@ -93,24 +90,15 @@ export default function SeoManager() {
     setMeta("twitter:image", DEFAULT_OG_IMAGE);
 
     if (pageSeo.schema) {
-      try {
-        JSON.parse(pageSeo.schema);
-        injectSchema(pageSeo.schema);
-      } catch {
-        console.warn("Invalid schema JSON for", location);
-      }
+      try { JSON.parse(pageSeo.schema); injectSchema(pageSeo.schema); }
+      catch { console.warn("Invalid schema JSON for", location); }
     }
 
     if (pageSeo.faq_schema) {
-      try {
-        JSON.parse(pageSeo.faq_schema);
-        injectSchema(pageSeo.faq_schema, "aetherank-faq-schema-ld");
-      } catch {
-        console.warn("Invalid FAQ schema JSON for", location);
-      }
+      try { JSON.parse(pageSeo.faq_schema); injectSchema(pageSeo.faq_schema, "aetherank-faq-schema-ld"); }
+      catch { console.warn("Invalid FAQ schema JSON for", location); }
     } else {
-      const existing = document.getElementById("aetherank-faq-schema-ld");
-      if (existing) existing.remove();
+      document.getElementById("aetherank-faq-schema-ld")?.remove();
     }
   }, [location, settings, loading]);
 
