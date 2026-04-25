@@ -1057,7 +1057,7 @@ export function WhyChooseUs() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 {wcu.headline}
               </h2>
-              <p className="text-slate-400 text-lg mb-10">
+              <p className="text-slate-300 text-lg mb-10">
                 {wcu.subheadline}
               </p>
             </FadeIn>
@@ -1071,7 +1071,7 @@ export function WhyChooseUs() {
                     </div>
                     <div>
                       <h4 className="text-white font-semibold text-lg">{item.title}</h4>
-                      <p className="text-slate-400 mt-1">{item.desc}</p>
+                      <p className="text-slate-300 mt-1">{item.desc}</p>
                     </div>
                   </div>
                 </FadeIn>
