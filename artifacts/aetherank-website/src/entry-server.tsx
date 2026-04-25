@@ -1,7 +1,7 @@
 /**
  * entry-server.tsx
  *
- * Vite SSR server entry. This file runs on Node.js (inside Express)
+ * Vite SSR server entrys. This file runs on Node.js (inside Express)
  * and exports a single `render()` function that returns the full
  * HTML string for a given URL.
  *
