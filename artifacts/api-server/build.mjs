@@ -1,6 +1,6 @@
 /**
  * build.mjs — Full build pipeline
- * 1. Vite client  → dist/public/
+ * 1. Vite clients  → dist/public/
  * 2. Vite SSR     → dist/server/entry-server.mjs
  * 3. esbuild      → dist/index.mjs (Express server)
  */
