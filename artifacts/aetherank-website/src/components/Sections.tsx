@@ -1096,20 +1096,29 @@ export function WhyChooseUs() {
               </p>
             </FadeIn>
             
-            <div className="space-y-6">
-              {wcu.features.map((item, i) => (
-                <FadeIn key={i} delay={0.1 * i}>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mt-1">
-                      <CheckCircle2 className="w-4 h-4" />
+            <div className="space-y-5">
+              {wcu.features.map((item, i) => {
+                const accents = [
+                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
+                  { border: "border-blue-500",    iconBg: "bg-blue-500/20",    iconText: "text-blue-400",    title: "text-blue-400"    },
+                  { border: "border-violet-500",  iconBg: "bg-violet-500/20",  iconText: "text-violet-400",  title: "text-violet-400"  },
+                  { border: "border-amber-500",   iconBg: "bg-amber-500/20",   iconText: "text-amber-400",   title: "text-amber-400"   },
+                ];
+                const a = accents[i % accents.length];
+                return (
+                  <FadeIn key={i} delay={0.1 * i}>
+                    <div className={`flex gap-4 pl-4 border-l-2 ${a.border}`}>
+                      <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-1 ${a.iconBg} ${a.iconText}`}>
+                        <CheckCircle2 className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h4 className={`font-semibold text-lg ${a.title}`}>{item.title}</h4>
+                        <p className="text-slate-300 mt-1">{item.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-lg">{item.title}</h4>
-                      <p className="text-slate-300 mt-1">{item.desc}</p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
+                  </FadeIn>
+                );
+              })}
             </div>
           </div>
 
