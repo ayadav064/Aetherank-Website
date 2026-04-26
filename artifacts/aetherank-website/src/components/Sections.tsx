@@ -4,7 +4,6 @@ import { articles } from "@/data/articles";
 import { FadeIn } from "./ui/FadeIn";
 import { Link } from "wouter";
 import { useContactModal } from "./ContactModalContext";
-import { motion } from "framer-motion";
 import {
   useHero,
   useCompanyStats,
@@ -125,10 +124,7 @@ export function Hero() {
           {/* ── LEFT ── */}
           <div>
             {/* Live badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+            <div
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm mb-7"
             >
               <span className="flex h-2 w-2 relative">
@@ -138,7 +134,7 @@ export function Hero() {
               <span className="text-xs font-bold text-emerald-700 tracking-wide uppercase">
                 #1 AI Marketing Agency in India
               </span>
-            </motion.div>
+            </div>
 
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
@@ -180,7 +176,7 @@ export function Hero() {
                 <div className="flex -space-x-2.5">
                   {avatarSeeds.map((src, i) => (
                     <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow ring-1 ring-slate-100">
-                      <img loading="lazy" decoding="async" src={src} alt="Client" className="w-full h-full object-cover" />
+                      <img src={src} alt="Client" width="36" height="36" decoding="async" className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -337,9 +333,7 @@ export function Hero() {
               </div>
 
               {/* Floating badge — top left */}
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              <div
                 className="absolute -left-5 top-10 bg-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 border border-slate-100"
               >
                 <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
@@ -349,17 +343,15 @@ export function Hero() {
                   <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Traffic Growth</p>
                   <p className="text-xl font-black text-slate-900">+340%</p>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Floating badge — bottom right */}
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+              <div
                 className="absolute -right-5 bottom-14 bg-emerald-500 rounded-2xl px-4 py-3 shadow-xl shadow-emerald-500/30"
               >
                 <p className="text-[10px] font-semibold text-emerald-100 uppercase tracking-wide">Leads This Month</p>
                 <p className="text-xl font-black text-white">+186 🚀</p>
-              </motion.div>
+              </div>
 
             </FadeIn>
           </div>
@@ -728,12 +720,7 @@ export function LocalSEOChecklist() {
           {/* MOBILE CARDS (hidden on md+) */}
           <div className="flex flex-col gap-4 md:hidden">
             {rows.map((row, i) => (
-              <motion.div
-                key={i}
-                initial={typeof window === "undefined" ? false : { opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+              <div
                 className="rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden"
               >
                 {/* Card header */}
@@ -768,7 +755,7 @@ export function LocalSEOChecklist() {
                     Proven by data
                   </span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -786,12 +773,7 @@ export function LocalSEOChecklist() {
 
             {/* Rows */}
             {rows.map((row, i) => (
-              <motion.div
-                key={i}
-                initial={typeof window === "undefined" ? false : { opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+              <div
                 className="grid grid-cols-[160px_1fr_1fr] border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.03] transition-colors duration-150"
               >
                 {/* Bucket */}
@@ -822,7 +804,7 @@ export function LocalSEOChecklist() {
                     Proven by data
                   </span>
                 </div>
-              </motion.div>
+              </div>
             ))}
 
           </div>
