@@ -1,5 +1,8 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { ReactNode } from "react";
+/**
+ * FadeIn — pure CSS + IntersectionObserver, zero framer-motion dependency.
+ * Eliminates framer-motion from the critical path entirely.
+ */
+import { useRef, useEffect, forwardRef, ReactNode } from "react";
 
 interface FadeInProps {
   children: ReactNode;
@@ -9,57 +12,58 @@ interface FadeInProps {
   fullWidth?: boolean;
 }
 
-// Detect SSR: typeof window is undefined on the server.
 const isServer = typeof window === "undefined";
 
-export function FadeIn({ 
-  children, 
-  delay = 0, 
-  direction = "up", 
-  className = "",
-  fullWidth = false
-}: FadeInProps) {
-  const prefersReducedMotion = useReducedMotion();
+const TRANSLATE: Record<NonNullable<FadeInProps["direction"]>, string> = {
+  up:    "translateY(24px)",
+  down:  "translateY(-24px)",
+  left:  "translateX(24px)",
+  right: "translateX(-24px)",
+  none:  "none",
+};
 
-  const directions = {
-    up: { y: 30, x: 0 },
-    down: { y: -30, x: 0 },
-    left: { x: 30, y: 0 },
-    right: { x: -30, y: 0 },
-    none: { x: 0, y: 0 }
-  };
+const FadeInClient = forwardRef<HTMLDivElement, FadeInProps>(
+  function FadeInClient({ children, delay = 0, direction = "up", className = "", fullWidth = false }) {
+    const ref = useRef<HTMLDivElement>(null);
 
-  // On the server (SSR) or when user prefers reduced motion:
-  // render children immediately visible so crawlers see full content
-  // and hydration matches the SSR output without a flash.
-  if (isServer || prefersReducedMotion) {
+    useEffect(() => {
+      const el = ref.current;
+      if (!el) return;
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+            io.disconnect();
+          }
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
+      );
+      io.observe(el);
+      return () => io.disconnect();
+    }, []);
+
     return (
-      <div className={`${fullWidth ? "w-full" : ""} ${className}`}>
+      <div
+        ref={ref}
+        className={`${fullWidth ? "w-full" : ""} ${className}`}
+        style={{
+          opacity: 0,
+          transform: TRANSLATE[direction],
+          transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+          willChange: "opacity, transform",
+        }}
+      >
         {children}
       </div>
     );
   }
+);
 
-  return (
-    <motion.div
-      initial={{ 
-        opacity: 0, 
-        ...directions[direction] 
-      }}
-      whileInView={{ 
-        opacity: 1, 
-        x: 0, 
-        y: 0 
-      }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{
-        duration: 0.7,
-        ease: [0.21, 0.47, 0.32, 0.98],
-        delay: delay,
-      }}
-      className={`${fullWidth ? "w-full" : ""} ${className}`}
-    >
-      {children}
-    </motion.div>
-  );
+export function FadeIn({ children, delay = 0, direction = "up", className = "", fullWidth = false }: FadeInProps) {
+  // SSR: render immediately visible so crawlers see full content
+  if (isServer) {
+    return <div className={`${fullWidth ? "w-full" : ""} ${className}`}>{children}</div>;
+  }
+  return <FadeInClient delay={delay} direction={direction} className={className} fullWidth={fullWidth}>{children}</FadeInClient>;
 }
