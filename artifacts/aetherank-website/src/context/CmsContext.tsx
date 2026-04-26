@@ -78,6 +78,7 @@ function mergeServicePages(
         benefits: Array.isArray(sp["benefits"]) ? sp["benefits"] as CmsSettings["content"]["service_pages"][string]["benefits"] : DEFAULT_SERVICE_PAGES[key].benefits,
         process_steps: Array.isArray(sp["process_steps"]) ? sp["process_steps"] as CmsSettings["content"]["service_pages"][string]["process_steps"] : DEFAULT_SERVICE_PAGES[key].process_steps,
         pricing: Array.isArray(sp["pricing"]) ? sp["pricing"] as CmsSettings["content"]["service_pages"][string]["pricing"] : DEFAULT_SERVICE_PAGES[key].pricing,
+        faqs: Array.isArray(sp["faqs"]) && (sp["faqs"] as unknown[]).length > 0 ? sp["faqs"] as CmsSettings["content"]["service_pages"][string]["faqs"] : DEFAULT_SERVICE_PAGES[key].faqs ?? [],
       };
     } else {
       result[key] = DEFAULT_SERVICE_PAGES[key];
