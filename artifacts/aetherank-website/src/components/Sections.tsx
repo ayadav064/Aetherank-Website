@@ -160,7 +160,7 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 mb-7">
                 <Link
                   href="/free-audit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-700/25 hover:bg-emerald-800 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 text-white font-bold text-base shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
                 >
                   Get FREE Website Audit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -1055,18 +1055,14 @@ export function Services() {
                 >
                   {service.icon}
                 </div>
-                <h3
-                  className="text-xl font-bold mb-3"
-                  style={{ color: service.colors.color }}
-                >{service.title}</h3>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">{service.title}</h3>
                 <p className="text-slate-600 mb-6 leading-relaxed">
                   {service.desc}
                 </p>
                 <Link
                   href={service.link.href}
                   aria-label={service.link.aria}
-                  className="inline-flex items-center font-semibold transition-colors group/btn"
-                  style={{ color: "oklch(20.8% .042 265.755)" }}
+                  className="inline-flex items-center text-emerald-700 font-semibold hover:text-emerald-800 transition-colors group/btn"
                 >
                   Learn More
                   <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
