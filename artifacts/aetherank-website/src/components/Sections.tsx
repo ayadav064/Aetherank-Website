@@ -143,7 +143,7 @@ export function Hero() {
               <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 Grow Your Business<br />
                 with{" "}
-                <span className="text-emerald-500">AI-Powered</span><br />
+                <span className="text-emerald-700">AI-Powered</span><br />
                 Digital Marketing
               </h1>
             </FadeIn>
@@ -160,7 +160,7 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 mb-7">
                 <Link
                   href="/free-audit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-bold text-base shadow-lg shadow-emerald-500/25 hover:bg-emerald-600 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-700/25 hover:bg-emerald-800 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
                 >
                   Get FREE Website Audit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -189,7 +189,7 @@ export function Hero() {
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
                   </div>
                   <p className="text-sm font-semibold text-slate-600">
-                    Rated 4.9/5 &bull; Trusted by <span className="text-emerald-600 font-bold">100+ brands</span> across India
+                    Rated 4.9/5 &bull; Trusted by <span className="text-emerald-800 font-bold">100+ brands</span> across India
                   </p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export function Hero() {
             {/* Cert badges */}
             <FadeIn delay={0.5}>
               <div className="flex flex-col items-center lg:items-start gap-2">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Certified By</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em]">Certified By</span>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                   {certBadges.map((badge) => (
                     <div
