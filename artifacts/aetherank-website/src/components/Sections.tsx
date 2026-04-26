@@ -1010,6 +1010,16 @@ const SERVICE_COLORS = [
   { color: "oklch(0.63 0.23 25.35)",  iconBg: "bg-orange-50",   iconBorder: "border-orange-200",  cardHover: "hover:border-orange-300 hover:shadow-orange-100" },
 ];
 
+// Canonical hrefs and aria-labels for each service card (order matches SERVICE_ICONS/COLORS)
+const SERVICE_LINKS = [
+  { href: "/services/seo",                    aria: "Learn more about our SEO services" },
+  { href: "/services/ppc",                    aria: "Learn more about our PPC & Google Ads services" },
+  { href: "/services/social-media",           aria: "Learn more about our Social Media services" },
+  { href: "/services/web-design-development", aria: "Learn more about our Web Design & Development services" },
+  { href: "/services/content-marketing",      aria: "Learn more about our Content Marketing services" },
+  { href: "/services/orm",                    aria: "Learn more about our ORM services" },
+];
+
 export function Services() {
   const { openModal } = useContactModal();
   const servicesSection = useServicesSection();
@@ -1018,7 +1028,7 @@ export function Services() {
     colors: SERVICE_COLORS[i % SERVICE_COLORS.length],
     title: c.title,
     desc: c.desc,
-    link: c.link,
+    link: SERVICE_LINKS[i] ?? { href: c.link, aria: `Learn more about our ${c.title} services` },
   }));
 
   return (
@@ -1053,7 +1063,8 @@ export function Services() {
                   {service.desc}
                 </p>
                 <Link
-                  href={service.link}
+                  href={service.link.href}
+                  aria-label={service.link.aria}
                   className="inline-flex items-center font-semibold transition-colors group/btn"
                   style={{ color: "oklch(20.8% .042 265.755)" }}
                 >
