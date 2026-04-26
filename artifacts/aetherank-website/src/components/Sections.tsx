@@ -1083,29 +1083,34 @@ export function WhyChooseUs() {
   const wcu = useWhyChooseUs();
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
-      {/* Decorative background blobs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      {/* Background atmosphere */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,185,129,0.12),transparent)]" />
+      <div className="absolute top-1/2 left-0 w-72 h-72 bg-emerald-500/8 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-emerald-400/6 rounded-full blur-3xl pointer-events-none" />
+      {/* Subtle dot grid */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #10b981 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
         {/* Section label */}
         <FadeIn>
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 bg-emerald-500/15 text-emerald-400 text-xs font-bold px-4 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest">
+          <div className="flex justify-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 text-xs font-bold px-5 py-2 rounded-full border border-emerald-500/20 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Why Aetherank
             </span>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left — headline + feature cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+
+          {/* ── LEFT ── */}
           <div>
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-[1.1]">
                 {wcu.headline}
               </h2>
-              <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+              <p className="text-slate-400 text-lg mb-12 leading-relaxed max-w-lg">
                 {wcu.subheadline}
               </p>
             </FadeIn>
@@ -1113,62 +1118,90 @@ export function WhyChooseUs() {
             <div className="space-y-4">
               {wcu.features.map((item, i) => (
                 <FadeIn key={i} delay={0.1 * i}>
-                  <div className="group flex gap-4 bg-white/5 hover:bg-emerald-500/10 border border-white/8 hover:border-emerald-500/30 rounded-2xl p-5 transition-all duration-300">
+                  <div className="group relative flex gap-5 rounded-2xl p-5 border border-white/[0.06] hover:border-emerald-500/30 bg-white/[0.03] hover:bg-emerald-500/[0.06] transition-all duration-300 cursor-default">
+                    {/* Glow on hover */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(ellipse_at_left,rgba(16,185,129,0.08),transparent_70%)]" />
                     {/* Number badge */}
-                    <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-black text-sm">
+                    <div className="relative flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center font-black text-sm text-emerald-400 bg-emerald-500/15 border border-emerald-500/25 group-hover:bg-emerald-500/25 group-hover:border-emerald-500/40 transition-all duration-300">
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white group-hover:text-emerald-300 transition-colors">{item.title}</h4>
-                      <p className="text-slate-400 text-sm mt-1 leading-relaxed">{item.desc}</p>
+                    <div className="relative">
+                      <h4 className="font-bold text-white group-hover:text-emerald-300 transition-colors duration-200 mb-1">{item.title}</h4>
+                      <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                     </div>
+                    {/* Right accent line */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-0 group-hover:h-8 bg-emerald-400 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100" />
                   </div>
                 </FadeIn>
               ))}
             </div>
+
+            {/* Trust strip */}
+            <FadeIn delay={0.5}>
+              <div className="mt-8 flex items-center gap-3 bg-emerald-500/5 rounded-xl px-5 py-3.5 border border-emerald-500/15">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <p className="text-slate-400 text-sm">Trusted by <span className="text-white font-semibold">100+ Indian brands</span> — Google Partner & Meta Business Partner</p>
+              </div>
+            </FadeIn>
           </div>
 
-          {/* Right — stat cards */}
+          {/* ── RIGHT ── */}
           <div className="flex flex-col gap-5">
-            {/* Big stat */}
+
+            {/* Hero stat */}
             <FadeIn delay={0.2}>
-              <div className="relative bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 rounded-3xl p-8 border border-emerald-500/25 overflow-hidden">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl" />
+              <div className="relative rounded-3xl p-8 overflow-hidden border border-emerald-500/20" style={{ background: "linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0.04) 60%, rgba(15,23,42,0.6) 100%)" }}>
+                {/* Decorative ring */}
+                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full border border-emerald-500/15 pointer-events-none" />
+                <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full border border-emerald-500/10 pointer-events-none" />
+                <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <div className="relative">
-                  <div className="text-6xl font-black text-emerald-400 mb-1 tracking-tight">{wcu.big_stat}</div>
-                  <div className="text-white font-semibold text-lg">{wcu.big_label}</div>
-                  <div className="mt-3 h-1 w-16 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full" />
+                  <div className="text-7xl font-black tracking-tight mb-2" style={{ background: "linear-gradient(135deg, #34d399, #10b981)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{wcu.big_stat}</div>
+                  <div className="text-white font-semibold text-xl">{wcu.big_label}</div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="h-1 w-12 rounded-full bg-emerald-400" />
+                    <div className="h-1 w-4 rounded-full bg-emerald-400/40" />
+                    <div className="h-1 w-2 rounded-full bg-emerald-400/20" />
+                  </div>
                 </div>
               </div>
             </FadeIn>
 
             {/* Two smaller stats */}
             <div className="grid grid-cols-2 gap-5">
-              <FadeIn delay={0.3}>
-                <div className="relative bg-white/5 hover:bg-white/8 rounded-3xl p-7 border border-white/10 hover:border-emerald-500/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-500/8 rounded-full blur-xl" />
-                  <div className="text-4xl font-black text-white mb-1">{wcu.stat2}</div>
-                  <div className="text-slate-400 text-sm font-medium">{wcu.stat2_label}</div>
-                  <div className="mt-3 h-0.5 w-8 bg-emerald-500/50 rounded-full" />
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.4}>
-                <div className="relative bg-white/5 hover:bg-white/8 rounded-3xl p-7 border border-white/10 hover:border-emerald-500/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-500/8 rounded-full blur-xl" />
-                  <div className="text-4xl font-black text-white mb-1">{wcu.stat3}</div>
-                  <div className="text-slate-400 text-sm font-medium">{wcu.stat3_label}</div>
-                  <div className="mt-3 h-0.5 w-8 bg-emerald-500/50 rounded-full" />
-                </div>
-              </FadeIn>
+              {[
+                { value: wcu.stat2, label: wcu.stat2_label, delay: 0.3 },
+                { value: wcu.stat3, label: wcu.stat3_label, delay: 0.4 },
+              ].map((s, i) => (
+                <FadeIn key={i} delay={s.delay}>
+                  <div className="group relative rounded-3xl p-7 border border-white/[0.08] hover:border-emerald-500/25 bg-white/[0.04] hover:bg-white/[0.07] transition-all duration-300 overflow-hidden">
+                    <div className="absolute -bottom-6 -right-6 w-28 h-28 bg-emerald-500/6 rounded-full blur-2xl group-hover:bg-emerald-500/12 transition-all duration-300" />
+                    <div className="relative">
+                      <div className="text-5xl font-black text-white mb-2 tracking-tight">{s.value}</div>
+                      <div className="text-slate-400 text-sm font-medium leading-snug">{s.label}</div>
+                      <div className="mt-3 h-0.5 w-8 rounded-full bg-gradient-to-r from-emerald-400 to-transparent" />
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
             </div>
 
-            {/* Trust micro-bar */}
+            {/* Mini metric strip */}
             <FadeIn delay={0.5}>
-              <div className="flex items-center gap-3 bg-white/5 rounded-2xl px-5 py-4 border border-white/8">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                <p className="text-slate-300 text-sm">Trusted by <span className="text-white font-bold">100+ Indian brands</span> — Google Partner & Meta Business Partner certified</p>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { val: "7 Days", sub: "Campaign Launch" },
+                  { val: "4.9/5", sub: "Client Rating" },
+                  { val: "₹4.2x", sub: "Avg. ROAS" },
+                ].map((m, i) => (
+                  <div key={i} className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4 text-center hover:bg-emerald-500/[0.06] hover:border-emerald-500/20 transition-all duration-200">
+                    <div className="text-emerald-400 font-bold text-lg">{m.val}</div>
+                    <div className="text-slate-500 text-xs mt-0.5">{m.sub}</div>
+                  </div>
+                ))}
               </div>
             </FadeIn>
+
           </div>
         </div>
       </div>
