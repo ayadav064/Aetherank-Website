@@ -15,12 +15,9 @@
     <link rel="canonical" href="https://aetherank.in/" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="msapplication-TileColor" content="#10b981" />
 
     <!-- Open Graph / Facebook — overridden per-page by SSR -->
@@ -42,28 +39,16 @@
     <meta name="twitter:description" content="Aetherank is a results-driven digital marketing agency in Mumbai. We specialise in SEO, GEO, PPC, Social Media, Web Design &amp; Content Marketing." />
     <meta name="twitter:image" content="https://aetherank.in/opengraph.jpg" />
 
-    <!-- DNS prefetch + preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- System font stack — zero render-blocking, visually indistinguishable from Inter on most devices -->
+    <style>
+      :root { font-family: Inter, "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+    <!-- Load Inter async only for devices that don't have it natively -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <link rel="dns-prefetch" href="https://storage.googleapis.com" />
-
-    <!-- Fonts: async load -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
-    </noscript>
-
-    <!-- LCP hint: tell the browser this is the most important resource -->
-    <link rel="preload" as="fetch" href="/api/settings" crossorigin="anonymous" />
-    <link rel="preload" as="fetch" href="/api/blog/posts" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" /></noscript>
 
     <!--ssr-head-->
   </head>
