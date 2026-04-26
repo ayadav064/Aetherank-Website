@@ -6,6 +6,7 @@ import { Link } from "wouter";
 import { useContactModal } from "./ContactModalContext";
 import { motion } from "framer-motion";
 import {
+  useHero,
   useCompanyStats,
   useGrowthPartner,
   useAiAdvantage,
@@ -61,6 +62,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 // --- HERO SECTION ---
 export function Hero() {
+  const hero = useHero();
   const avatarSeeds = [
     "/team-avatar-1.png",
     "/team-avatar-2.png",
@@ -141,17 +143,14 @@ export function Hero() {
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
               <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
-                Grow Your Business<br />
-                with{" "}
-                <span style={{ color: "oklch(50.8% .118 165.612)" }}>AI-Powered</span><br />
-                Digital Marketing
+                {hero.headline || <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(50.8% .118 165.612)" }}>AI-Powered</span><br />Digital Marketing</>}
               </h1>
             </FadeIn>
 
             {/* Subheadline */}
             <FadeIn delay={0.2}>
               <p className="text-base sm:text-lg text-slate-500 leading-relaxed mb-7 max-w-lg">
-                We help Indian businesses get more leads from Google, Instagram, YouTube & ChatGPT — with zero guesswork and full transparency.
+                {hero.subheadline}
               </p>
             </FadeIn>
 
@@ -163,14 +162,14 @@ export function Hero() {
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white font-bold text-base border border-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-full sm:w-auto"
                   style={{ color: "oklch(50.8% .118 165.612)" }}
                 >
-                  Get FREE Website Audit
+                  {hero.cta_primary || "Get FREE Website Audit"}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Link>
                 <Link
                   href="/request-proposal"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-slate-700 font-bold text-base border border-slate-200 hover:border-emerald-400 hover:text-emerald-600 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-full sm:w-auto"
                 >
-                  View Proposal
+                  {hero.cta_secondary || "View Proposal"}
                 </Link>
               </div>
             </FadeIn>
