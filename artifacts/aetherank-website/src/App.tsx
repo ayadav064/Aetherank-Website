@@ -12,45 +12,50 @@
  * DEPLOY TO: artifacts/aetherank-website/src/App.tsx
  */
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
-import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
-import ServicesPage from "@/pages/ServicesPage";
-import SeoPage from "@/pages/services/SeoPage";
-import PpcPage from "@/pages/services/PpcPage";
-import SocialMediaPage from "@/pages/services/SocialMediaPage";
-import WebDesignPage from "@/pages/services/WebDesignPage";
-import ContentMarketingPage from "@/pages/services/ContentMarketingPage";
-import OrmPage from "@/pages/services/OrmPage";
-import MetaAdsPage from "@/pages/services/MetaAdsPage";
-import CaseStudiesPage from "@/pages/CaseStudiesPage";
-import AboutPage from "@/pages/AboutPage";
-import BlogPage from "@/pages/BlogPage";
-import BlogPostPage from "@/pages/BlogPostPage";
-import ContactPage from "@/pages/ContactPage";
-import FreeAuditPage from "@/pages/FreeAuditPage";
-import RequestProposalPage from "@/pages/RequestProposalPage";
-import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
-import TermsOfServicePage from "@/pages/TermsOfServicePage";
-import AdminLogin from "@/pages/admin/AdminLogin";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import SeoEditor from "@/pages/admin/SeoEditor";
-import ContentEditor from "@/pages/admin/ContentEditor";
-import BlogPostList from "@/pages/admin/BlogPostList";
-import BlogPostEditor from "@/pages/admin/BlogPostEditor";
-import AdminSubmissions from "@/pages/admin/AdminSubmissions";
-import AdminNewsletterSubscribers from "@/pages/admin/AdminNewsletterSubscribers";
-import AdminMediaLibrary from "@/pages/admin/AdminMediaLibrary";
-import AdminNavigation from "@/pages/admin/AdminNavigation";
-import DigitalMarketingIndiaPage from "@/pages/DigitalMarketingIndiaPage";
-import DigitalMarketingMumbaiPage from "@/pages/DigitalMarketingMumbaiPage";
 import { CmsProvider } from "@/context/CmsContext";
 import SeoManager from "@/components/SeoManager";
 import AdminErrorBoundary from "@/components/AdminErrorBoundary";
+
+// ── Critical path: eager load only the home page ─────────────────────────────
+import Home from "@/pages/Home";
+import NotFound from "@/pages/not-found";
+
+// ── All other routes: lazy-loaded so they never ship to home-page visitors ───
+const ServicesPage               = lazy(() => import("@/pages/ServicesPage"));
+const SeoPage                    = lazy(() => import("@/pages/services/SeoPage"));
+const PpcPage                    = lazy(() => import("@/pages/services/PpcPage"));
+const SocialMediaPage            = lazy(() => import("@/pages/services/SocialMediaPage"));
+const WebDesignPage              = lazy(() => import("@/pages/services/WebDesignPage"));
+const ContentMarketingPage       = lazy(() => import("@/pages/services/ContentMarketingPage"));
+const OrmPage                    = lazy(() => import("@/pages/services/OrmPage"));
+const MetaAdsPage                = lazy(() => import("@/pages/services/MetaAdsPage"));
+const CaseStudiesPage            = lazy(() => import("@/pages/CaseStudiesPage"));
+const AboutPage                  = lazy(() => import("@/pages/AboutPage"));
+const BlogPage                   = lazy(() => import("@/pages/BlogPage"));
+const BlogPostPage               = lazy(() => import("@/pages/BlogPostPage"));
+const ContactPage                = lazy(() => import("@/pages/ContactPage"));
+const FreeAuditPage              = lazy(() => import("@/pages/FreeAuditPage"));
+const RequestProposalPage        = lazy(() => import("@/pages/RequestProposalPage"));
+const PrivacyPolicyPage          = lazy(() => import("@/pages/PrivacyPolicyPage"));
+const TermsOfServicePage         = lazy(() => import("@/pages/TermsOfServicePage"));
+const DigitalMarketingIndiaPage  = lazy(() => import("@/pages/DigitalMarketingIndiaPage"));
+const DigitalMarketingMumbaiPage = lazy(() => import("@/pages/DigitalMarketingMumbaiPage"));
+
+// ── Admin: lazily loaded as one chunk (never needed by regular visitors) ─────
+const AdminLogin                   = lazy(() => import("@/pages/admin/AdminLogin"));
+const AdminDashboard               = lazy(() => import("@/pages/admin/AdminDashboard"));
+const SeoEditor                    = lazy(() => import("@/pages/admin/SeoEditor"));
+const ContentEditor                = lazy(() => import("@/pages/admin/ContentEditor"));
+const BlogPostList                 = lazy(() => import("@/pages/admin/BlogPostList"));
+const BlogPostEditor               = lazy(() => import("@/pages/admin/BlogPostEditor"));
+const AdminSubmissions             = lazy(() => import("@/pages/admin/AdminSubmissions"));
+const AdminNewsletterSubscribers   = lazy(() => import("@/pages/admin/AdminNewsletterSubscribers"));
+const AdminMediaLibrary            = lazy(() => import("@/pages/admin/AdminMediaLibrary"));
+const AdminNavigation              = lazy(() => import("@/pages/admin/AdminNavigation"));
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, staleTime: 30_000 } },
@@ -63,7 +68,8 @@ interface AppProps {
 
 function Router() {
   return (
-    <Switch>
+    <Suspense fallback={null}>
+      <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={ServicesPage} />
       <Route path="/services/seo" component={SeoPage} />
@@ -116,7 +122,8 @@ function Router() {
         <AdminErrorBoundary><AdminNavigation /></AdminErrorBoundary>
       </Route>
       <Route component={NotFound} />
-    </Switch>
+      </Switch>
+    </Suspense>
   );
 }
 
