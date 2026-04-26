@@ -1062,7 +1062,8 @@ export function Services() {
                 <Link
                   href={service.link.href}
                   aria-label={service.link.aria}
-                  className="inline-flex items-center text-emerald-700 font-semibold hover:text-emerald-800 transition-colors group/btn"
+                  className="inline-flex items-center font-semibold transition-colors group/btn"
+                  style={{ color: service.colors.color }}
                 >
                   Learn More
                   <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
