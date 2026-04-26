@@ -88,6 +88,24 @@ export default defineConfig({
         // ── Client bundle (existing, unchanged) ──────────────────────────────
         outDir: path.resolve(import.meta.dirname, "dist/public"),
         emptyOutDir: true,
+        rollupOptions: {
+          output: {
+            manualChunks(id: string) {
+              // Admin pages — loaded only by authenticated users
+              if (id.includes("/pages/admin/")) return "chunk-admin";
+              // Heavy animation library — never needed for initial render
+              if (id.includes("framer-motion") || id.includes("motion-dom")) return "chunk-motion";
+              // Chart library — only used in admin analytics
+              if (id.includes("recharts") || id.includes("d3-")) return "chunk-charts";
+              // React ecosystem — shared, cache-friendly
+              if (id.includes("node_modules/react") || id.includes("node_modules/react-dom")) return "chunk-react";
+              // Radix UI / shadcn components
+              if (id.includes("@radix-ui")) return "chunk-ui";
+              // TanStack Query
+              if (id.includes("@tanstack")) return "chunk-query";
+            },
+          },
+        },
       },
 
   ssr: {
