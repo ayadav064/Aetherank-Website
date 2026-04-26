@@ -1054,7 +1054,8 @@ export function Services() {
                 </p>
                 <Link
                   href={service.link}
-                  className="inline-flex items-center text-slate-900 font-semibold hover:text-slate-600 transition-colors group/btn"
+                  className="inline-flex items-center font-semibold transition-colors group/btn"
+                  style={{ color: "oklch(20.8% .042 265.755)" }}
                 >
                   Learn More
                   <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
