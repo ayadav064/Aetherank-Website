@@ -1428,13 +1428,13 @@ export function Blog() {
                     href={blog.slug ? `/blog/${blog.slug}` : "/blog"}
                     className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-xl transition-all duration-300 group cursor-pointer"
                   >
-                    <div className="h-48 overflow-hidden">
+                    <div className="aspect-video w-full overflow-hidden bg-slate-100">
                       <img
                         loading="lazy"
                         decoding="async"
                         src={blog.image}
                         alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     <div className="p-6">
