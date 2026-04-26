@@ -143,7 +143,7 @@ export function Hero() {
               <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 Grow Your Business<br />
                 with{" "}
-                <span style={{ color: "oklch(76.5% .177 163.223)" }}>AI-Powered</span><br />
+                <span style={{ color: "oklch(50.8% .118 165.612)" }}>AI-Powered</span><br />
                 Digital Marketing
               </h1>
             </FadeIn>
@@ -161,7 +161,7 @@ export function Hero() {
                 <Link
                   href="/free-audit"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white font-bold text-base border border-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-full sm:w-auto"
-                  style={{ color: "oklch(76.5% .177 163.223)" }}
+                  style={{ color: "oklch(50.8% .118 165.612)" }}
                 >
                   Get FREE Website Audit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -1082,64 +1082,91 @@ export function Services() {
 export function WhyChooseUs() {
   const wcu = useWhyChooseUs();
   return (
-    <section className="py-20 bg-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-      
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
+      {/* Decorative background blobs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Section label */}
+        <FadeIn>
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-2 bg-emerald-500/15 text-emerald-400 text-xs font-bold px-4 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest">
+              Why Aetherank
+            </span>
+          </div>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Left — headline + feature cards */}
           <div>
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
                 {wcu.headline}
               </h2>
-              <p className="text-slate-300 text-lg mb-10">
+              <p className="text-slate-400 text-lg mb-10 leading-relaxed">
                 {wcu.subheadline}
               </p>
             </FadeIn>
-            
-            <div className="space-y-5">
-              {wcu.features.map((item, i) => {
-                const accents = [
-                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
-                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
-                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
-                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
-                ];
-                const a = accents[i % accents.length];
-                return (
-                  <FadeIn key={i} delay={0.1 * i}>
-                    <div className={`flex gap-4 pl-4 border-l-2 ${a.border}`}>
-                      <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-1 ${a.iconBg} ${a.iconText}`}>
-                        <CheckCircle2 className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h4 className={`font-semibold text-lg ${a.title}`}>{item.title}</h4>
-                        <p className="text-slate-300 mt-1">{item.desc}</p>
-                      </div>
+
+            <div className="space-y-4">
+              {wcu.features.map((item, i) => (
+                <FadeIn key={i} delay={0.1 * i}>
+                  <div className="group flex gap-4 bg-white/5 hover:bg-emerald-500/10 border border-white/8 hover:border-emerald-500/30 rounded-2xl p-5 transition-all duration-300">
+                    {/* Number badge */}
+                    <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-black text-sm">
+                      {String(i + 1).padStart(2, "0")}
                     </div>
-                  </FadeIn>
-                );
-              })}
+                    <div>
+                      <h4 className="font-bold text-white group-hover:text-emerald-300 transition-colors">{item.title}</h4>
+                      <p className="text-slate-400 text-sm mt-1 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <FadeIn delay={0.2} className="sm:col-span-2">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/10 text-center hover:bg-white/15 transition-colors">
-                <div className="text-5xl font-black text-emerald-400 mb-2">{wcu.big_stat}</div>
-                <div className="text-white font-medium text-lg">{wcu.big_label}</div>
+          {/* Right — stat cards */}
+          <div className="flex flex-col gap-5">
+            {/* Big stat */}
+            <FadeIn delay={0.2}>
+              <div className="relative bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 rounded-3xl p-8 border border-emerald-500/25 overflow-hidden">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl" />
+                <div className="relative">
+                  <div className="text-6xl font-black text-emerald-400 mb-1 tracking-tight">{wcu.big_stat}</div>
+                  <div className="text-white font-semibold text-lg">{wcu.big_label}</div>
+                  <div className="mt-3 h-1 w-16 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full" />
+                </div>
               </div>
             </FadeIn>
-            <FadeIn delay={0.3}>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/10 text-center hover:bg-white/15 transition-colors">
-                <div className="text-4xl font-black text-white mb-2">{wcu.stat2}</div>
-                <div className="text-slate-300 font-medium">{wcu.stat2_label}</div>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/10 text-center hover:bg-white/15 transition-colors">
-                <div className="text-4xl font-black text-white mb-2">{wcu.stat3}</div>
-                <div className="text-slate-300 font-medium">{wcu.stat3_label}</div>
+
+            {/* Two smaller stats */}
+            <div className="grid grid-cols-2 gap-5">
+              <FadeIn delay={0.3}>
+                <div className="relative bg-white/5 hover:bg-white/8 rounded-3xl p-7 border border-white/10 hover:border-emerald-500/20 transition-all duration-300 overflow-hidden">
+                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-500/8 rounded-full blur-xl" />
+                  <div className="text-4xl font-black text-white mb-1">{wcu.stat2}</div>
+                  <div className="text-slate-400 text-sm font-medium">{wcu.stat2_label}</div>
+                  <div className="mt-3 h-0.5 w-8 bg-emerald-500/50 rounded-full" />
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <div className="relative bg-white/5 hover:bg-white/8 rounded-3xl p-7 border border-white/10 hover:border-emerald-500/20 transition-all duration-300 overflow-hidden">
+                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-500/8 rounded-full blur-xl" />
+                  <div className="text-4xl font-black text-white mb-1">{wcu.stat3}</div>
+                  <div className="text-slate-400 text-sm font-medium">{wcu.stat3_label}</div>
+                  <div className="mt-3 h-0.5 w-8 bg-emerald-500/50 rounded-full" />
+                </div>
+              </FadeIn>
+            </div>
+
+            {/* Trust micro-bar */}
+            <FadeIn delay={0.5}>
+              <div className="flex items-center gap-3 bg-white/5 rounded-2xl px-5 py-4 border border-white/8">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                <p className="text-slate-300 text-sm">Trusted by <span className="text-white font-bold">100+ Indian brands</span> — Google Partner & Meta Business Partner certified</p>
               </div>
             </FadeIn>
           </div>
