@@ -204,6 +204,11 @@ export function CmsProvider({ children, initialData }: CmsProviderProps) {
 
 // ── All hooks — identical to original ────────────────────────────────────────
 
+export function useHero() {
+  const { settings } = useCms();
+  return settings.content.hero;
+}
+
 export function useCms() {
   return useContext(CmsContext);
 }
