@@ -143,7 +143,7 @@ export function Hero() {
               <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 Grow Your Business<br />
                 with{" "}
-                <span className="text-emerald-700">AI-Powered</span><br />
+                <span style={{ color: "oklch(76.5% .177 163.223)" }}>AI-Powered</span><br />
                 Digital Marketing
               </h1>
             </FadeIn>
@@ -160,7 +160,8 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 mb-7">
                 <Link
                   href="/free-audit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 text-white font-bold text-base shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 group w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white font-bold text-base border border-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-full sm:w-auto"
+                  style={{ color: "oklch(76.5% .177 163.223)" }}
                 >
                   Get FREE Website Audit
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -1063,7 +1064,7 @@ export function Services() {
                   href={service.link.href}
                   aria-label={service.link.aria}
                   className="inline-flex items-center font-semibold transition-colors group/btn"
-                  style={{ color: service.colors.color }}
+                  style={{ color: "oklch(0.21 0.04 266.37)" }}
                 >
                   Learn More
                   <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
@@ -1100,9 +1101,9 @@ export function WhyChooseUs() {
               {wcu.features.map((item, i) => {
                 const accents = [
                   { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
-                  { border: "border-blue-500",    iconBg: "bg-blue-500/20",    iconText: "text-blue-400",    title: "text-blue-400"    },
-                  { border: "border-violet-500",  iconBg: "bg-violet-500/20",  iconText: "text-violet-400",  title: "text-violet-400"  },
-                  { border: "border-amber-500",   iconBg: "bg-amber-500/20",   iconText: "text-amber-400",   title: "text-amber-400"   },
+                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
+                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
+                  { border: "border-emerald-500", iconBg: "bg-emerald-500/20", iconText: "text-emerald-400", title: "text-emerald-400" },
                 ];
                 const a = accents[i % accents.length];
                 return (
