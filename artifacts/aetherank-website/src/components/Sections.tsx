@@ -139,7 +139,7 @@ export function Hero() {
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
               <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
-                {hero.headline || <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(50.8% .118 165.612)" }}>AI-Powered</span><br />Digital Marketing</>}
+                {hero.headline || <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(69.6% .17 162.48)" }}>AI-Powered</span><br />Digital Marketing</>}
               </h1>
             </FadeIn>
 
@@ -155,11 +155,10 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row gap-3 mb-7">
                 <Link
                   href="/free-audit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white font-bold text-base border border-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-200 shadow-sm w-full sm:w-auto"
-                  style={{ color: "oklch(50.8% .118 165.612)" }}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-bold text-base hover:bg-emerald-600 shadow-[0_4px_14px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
                 >
                   {hero.cta_primary || "Get FREE Website Audit"}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-4 h-4 transition-transform" />
                 </Link>
                 <Link
                   href="/request-proposal"
@@ -193,9 +192,9 @@ export function Hero() {
 
             {/* Cert badges */}
             <FadeIn delay={0.5}>
-              <div className="flex flex-col items-center lg:items-start gap-2">
-                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em]">Certified By</span>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em] shrink-0">Certified By</span>
+                <div className="flex flex-wrap items-center gap-2">
                   {certBadges.map((badge) => (
                     <div
                       key={badge.name}
