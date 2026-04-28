@@ -110,7 +110,7 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative pt-20 pb-10 sm:pt-24 sm:pb-14 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
+    <section className="relative pt-28 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f040_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f040_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Emerald glow top-right */}
@@ -138,21 +138,21 @@ export function Hero() {
 
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
-              <h1 className="text-[1.75rem] sm:text-[2.4rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
+              <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(69.6% .17 162.48)" }}>AI-Powered</span><br />Digital Marketing</>
               </h1>
             </FadeIn>
 
             {/* Subheadline */}
             <FadeIn delay={0.2}>
-              <p className="text-base sm:text-lg text-slate-500 leading-relaxed mb-7 max-w-full sm:max-w-lg">
+              <p className="text-base sm:text-lg text-slate-500 leading-relaxed mb-7 max-w-lg">
                 {hero.subheadline}
               </p>
             </FadeIn>
 
             {/* CTA row */}
             <FadeIn delay={0.3}>
-              <div className="flex flex-col sm:flex-row gap-3 mb-7 w-full">
+              <div className="flex flex-col sm:flex-row gap-3 mb-7">
                 <Link
                   href="/free-audit"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-bold text-base hover:bg-emerald-600 shadow-[0_4px_14px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
@@ -192,8 +192,8 @@ export function Hero() {
 
             {/* Cert badges */}
             <FadeIn delay={0.5}>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em]">Certified By</span>
+              <div className="flex items-center gap-3 flex-nowrap overflow-x-auto">
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em] shrink-0 whitespace-nowrap">Certified By</span>
                 {certBadges.map((badge) => (
                   <div
                     key={badge.name}
@@ -496,53 +496,92 @@ export function SEOvsGEO() {
   ];
 
   return (
-    <section className="py-20 bg-slate-50 relative overflow-hidden">
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f030_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f030_1px,transparent_1px)] bg-[size:48px_48px]" />
-      {/* Emerald glow */}
-      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-emerald-400/8 blur-[100px]" />
+    <section className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
+      {/* Emerald radial glow */}
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-emerald-500/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
-        {/* Section heading */}
-        <div className="text-left mb-12">
+        {/* ── DESKTOP: Two-col header layout ── */}
+        <div className="hidden md:grid md:grid-cols-2 gap-12 xl:gap-20 items-center mb-14">
+          {/* Left: heading */}
           <FadeIn>
-            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-sm px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-sm px-4 py-2 rounded-full mb-6">
               <Zap className="w-3.5 h-3.5 fill-current" /> The Future of Search
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
-              Generative Engine Optimization:<br className="hidden sm:block" />
-              <span className="text-emerald-500"> The New SEO</span>
+            <h2 className="text-4xl xl:text-5xl font-extrabold text-white mb-5 leading-[1.1] tracking-tight">
+              Generative Engine<br />Optimization:<br />
+              <span className="text-emerald-400"> The New SEO</span>
             </h2>
-            <p className="text-slate-600 text-lg max-w-3xl">
-              AI-powered search is transforming how people discover content—and GEO is quickly becoming the must-have capability for 2026. While traditional SEO chases keywords, GEO is built for AI-driven answer engines like ChatGPT, Perplexity, and Google's AI Overviews. With only{" "}
-              <span className="text-emerald-600 font-bold">12%</span> of agencies offering GEO today, this is a rare white-space opportunity with surging demand.
+            <p className="text-slate-400 text-base xl:text-lg leading-relaxed max-w-lg">
+              AI-powered search is transforming how people discover content. GEO is quickly becoming the must-have capability for 2026 — built for ChatGPT, Perplexity, and Google's AI Overviews.
+            </p>
+          </FadeIn>
+
+          {/* Right: stat cards */}
+          <FadeIn delay={0.15}>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { val: "12%", label: "of agencies offer GEO", sub: "Massive white space", color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/20" },
+                { val: "3×", label: "more AI citations", sub: "vs traditional SEO", color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
+                { val: "2026", label: "GEO is the standard", sub: "Now is the time", color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20" },
+                { val: "#1", label: "AI marketing agency", sub: "India — Aetherank", color: "text-violet-400", bg: "bg-violet-500/10 border-violet-500/20" },
+              ].map((s, i) => (
+                <div key={i} className={`rounded-2xl border p-5 ${s.bg} backdrop-blur-sm`}>
+                  <div className={`text-3xl font-black mb-1 ${s.color}`}>{s.val}</div>
+                  <div className="text-white text-sm font-semibold leading-snug">{s.label}</div>
+                  <div className="text-slate-500 text-xs mt-1">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* ── MOBILE: stacked header ── */}
+        <div className="md:hidden mb-8">
+          <FadeIn>
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-xs px-3 py-1.5 rounded-full mb-4">
+              <Zap className="w-3.5 h-3.5 fill-current" /> The Future of Search
+            </div>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-white mb-3 leading-tight">
+              Generative Engine Optimization:<br />
+              <span className="text-emerald-400"> The New SEO</span>
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+              AI-powered search is transforming how people discover content—and GEO is quickly becoming the must-have capability for 2026. With only{" "}
+              <span className="text-emerald-400 font-bold">12%</span> of agencies offering GEO today, this is a rare white-space opportunity.
             </p>
           </FadeIn>
         </div>
 
         {/* ── Comparison card ── */}
-        <FadeIn delay={0.15}>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-lg bg-white">
+        <FadeIn delay={0.2}>
+          <div className="rounded-2xl border border-white/10 overflow-hidden shadow-2xl bg-slate-900/80 backdrop-blur-sm">
 
             {/* Header bar */}
-            <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="text-slate-500 text-xs font-bold tracking-widest uppercase truncate">SEO vs GEO — 6 Dimensions</span>
+            <div className="bg-slate-800/60 border-b border-white/10 px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 sm:justify-between">
+              <div className="flex items-center gap-3 min-w-0">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
+                <span className="text-slate-300 text-xs sm:text-sm font-bold tracking-widest uppercase">SEO vs GEO — 6 Dimensions</span>
               </div>
               {/* Toggle */}
-              <div className="flex items-center bg-slate-200 rounded-lg p-1 gap-1 text-xs self-start sm:self-auto">
+              <div className="flex items-center bg-slate-700/60 rounded-xl p-1 gap-1 text-xs self-stretch sm:self-auto w-full sm:w-auto justify-center sm:justify-start border border-white/10">
                 {(["seo", "compare", "geo"] as View[]).map((v) => (
                   <button
                     key={v}
                     onClick={() => setView(v)}
-                    className={`px-3 py-1.5 rounded-md uppercase tracking-wider font-bold transition-all duration-200 flex items-center gap-1 ${
+                    className={`px-3 sm:px-4 py-1.5 rounded-lg uppercase tracking-wider font-bold transition-all duration-200 flex items-center gap-1.5 flex-1 sm:flex-none justify-center ${
                       view === v
-                        ? "bg-white text-slate-800 shadow-sm"
-                        : "text-slate-500 hover:text-slate-700"
+                        ? v === "geo"
+                          ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
+                          : "bg-white text-slate-900 shadow-sm"
+                        : "text-slate-400 hover:text-slate-200"
                     }`}
                   >
-                    {v === "compare" && <span className="mr-0.5">⇄</span>}
+                    {v === "compare" && <span>⇄</span>}
                     {v.toUpperCase()}
                   </button>
                 ))}
@@ -550,23 +589,23 @@ export function SEOvsGEO() {
             </div>
 
             {/* ── MOBILE: stacked dimension cards (hidden on md+) ── */}
-            <div className="md:hidden divide-y divide-slate-100">
+            <div className="md:hidden divide-y divide-white/5">
               {dimensions.map((d, i) => (
-                <div key={i} className="px-4 py-4 bg-white">
-                  <span className="text-slate-400 text-[10px] tracking-widest uppercase font-bold block mb-3">{d.label}</span>
-                  <div className={`grid gap-2 ${view === "compare" ? "grid-cols-2" : "grid-cols-1"}`}>
+                <div key={i} className="px-4 py-4 bg-slate-900/40">
+                  <span className="text-emerald-500/70 text-[10px] tracking-widest uppercase font-bold block mb-3">{d.label}</span>
+                  <div className="grid gap-2 grid-cols-1">
                     {(view === "seo" || view === "compare") && (
-                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+                      <div className="bg-slate-800/60 border border-white/10 rounded-xl p-3">
                         <div className="text-slate-400 text-[9px] tracking-widest uppercase mb-1.5 font-bold">Traditional SEO</div>
-                        <div className="text-slate-800 font-bold text-sm leading-snug">{d.seo.title}</div>
+                        <div className="text-slate-100 font-bold text-sm leading-snug">{d.seo.title}</div>
                         <div className="text-slate-500 text-[11px] mt-1">{d.seo.sub}</div>
                       </div>
                     )}
                     {(view === "geo" || view === "compare") && (
-                      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
-                        <div className="text-emerald-600 text-[9px] tracking-widest uppercase mb-1.5 font-bold">GEO / AIO</div>
-                        <div className="text-emerald-700 font-bold text-sm leading-snug">{d.geo.title}</div>
-                        <div className="text-emerald-600 text-[11px] mt-1">{d.geo.sub}</div>
+                      <div className="bg-emerald-500/10 border border-emerald-500/25 rounded-xl p-3">
+                        <div className="text-emerald-500 text-[9px] tracking-widest uppercase mb-1.5 font-bold">GEO / AIO ✦</div>
+                        <div className="text-emerald-300 font-bold text-sm leading-snug">{d.geo.title}</div>
+                        <div className="text-emerald-500/70 text-[11px] mt-1">{d.geo.sub}</div>
                       </div>
                     )}
                   </div>
@@ -577,21 +616,24 @@ export function SEOvsGEO() {
             {/* ── DESKTOP: column table (hidden below md) ── */}
             <div className="hidden md:block">
               {/* Column headers */}
-              <div className={`grid border-b border-slate-200 ${view === "compare" ? "grid-cols-[200px_1fr_1fr]" : "grid-cols-[200px_1fr]"}`}>
-                <div className="py-3 px-5 bg-slate-50 text-slate-400 text-[11px] tracking-widest font-bold uppercase border-r border-slate-200">DIMENSION</div>
+              <div className={`grid border-b border-white/10 ${view === "compare" ? "grid-cols-[220px_1fr_1fr]" : "grid-cols-[220px_1fr]"}`}>
+                <div className="py-4 px-6 bg-slate-800/40 text-slate-500 text-[11px] tracking-widest font-bold uppercase border-r border-white/10">DIMENSION</div>
                 {(view === "seo" || view === "compare") && (
-                  <div className="py-3 px-5 bg-white border-r border-slate-200">
-                    <div className="text-slate-700 font-bold text-xs tracking-widest uppercase">Traditional SEO</div>
-                    <div className="text-slate-400 text-[10px] mt-0.5 tracking-wider uppercase">Legacy Approach</div>
+                  <div className="py-4 px-6 bg-slate-800/20 border-r border-white/10">
+                    <div className="text-slate-300 font-bold text-sm tracking-wide uppercase flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-slate-500 shrink-0" />
+                      Traditional SEO
+                    </div>
+                    <div className="text-slate-500 text-[11px] mt-1 tracking-wider uppercase">Legacy Approach</div>
                   </div>
                 )}
                 {(view === "geo" || view === "compare") && (
-                  <div className="py-3 px-5 bg-emerald-50 flex items-start gap-2.5">
-                    <span className="w-1 self-stretch shrink-0 rounded-full bg-emerald-500" style={{minHeight:"28px"}} />
-                    <div>
-                      <div className="text-emerald-700 font-bold text-xs tracking-widest uppercase">GEO / AIO</div>
-                      <div className="text-emerald-500 text-[10px] mt-0.5 tracking-wider uppercase">Future Standard ✦</div>
+                  <div className="py-4 px-6 bg-emerald-500/10 border-l border-emerald-500/20">
+                    <div className="text-emerald-300 font-bold text-sm tracking-wide uppercase flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
+                      GEO / AIO
                     </div>
+                    <div className="text-emerald-500/70 text-[11px] mt-1 tracking-wider uppercase">Future Standard ✦</div>
                   </div>
                 )}
               </div>
@@ -600,23 +642,24 @@ export function SEOvsGEO() {
               {dimensions.map((d, i) => (
                 <div
                   key={i}
-                  className={`grid border-b border-slate-100 hover:bg-slate-50/60 transition-colors duration-150 ${
-                    view === "compare" ? "grid-cols-[200px_1fr_1fr]" : "grid-cols-[200px_1fr]"
+                  className={`grid border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.02] transition-colors duration-150 ${
+                    view === "compare" ? "grid-cols-[220px_1fr_1fr]" : "grid-cols-[220px_1fr]"
                   }`}
                 >
-                  <div className="py-5 px-5 bg-slate-50 flex items-center border-r border-slate-200">
-                    <span className="text-slate-500 text-[11px] tracking-widest uppercase font-semibold">{d.label}</span>
+                  <div className="py-5 px-6 bg-slate-800/20 flex items-center border-r border-white/[0.07]">
+                    <span className="text-slate-400 text-[11px] tracking-widest uppercase font-bold">{d.label}</span>
                   </div>
                   {(view === "seo" || view === "compare") && (
-                    <div className="py-5 px-5 bg-white border-r border-slate-100">
-                      <div className="text-slate-800 font-bold text-[15px]">{d.seo.title}</div>
-                      <div className="text-slate-500 text-[13px] mt-1 leading-snug">{d.seo.sub}</div>
+                    <div className="py-5 px-6 bg-transparent border-r border-white/[0.06]">
+                      <div className="text-slate-200 font-bold text-base">{d.seo.title}</div>
+                      <div className="text-slate-500 text-sm mt-1 leading-snug">{d.seo.sub}</div>
                     </div>
                   )}
                   {(view === "geo" || view === "compare") && (
-                    <div className="py-5 px-5 bg-emerald-50/70">
-                      <div className="text-emerald-700 font-bold text-[15px]">{d.geo.title}</div>
-                      <div className="text-emerald-600 text-[13px] mt-1 leading-snug">{d.geo.sub}</div>
+                    <div className="py-5 px-6 bg-emerald-500/[0.06] relative">
+                      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-emerald-500/40" />
+                      <div className="text-emerald-300 font-bold text-base">{d.geo.title}</div>
+                      <div className="text-emerald-500/80 text-sm mt-1 leading-snug">{d.geo.sub}</div>
                     </div>
                   )}
                 </div>
@@ -624,22 +667,22 @@ export function SEOvsGEO() {
             </div>
 
             {/* Footer bar */}
-            <div className="bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-3 gap-2">
+            <div className="bg-slate-800/40 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 sm:py-4 gap-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
-                <span className="text-slate-500 text-xs tracking-wider uppercase">
-                  Only <span className="text-amber-600 font-bold">12%</span> of agencies currently offer GEO services
+                <span className="text-slate-400 text-xs tracking-wider uppercase">
+                  Only <span className="text-amber-400 font-bold">12%</span> of agencies currently offer GEO services
                 </span>
               </div>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                  <span className="text-slate-500 text-xs tracking-wider uppercase">
-                    Opportunity <span className="text-emerald-600 font-bold">HIGH</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <span className="text-slate-400 text-xs tracking-wider uppercase">
+                    Opportunity <span className="text-emerald-400 font-bold">HIGH</span>
                   </span>
                 </div>
-                <span className="text-slate-400 text-xs tracking-widest hidden sm:inline uppercase">
-                  Click ⇄ Compare to toggle views
+                <span className="text-slate-600 text-xs tracking-widest hidden sm:inline uppercase">
+                  Toggle ⇄ to compare views
                 </span>
               </div>
             </div>
