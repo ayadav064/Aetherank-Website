@@ -208,121 +208,129 @@ export function Hero() {
 
           </div>
 
-          {/* ── RIGHT — Custom Dashboard Mockup ── */}
+          {/* ── RIGHT — Google Search Console Dashboard Mockup ── */}
           <div className="hidden lg:block relative pr-6">
             <FadeIn delay={0.25} direction="left">
               {/* Glow */}
-              <div className="absolute -inset-4 bg-emerald-400/10 rounded-3xl blur-2xl" />
+              <div className="absolute -inset-4 bg-blue-400/10 rounded-3xl blur-2xl" />
 
-              {/* Dashboard card */}
-              <div className="relative bg-slate-950 rounded-2xl shadow-2xl border border-white/10 overflow-hidden font-sans">
+              {/* GSC Dashboard card */}
+              <div className="relative bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden font-sans">
 
-                {/* ── Header bar ── */}
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/8 bg-slate-900/60">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-emerald-400 text-xs font-bold tracking-wide">LIVE</span>
-                    <span className="text-slate-400 text-xs ml-1">Aetherank Analytics</span>
+                {/* ── Browser chrome bar ── */}
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#f1f3f4] border-b border-slate-200">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-red-400" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <span className="w-3 h-3 rounded-full bg-green-400" />
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-slate-500 text-xs">Mar 2026</span>
-                    <div className="flex gap-1">
-                      {["bg-red-500","bg-yellow-400","bg-emerald-500"].map(c => (
-                        <span key={c} className={`w-2.5 h-2.5 rounded-full ${c}`} />
-                      ))}
-                    </div>
+                  <div className="flex-1 flex items-center gap-2 bg-white rounded-md px-3 py-1 border border-slate-200 mx-2">
+                    <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <span className="text-[11px] text-slate-500">search.google.com/search-console</span>
                   </div>
                 </div>
 
-                {/* ── KPI row ── */}
-                <div className="grid grid-cols-3 divide-x divide-white/8 border-b border-white/8">
+                {/* ── GSC Top nav ── */}
+                <div className="flex items-center justify-between px-5 py-3 bg-white border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    {/* Google logo colours */}
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    <span className="text-sm font-medium text-slate-700">Search Console</span>
+                    <span className="text-slate-300 mx-1">|</span>
+                    <span className="text-[11px] text-slate-500 font-medium">aetherank.in</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Last 3 months</span>
+                    <div className="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold">A</div>
+                  </div>
+                </div>
+
+                {/* ── GSC Summary KPI cards ── */}
+                <div className="grid grid-cols-4 divide-x divide-slate-100 border-b border-slate-100 bg-white">
                   {[
-                    { label: "Organic Traffic", value: "+340%", sub: "vs last quarter", color: "text-emerald-400" },
-                    { label: "Leads / Month",   value: "186",   sub: "+62% vs last mo", color: "text-blue-400" },
-                    { label: "Avg. ROAS",       value: "₹4.8",  sub: "per ₹1 spent",   color: "text-violet-400" },
+                    { label: "Total clicks",       value: "48.2K", delta: "+340%", color: "text-blue-600",   bg: "bg-blue-50",   dot: "bg-blue-500" },
+                    { label: "Total impressions",  value: "1.84M", delta: "+218%", color: "text-violet-600", bg: "bg-violet-50", dot: "bg-violet-500" },
+                    { label: "Average CTR",        value: "4.7%",  delta: "+1.9%", color: "text-emerald-600",bg: "bg-emerald-50",dot: "bg-emerald-500" },
+                    { label: "Average position",   value: "2.4",   delta: "▲ 6.1", color: "text-orange-600", bg: "bg-orange-50", dot: "bg-orange-400" },
                   ].map(k => (
-                    <div key={k.label} className="px-4 py-3.5">
-                      <p className="text-slate-500 text-[10px] font-semibold uppercase tracking-wider mb-1">{k.label}</p>
-                      <p className={`text-xl font-black ${k.color} leading-none mb-0.5`}>{k.value}</p>
-                      <p className="text-slate-600 text-[10px]">{k.sub}</p>
+                    <div key={k.label} className="px-4 py-3">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className={`w-2 h-2 rounded-full ${k.dot}`} />
+                        <p className="text-slate-500 text-[10px] font-medium">{k.label}</p>
+                      </div>
+                      <p className={`text-lg font-black ${k.color} leading-none mb-0.5`}>{k.value}</p>
+                      <p className="text-emerald-600 text-[10px] font-semibold">{k.delta} vs prev</p>
                     </div>
                   ))}
                 </div>
 
-                {/* ── Chart area ── */}
-                <div className="px-5 pt-4 pb-2">
+                {/* ── Performance chart ── */}
+                <div className="px-5 pt-4 pb-2 bg-white">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-slate-300 text-xs font-semibold">Traffic Overview</p>
+                    <p className="text-slate-700 text-xs font-semibold">Performance: Clicks & Impressions</p>
                     <div className="flex gap-3">
-                      {[["bg-emerald-500","Organic"],["bg-blue-500","Paid"],["bg-violet-500","Social"]].map(([c,l]) => (
-                        <div key={l as string} className="flex items-center gap-1">
+                      {[["bg-blue-500","Clicks"],["bg-violet-400","Impressions"]].map(([c,l]) => (
+                        <div key={l} className="flex items-center gap-1">
                           <span className={`w-2 h-2 rounded-full ${c}`} />
-                          <span className="text-slate-500 text-[10px]">{l as string}</span>
+                          <span className="text-slate-500 text-[10px]">{l}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                  {/* Bar chart — h-28 = 112px; pixel heights so % resolves correctly */}
-                  {(() => {
-                    const H = 112;
-                    const bars = [
-                      { o: 30, p: 18, s: 14 },
-                      { o: 38, p: 22, s: 17 },
-                      { o: 45, p: 20, s: 19 },
-                      { o: 52, p: 28, s: 22 },
-                      { o: 48, p: 25, s: 20 },
-                      { o: 61, p: 32, s: 25 },
-                      { o: 72, p: 35, s: 28 },
-                      { o: 68, p: 30, s: 26 },
-                      { o: 80, p: 40, s: 32 },
-                      { o: 88, p: 44, s: 35 },
-                      { o: 94, p: 48, s: 38 },
-                      { o: 100, p: 52, s: 42 },
-                    ];
-                    return (
-                      <div className="relative h-28 flex items-end gap-1.5">
-                        {/* Guide lines */}
-                        {[25, 50, 75, 100].map(pct => (
-                          <div key={pct} className="absolute left-0 right-0 border-t border-white/[0.06]" style={{ bottom: `${pct}%` }} />
-                        ))}
-                        {bars.map((bar, i) => (
-                          <div key={i} className="flex-1 flex items-end gap-[2px]">
-                            <div className="flex-1 rounded-t-sm bg-emerald-500" style={{ height: Math.round(bar.o / 100 * H) }} />
-                            <div className="flex-1 rounded-t-sm bg-blue-500/80"   style={{ height: Math.round(bar.p / 100 * H) }} />
-                            <div className="flex-1 rounded-t-sm bg-violet-500/70" style={{ height: Math.round(bar.s / 100 * H) }} />
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  })()}
-                  <div className="flex justify-between mt-1.5">
-                    {["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"].map(m => (
-                      <span key={m} className="text-slate-600 text-[9px] flex-1 text-center">{m}</span>
+                  {/* SVG line chart mimicking GSC */}
+                  <div className="relative h-24 w-full">
+                    <svg viewBox="0 0 400 96" className="w-full h-full" preserveAspectRatio="none">
+                      {/* Grid lines */}
+                      {[24,48,72].map(y => (
+                        <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="#f1f3f4" strokeWidth="1" />
+                      ))}
+                      {/* Impressions area (violet, behind) */}
+                      <defs>
+                        <linearGradient id="impGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.15" />
+                          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.01" />
+                        </linearGradient>
+                        <linearGradient id="clkGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
+                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.01" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,80 C30,76 60,72 90,68 C120,64 150,58 180,52 C210,46 240,40 270,34 C300,28 330,22 360,16 C380,12 400,10 400,10 L400,96 L0,96 Z" fill="url(#impGrad)" />
+                      <path d="M0,80 C30,76 60,72 90,68 C120,64 150,58 180,52 C210,46 240,40 270,34 C300,28 330,22 360,16 C380,12 400,10 400,10" fill="none" stroke="#8b5cf6" strokeWidth="1.5" />
+                      {/* Clicks area (blue, front) */}
+                      <path d="M0,86 C30,84 60,82 90,78 C120,74 150,68 180,60 C210,52 240,44 270,36 C300,28 330,22 360,18 C380,15 400,14 400,14 L400,96 L0,96 Z" fill="url(#clkGrad)" />
+                      <path d="M0,86 C30,84 60,82 90,78 C120,74 150,68 180,60 C210,52 240,44 270,36 C300,28 330,22 360,18 C380,15 400,14 400,14" fill="none" stroke="#3b82f6" strokeWidth="2" />
+                      {/* Highlight dot at peak */}
+                      <circle cx="360" cy="18" r="3" fill="#3b82f6" />
+                      <circle cx="360" cy="16" r="3" fill="#8b5cf6" />
+                    </svg>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    {["Oct","Nov","Dec","Jan","Feb","Mar"].map(m => (
+                      <span key={m} className="text-slate-400 text-[9px]">{m}</span>
                     ))}
                   </div>
                 </div>
 
-                {/* ── Channel breakdown ── */}
-                <div className="grid grid-cols-2 gap-3 px-5 py-4 border-t border-white/8">
+                {/* ── Top Queries table ── */}
+                <div className="border-t border-slate-100 bg-white">
+                  <div className="flex items-center justify-between px-5 py-2.5 border-b border-slate-100">
+                    <p className="text-[11px] font-semibold text-slate-700">Top queries</p>
+                    <p className="text-[11px] font-semibold text-slate-700">Clicks</p>
+                  </div>
                   {[
-                    { icon: <Search className="w-3.5 h-3.5" />,         label: "SEO, GEO Rankings",    val: "#1–3",  pct: 82, color: "bg-emerald-500" },
-                    { icon: <MousePointerClick className="w-3.5 h-3.5" />, label: "Ad Conversions", val: "4.8×", pct: 74, color: "bg-blue-500" },
-                    { icon: <Share2 className="w-3.5 h-3.5" />,          label: "Social Reach",   val: "+3×",  pct: 68, color: "bg-violet-500" },
-                    { icon: <TrendingUp className="w-3.5 h-3.5" />,      label: "Lead Quality",   val: "9.1",  pct: 91, color: "bg-amber-400" },
-                  ].map(ch => (
-                    <div key={ch.label} className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 shrink-0">
-                        {ch.icon}
+                    { query: "digital marketing agency india",  clicks: "8,420", pos: "1" },
+                    { query: "seo services mumbai",            clicks: "5,190", pos: "2" },
+                    { query: "geo optimisation india",         clicks: "3,870", pos: "1" },
+                    { query: "ai marketing agency",            clicks: "2,640", pos: "3" },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between px-5 py-2 hover:bg-slate-50 transition-colors border-b border-slate-50">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-slate-300 text-[10px] w-3 shrink-0">{i+1}</span>
+                        <span className="text-[11px] text-blue-600 truncate">{row.query}</span>
+                        <span className="shrink-0 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">#{row.pos}</span>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between mb-1">
-                          <span className="text-slate-400 text-[10px] font-medium truncate">{ch.label}</span>
-                          <span className="text-slate-300 text-[10px] font-bold ml-1">{ch.val}</span>
-                        </div>
-                        <div className="h-1 bg-white/8 rounded-full overflow-hidden">
-                          <div className={`h-full rounded-full ${ch.color}`} style={{ width: `${ch.pct}%` }} />
-                        </div>
-                      </div>
+                      <span className="text-[11px] font-semibold text-slate-700 ml-4 shrink-0">{row.clicks}</span>
                     </div>
                   ))}
                 </div>
@@ -330,24 +338,20 @@ export function Hero() {
               </div>
 
               {/* Floating badge — top left */}
-              <div
-                className="absolute -left-5 top-10 bg-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 border border-slate-100"
-              >
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+              <div className="absolute -left-5 top-10 bg-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 border border-slate-100">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
                   <TrendingUp className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Traffic Growth</p>
+                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Clicks Growth</p>
                   <p className="text-xl font-black text-slate-900">+340%</p>
                 </div>
               </div>
 
               {/* Floating badge — bottom right */}
-              <div
-                className="absolute -right-5 bottom-14 bg-emerald-500 rounded-2xl px-4 py-3 shadow-xl shadow-emerald-500/30"
-              >
-                <p className="text-[10px] font-semibold text-emerald-100 uppercase tracking-wide">Leads This Month</p>
-                <p className="text-xl font-black text-white">+186 🚀</p>
+              <div className="absolute -right-5 bottom-14 bg-blue-600 rounded-2xl px-4 py-3 shadow-xl shadow-blue-500/30">
+                <p className="text-[10px] font-semibold text-blue-200 uppercase tracking-wide">Avg. Position</p>
+                <p className="text-xl font-black text-white">#2.4 🎯</p>
               </div>
 
             </FadeIn>
