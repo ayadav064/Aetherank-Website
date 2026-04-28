@@ -135,8 +135,21 @@ function isHtmlContent(content: string) {
   return content.trim().startsWith("<");
 }
 
+function wrapUnwrappedTables(container: HTMLElement | null) {
+  if (!container) return;
+  container.querySelectorAll<HTMLTableElement>('table').forEach((table) => {
+    if (table.parentElement?.classList.contains('data-table-wrap')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'data-table-wrap';
+    table.parentNode?.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+    if (!table.classList.contains('data-table')) table.classList.add('data-table');
+  });
+}
+
 function ApiPostContent({ post }: { post: BlogPost }) {
   const isHtml = isHtmlContent(post.content);
+  const proseRef = (el: HTMLDivElement | null) => { if (el) wrapUnwrappedTables(el); };
 
   const lines = isHtml
     ? []
@@ -219,6 +232,7 @@ function ApiPostContent({ post }: { post: BlogPost }) {
           {post.content ? (
             isHtml ? (
               <div
+                ref={proseRef}
                 className="blog-prose prose prose-slate max-w-none prose-sm sm:prose-lg prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:max-w-full prose-pre:overflow-x-auto prose-code:break-words prose-p:break-words prose-p:leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
@@ -321,7 +335,7 @@ function StaticPostContent({ slug, article }: { slug: string; article: Article }
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 overflow-x-hidden">
           <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 pb-8 border-b border-slate-100 mb-10">
             <span className="flex items-center gap-1.5">
               <User className="w-4 h-4 text-emerald-500" />
@@ -339,6 +353,7 @@ function StaticPostContent({ slug, article }: { slug: string; article: Article }
 
           {article.content.length === 1 && article.content[0].trimStart().startsWith("<") ? (
             <div
+              ref={(el) => { if (el) wrapUnwrappedTables(el); }}
               className="blog-prose prose prose-slate max-w-none prose-sm sm:prose-lg prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md prose-img:max-w-full prose-code:break-words prose-p:break-words prose-p:leading-relaxed"
               dangerouslySetInnerHTML={{ __html: article.content[0] }}
             />
