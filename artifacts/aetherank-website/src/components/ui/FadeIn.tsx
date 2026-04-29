@@ -29,6 +29,9 @@ const FadeInClient = forwardRef<HTMLDivElement, FadeInProps>(
     useEffect(() => {
       const el = ref.current;
       if (!el) return;
+      // Reset to invisible on every mount (handles back-navigation remounts)
+      el.style.opacity = "0";
+      el.style.transform = TRANSLATE[direction];
       const io = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -37,11 +40,11 @@ const FadeInClient = forwardRef<HTMLDivElement, FadeInProps>(
             io.disconnect();
           }
         },
-        { threshold: 0.1, rootMargin: "0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
       );
       io.observe(el);
       return () => io.disconnect();
-    }, []);
+    }, [direction]);
 
     return (
       <div
