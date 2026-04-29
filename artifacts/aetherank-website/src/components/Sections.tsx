@@ -71,47 +71,38 @@ export function Hero() {
 
   const certBadges = [
     {
-      name: "Semrush Partner",
+      name: "Clutch",
       icon: (
-        <svg viewBox="0 0 32 32" className="w-5 h-5" aria-hidden="true">
-          <rect width="32" height="32" rx="6" fill="#FF642D"/>
-          <text x="16" y="22" textAnchor="middle" fill="white" fontSize="11" fontWeight="900" fontFamily="Arial, sans-serif">Sm</text>
+        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+          <rect width="24" height="24" rx="4" fill="#FF3D2E"/>
+          <path fill="white" d="M12 4.5a7.5 7.5 0 100 15 7.5 7.5 0 000-15zm0 12a4.5 4.5 0 01-4.5-4.5A4.5 4.5 0 0112 7.5c1.46 0 2.76.7 3.59 1.79l-1.72 1.27A2.25 2.25 0 0012 9.75a2.25 2.25 0 000 4.5c.73 0 1.38-.35 1.79-.9l1.71 1.27A4.49 4.49 0 0112 16.5z"/>
         </svg>
       ),
     },
     {
       name: "GoodFirms",
       icon: (
-        <svg viewBox="0 0 32 32" className="w-5 h-5" aria-hidden="true">
-          <rect width="32" height="32" rx="6" fill="#00B140"/>
-          <text x="16" y="14" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="800" fontFamily="Arial, sans-serif">GOOD</text>
-          <text x="16" y="23" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="800" fontFamily="Arial, sans-serif">FIRMS</text>
-        </svg>
-      ),
-    },
-    {
-      name: "Clutch",
-      icon: (
-        <svg viewBox="0 0 32 32" className="w-5 h-5" aria-hidden="true">
-          <rect width="32" height="32" rx="6" fill="#FF3D2E"/>
-          <path fill="white" d="M16 7c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 14.5c-3.04 0-5.5-2.46-5.5-5.5s2.46-5.5 5.5-5.5c1.8 0 3.39.87 4.38 2.2l-2.1 1.55A2.97 2.97 0 0016 13c-1.65 0-3 1.35-3 3s1.35 3 3 3c.98 0 1.84-.47 2.38-1.2l2.09 1.54A5.47 5.47 0 0116 21.5z"/>
+        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+          <rect width="24" height="24" rx="4" fill="#00B140"/>
+          <text x="12" y="10.5" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="800" fontFamily="Arial, sans-serif">GOOD</text>
+          <text x="12" y="17" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="800" fontFamily="Arial, sans-serif">FIRMS</text>
         </svg>
       ),
     },
     {
       name: "DesignRush",
       icon: (
-        <svg viewBox="0 0 32 32" className="w-5 h-5" aria-hidden="true">
-          <rect width="32" height="32" rx="6" fill="#1A1A2E"/>
-          <text x="16" y="14" textAnchor="middle" fill="#00D4FF" fontSize="7" fontWeight="800" fontFamily="Arial, sans-serif">DESIGN</text>
-          <text x="16" y="23" textAnchor="middle" fill="white" fontSize="7" fontWeight="800" fontFamily="Arial, sans-serif">RUSH</text>
+        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+          <rect width="24" height="24" rx="4" fill="#0D0D1A"/>
+          <text x="12" y="10.5" textAnchor="middle" fill="#00C8FF" fontSize="5" fontWeight="800" fontFamily="Arial, sans-serif">DESIGN</text>
+          <text x="12" y="17" textAnchor="middle" fill="white" fontSize="5" fontWeight="800" fontFamily="Arial, sans-serif">RUSH</text>
         </svg>
       ),
     },
   ];
 
   return (
-    <section className="relative pt-20 pb-10 sm:pt-24 sm:pb-14 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
+    <section className="relative pt-24 pb-10 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f040_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f040_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Emerald glow top-right */}
@@ -191,19 +182,21 @@ export function Hero() {
               </div>
             </FadeIn>
 
-            {/* Cert badges */}
+            {/* Listed on badges */}
             <FadeIn delay={0.5}>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em]">Certified By</span>
-                {certBadges.map((badge) => (
-                  <div
-                    key={badge.name}
-                    className="flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200/80 rounded-xl shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-150 shrink-0"
-                  >
-                    <span className="shrink-0">{badge.icon}</span>
-                    <span className="text-[11px] font-semibold text-slate-600 whitespace-nowrap">{badge.name}</span>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.18em]">Listed on</span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {certBadges.map((badge) => (
+                    <div
+                      key={badge.name}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-emerald-300 hover:shadow-md transition-all duration-150"
+                    >
+                      <span className="shrink-0">{badge.icon}</span>
+                      <span className="text-[11px] font-semibold text-slate-700 whitespace-nowrap">{badge.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </FadeIn>
 
