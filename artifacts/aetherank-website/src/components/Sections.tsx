@@ -70,39 +70,13 @@ export function Hero() {
   ];
 
   const certBadges = [
-    {
-      name: "Clutch",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-          <rect width="24" height="24" rx="4" fill="#FF3D2E"/>
-          <path fill="white" d="M12 4.5a7.5 7.5 0 100 15 7.5 7.5 0 000-15zm0 12a4.5 4.5 0 01-4.5-4.5A4.5 4.5 0 0112 7.5c1.46 0 2.76.7 3.59 1.79l-1.72 1.27A2.25 2.25 0 0012 9.75a2.25 2.25 0 000 4.5c.73 0 1.38-.35 1.79-.9l1.71 1.27A4.49 4.49 0 0112 16.5z"/>
-        </svg>
-      ),
-    },
-    {
-      name: "GoodFirms",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-          <rect width="24" height="24" rx="4" fill="#00B140"/>
-          <text x="12" y="10.5" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="800" fontFamily="Arial, sans-serif">GOOD</text>
-          <text x="12" y="17" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="800" fontFamily="Arial, sans-serif">FIRMS</text>
-        </svg>
-      ),
-    },
-    {
-      name: "DesignRush",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-          <rect width="24" height="24" rx="4" fill="#0D0D1A"/>
-          <text x="12" y="10.5" textAnchor="middle" fill="#00C8FF" fontSize="5" fontWeight="800" fontFamily="Arial, sans-serif">DESIGN</text>
-          <text x="12" y="17" textAnchor="middle" fill="white" fontSize="5" fontWeight="800" fontFamily="Arial, sans-serif">RUSH</text>
-        </svg>
-      ),
-    },
+    { name: "Clutch", color: "bg-red-50 border-red-200 text-red-600" },
+    { name: "GoodFirms", color: "bg-green-50 border-green-200 text-green-700" },
+    { name: "DesignRush", color: "bg-slate-100 border-slate-300 text-slate-700" },
   ];
 
   return (
-    <section className="relative pt-24 pb-10 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
+    <section className="relative pt-28 pb-10 sm:pt-32 sm:pb-14 lg:pt-36 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f040_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f040_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Emerald glow top-right */}
@@ -184,19 +158,16 @@ export function Hero() {
 
             {/* Listed on badges */}
             <FadeIn delay={0.5}>
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.18em]">Listed on</span>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {certBadges.map((badge) => (
-                    <div
-                      key={badge.name}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-emerald-300 hover:shadow-md transition-all duration-150"
-                    >
-                      <span className="shrink-0">{badge.icon}</span>
-                      <span className="text-[11px] font-semibold text-slate-700 whitespace-nowrap">{badge.name}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.18em] shrink-0">Listed on</span>
+                {certBadges.map((badge) => (
+                  <span
+                    key={badge.name}
+                    className={`inline-flex items-center px-3 py-1 rounded-full border text-[11px] font-bold tracking-wide ${badge.color}`}
+                  >
+                    {badge.name}
+                  </span>
+                ))}
               </div>
             </FadeIn>
 
@@ -208,123 +179,106 @@ export function Hero() {
               {/* Glow */}
               <div className="absolute -inset-4 bg-blue-400/10 rounded-3xl blur-2xl" />
 
-              {/* GSC Dashboard card */}
-              <div className="relative bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden font-sans">
+              {/* AI Marketing Dashboard card */}
+              <div className="relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-700/60 overflow-hidden font-sans">
 
-                {/* ── Browser chrome bar ── */}
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#f1f3f4] border-b border-slate-200">
-                  <div className="flex gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-red-400" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <span className="w-3 h-3 rounded-full bg-green-400" />
+                {/* ── Header bar ── */}
+                <div className="flex items-center justify-between px-4 py-3 bg-slate-800/80 border-b border-slate-700/60">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg bg-emerald-500 flex items-center justify-center">
+                      <TrendingUp className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="text-sm font-bold text-white">Aetherank Dashboard</span>
+                    <span className="text-slate-500 mx-1">·</span>
+                    <span className="text-[11px] text-slate-400">aetherank.in</span>
                   </div>
-                  <div className="flex-1 flex items-center gap-2 bg-white rounded-md px-3 py-1 border border-slate-200 mx-2">
-                    <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    <span className="text-[11px] text-slate-500">search.google.com/search-console</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold">● Live</span>
+                    <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px] font-bold">A</div>
                   </div>
                 </div>
 
-                {/* ── GSC Top nav ── */}
-                <div className="flex items-center justify-between px-5 py-3 bg-white border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    {/* Google logo colours */}
-                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                    <span className="text-sm font-medium text-slate-700">Search Console</span>
-                    <span className="text-slate-300 mx-1">|</span>
-                    <span className="text-[11px] text-slate-500 font-medium">aetherank.in</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Last 3 months</span>
-                    <div className="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold">A</div>
-                  </div>
-                </div>
-
-                {/* ── GSC Summary KPI cards ── */}
-                <div className="grid grid-cols-4 divide-x divide-slate-100 border-b border-slate-100 bg-white">
+                {/* ── KPI cards ── */}
+                <div className="grid grid-cols-4 divide-x divide-slate-700/50 border-b border-slate-700/50">
                   {[
-                    { label: "Total clicks",       value: "48.2K", delta: "+340%", color: "text-blue-600",   bg: "bg-blue-50",   dot: "bg-blue-500" },
-                    { label: "Total impressions",  value: "1.84M", delta: "+218%", color: "text-violet-600", bg: "bg-violet-50", dot: "bg-violet-500" },
-                    { label: "Average CTR",        value: "4.7%",  delta: "+1.9%", color: "text-emerald-600",bg: "bg-emerald-50",dot: "bg-emerald-500" },
-                    { label: "Average position",   value: "2.4",   delta: "▲ 6.1", color: "text-orange-600", bg: "bg-orange-50", dot: "bg-orange-400" },
+                    { label: "Leads",        value: "1,284",  delta: "+127%", color: "text-emerald-400", dot: "bg-emerald-500" },
+                    { label: "AI Mentions",  value: "48.2K",  delta: "+340%", color: "text-cyan-400",    dot: "bg-cyan-500" },
+                    { label: "Conversions",  value: "4.7%",   delta: "+1.9%", color: "text-violet-400",  dot: "bg-violet-500" },
+                    { label: "ROI",          value: "9.2×",   delta: "▲ 6.1", color: "text-amber-400",   dot: "bg-amber-500" },
                   ].map(k => (
-                    <div key={k.label} className="px-4 py-3">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className={`w-2 h-2 rounded-full ${k.dot}`} />
+                    <div key={k.label} className="px-3 py-3 bg-slate-900/60">
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <span className={`w-1.5 h-1.5 rounded-full ${k.dot}`} />
                         <p className="text-slate-500 text-[10px] font-medium">{k.label}</p>
                       </div>
-                      <p className={`text-lg font-black ${k.color} leading-none mb-0.5`}>{k.value}</p>
-                      <p className="text-emerald-600 text-[10px] font-semibold">{k.delta} vs prev</p>
+                      <p className={`text-base font-black ${k.color} leading-none mb-0.5`}>{k.value}</p>
+                      <p className="text-emerald-400 text-[9px] font-semibold">{k.delta}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* ── Performance chart ── */}
-                <div className="px-5 pt-4 pb-2 bg-white">
+                {/* ── Channels chart ── */}
+                <div className="px-4 pt-4 pb-2 bg-slate-900/40">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-slate-700 text-xs font-semibold">Performance: Clicks & Impressions</p>
+                    <p className="text-slate-300 text-xs font-semibold">Lead Growth — AI Channels</p>
                     <div className="flex gap-3">
-                      {[["bg-blue-500","Clicks"],["bg-violet-400","Impressions"]].map(([c,l]) => (
+                      {[["bg-emerald-500","GEO"],["bg-cyan-500","ChatGPT"],["bg-violet-500","Perplexity"]].map(([c,l]) => (
                         <div key={l} className="flex items-center gap-1">
-                          <span className={`w-2 h-2 rounded-full ${c}`} />
-                          <span className="text-slate-500 text-[10px]">{l}</span>
+                          <span className={`w-1.5 h-1.5 rounded-full ${c}`} />
+                          <span className="text-slate-500 text-[9px]">{l}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                  {/* SVG line chart mimicking GSC */}
-                  <div className="relative h-24 w-full">
-                    <svg viewBox="0 0 400 96" className="w-full h-full" preserveAspectRatio="none">
-                      {/* Grid lines */}
-                      {[24,48,72].map(y => (
-                        <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="#f1f3f4" strokeWidth="1" />
+                  <div className="relative h-20 w-full">
+                    <svg viewBox="0 0 400 80" className="w-full h-full" preserveAspectRatio="none">
+                      {[20,40,60].map(y => (
+                        <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="#1e293b" strokeWidth="1"/>
                       ))}
-                      {/* Impressions area (violet, behind) */}
                       <defs>
-                        <linearGradient id="impGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.15" />
-                          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.01" />
+                        <linearGradient id="geoGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.25"/>
+                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.02"/>
                         </linearGradient>
-                        <linearGradient id="clkGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
-                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.01" />
+                        <linearGradient id="chatGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.2"/>
+                          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.02"/>
                         </linearGradient>
                       </defs>
-                      <path d="M0,80 C30,76 60,72 90,68 C120,64 150,58 180,52 C210,46 240,40 270,34 C300,28 330,22 360,16 C380,12 400,10 400,10 L400,96 L0,96 Z" fill="url(#impGrad)" />
-                      <path d="M0,80 C30,76 60,72 90,68 C120,64 150,58 180,52 C210,46 240,40 270,34 C300,28 330,22 360,16 C380,12 400,10 400,10" fill="none" stroke="#8b5cf6" strokeWidth="1.5" />
-                      {/* Clicks area (blue, front) */}
-                      <path d="M0,86 C30,84 60,82 90,78 C120,74 150,68 180,60 C210,52 240,44 270,36 C300,28 330,22 360,18 C380,15 400,14 400,14 L400,96 L0,96 Z" fill="url(#clkGrad)" />
-                      <path d="M0,86 C30,84 60,82 90,78 C120,74 150,68 180,60 C210,52 240,44 270,36 C300,28 330,22 360,18 C380,15 400,14 400,14" fill="none" stroke="#3b82f6" strokeWidth="2" />
-                      {/* Highlight dot at peak */}
-                      <circle cx="360" cy="18" r="3" fill="#3b82f6" />
-                      <circle cx="360" cy="16" r="3" fill="#8b5cf6" />
+                      <path d="M0,70 C50,66 100,60 150,52 C200,44 250,34 300,24 C340,16 370,11 400,9 L400,80 L0,80 Z" fill="url(#geoGrad)"/>
+                      <path d="M0,70 C50,66 100,60 150,52 C200,44 250,34 300,24 C340,16 370,11 400,9" fill="none" stroke="#10b981" strokeWidth="2"/>
+                      <path d="M0,74 C60,72 120,68 180,62 C240,56 300,46 360,34 C380,30 395,27 400,26 L400,80 L0,80 Z" fill="url(#chatGrad)"/>
+                      <path d="M0,74 C60,72 120,68 180,62 C240,56 300,46 360,34 C380,30 395,27 400,26" fill="none" stroke="#06b6d4" strokeWidth="1.5"/>
+                      <path d="M0,76 C80,75 160,72 220,66 C280,60 340,52 400,42" fill="none" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 2"/>
+                      <circle cx="400" cy="9" r="3.5" fill="#10b981"/>
+                      <circle cx="400" cy="26" r="3" fill="#06b6d4"/>
                     </svg>
                   </div>
                   <div className="flex justify-between mt-1">
                     {["Oct","Nov","Dec","Jan","Feb","Mar"].map(m => (
-                      <span key={m} className="text-slate-400 text-[9px]">{m}</span>
+                      <span key={m} className="text-slate-600 text-[9px]">{m}</span>
                     ))}
                   </div>
                 </div>
 
-                {/* ── Top Queries table ── */}
-                <div className="border-t border-slate-100 bg-white">
-                  <div className="flex items-center justify-between px-5 py-2.5 border-b border-slate-100">
-                    <p className="text-[11px] font-semibold text-slate-700">Top queries</p>
-                    <p className="text-[11px] font-semibold text-slate-700">Clicks</p>
+                {/* ── AI Citation sources ── */}
+                <div className="border-t border-slate-700/50">
+                  <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-700/40">
+                    <p className="text-[11px] font-semibold text-slate-300">AI Citation Sources</p>
+                    <p className="text-[11px] font-semibold text-slate-300">Mentions</p>
                   </div>
                   {[
-                    { query: "digital marketing agency india",  clicks: "8,420", pos: "1" },
-                    { query: "seo services mumbai",            clicks: "5,190", pos: "2" },
-                    { query: "geo optimisation india",         clicks: "3,870", pos: "1" },
-                    { query: "ai marketing agency",            clicks: "2,640", pos: "3" },
+                    { source: "ChatGPT / OpenAI",      count: "12,840", badge: "bg-emerald-500/15 text-emerald-400" },
+                    { source: "Google AI Overviews",   count: "9,520",  badge: "bg-cyan-500/15 text-cyan-400" },
+                    { source: "Perplexity AI",         count: "7,310",  badge: "bg-violet-500/15 text-violet-400" },
+                    { source: "Bing Copilot",          count: "4,180",  badge: "bg-amber-500/15 text-amber-400" },
                   ].map((row, i) => (
-                    <div key={i} className="flex items-center justify-between px-5 py-2 hover:bg-slate-50 transition-colors border-b border-slate-50">
+                    <div key={i} className="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 hover:bg-slate-800/30 transition-colors">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-slate-300 text-[10px] w-3 shrink-0">{i+1}</span>
-                        <span className="text-[11px] text-blue-600 truncate">{row.query}</span>
-                        <span className="shrink-0 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">#{row.pos}</span>
+                        <span className="text-slate-600 text-[10px] w-3 shrink-0">{i+1}</span>
+                        <span className="text-[11px] text-slate-300 truncate">{row.source}</span>
                       </div>
-                      <span className="text-[11px] font-semibold text-slate-700 ml-4 shrink-0">{row.clicks}</span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ml-4 shrink-0 ${row.badge}`}>{row.count}</span>
                     </div>
                   ))}
                 </div>
@@ -333,19 +287,19 @@ export function Hero() {
 
               {/* Floating badge — top left */}
               <div className="absolute -left-5 top-10 bg-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 border border-slate-100">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
                   <TrendingUp className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Clicks Growth</p>
-                  <p className="text-xl font-black text-slate-900">+340%</p>
+                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">Lead Growth</p>
+                  <p className="text-xl font-black text-slate-900">+127%</p>
                 </div>
               </div>
 
               {/* Floating badge — bottom right */}
-              <div className="absolute -right-5 bottom-14 bg-blue-600 rounded-2xl px-4 py-3 shadow-xl shadow-blue-500/30">
-                <p className="text-[10px] font-semibold text-blue-200 uppercase tracking-wide">Avg. Position</p>
-                <p className="text-xl font-black text-white">#2.4 🎯</p>
+              <div className="absolute -right-5 bottom-14 bg-emerald-500 rounded-2xl px-4 py-3 shadow-xl shadow-emerald-500/30">
+                <p className="text-[10px] font-semibold text-emerald-100 uppercase tracking-wide">AI ROI</p>
+                <p className="text-xl font-black text-white">9.2× 🚀</p>
               </div>
 
             </FadeIn>
