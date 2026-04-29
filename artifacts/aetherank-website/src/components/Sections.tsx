@@ -110,7 +110,7 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative pt-28 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
+    <section className="relative pt-20 pb-10 sm:pt-24 sm:pb-14 lg:pt-32 lg:pb-20 bg-[#F8FAFC] overflow-x-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f040_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f040_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Emerald glow top-right */}
@@ -118,14 +118,14 @@ export function Hero() {
       {/* Slate glow bottom-left */}
       <div className="absolute bottom-0 -left-24 w-[400px] h-[400px] rounded-full bg-slate-300/20 blur-[100px] -z-10" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 xl:gap-16 items-center">
 
           {/* ── LEFT ── */}
-          <div>
+          <div className="min-w-0 overflow-hidden">
             {/* Live badge */}
             <div
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm mb-7"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm mb-5 sm:mb-7"
             >
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
@@ -138,21 +138,21 @@ export function Hero() {
 
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
-              <h1 className="text-[2.1rem] sm:text-[2.6rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
+              <h1 className="text-[1.75rem] sm:text-[2.4rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(69.6% .17 162.48)" }}>AI-Powered</span><br />Digital Marketing</>
               </h1>
             </FadeIn>
 
             {/* Subheadline */}
             <FadeIn delay={0.2}>
-              <p className="text-base sm:text-lg text-slate-500 leading-relaxed mb-7 max-w-lg">
+              <p className="text-base sm:text-lg text-slate-500 leading-relaxed mb-7 w-full max-w-full sm:max-w-lg break-words">
                 {hero.subheadline}
               </p>
             </FadeIn>
 
             {/* CTA row */}
             <FadeIn delay={0.3}>
-              <div className="flex flex-col sm:flex-row gap-3 mb-7">
+              <div className="flex flex-col sm:flex-row gap-3 mb-7 w-full">
                 <Link
                   href="/free-audit"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-white font-bold text-base hover:bg-emerald-600 shadow-[0_4px_14px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-200 w-full sm:w-auto"
@@ -171,7 +171,7 @@ export function Hero() {
 
             {/* Social proof row */}
             <FadeIn delay={0.4}>
-              <div className="flex flex-wrap items-center gap-3 mb-7">
+              <div className="flex flex-wrap items-center gap-3 mb-7 w-full">
                 <div className="flex -space-x-2.5">
                   {avatarSeeds.map((src, i) => (
                     <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow ring-1 ring-slate-100">
@@ -183,8 +183,8 @@ export function Hero() {
                   <div className="flex text-amber-400 mb-0.5">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
                   </div>
-                  <p className="text-sm font-semibold text-slate-600">
-                    Rated 4.9/5 &bull; Trusted by <span className="text-emerald-800 font-bold">100+ brands</span> across India
+                  <p className="text-sm font-semibold text-slate-600 leading-snug whitespace-normal">
+                    Rated 4.9/5 &bull; Trusted by <span className="text-emerald-800 font-bold">100+ brands</span>
                   </p>
                 </div>
               </div>
@@ -192,8 +192,8 @@ export function Hero() {
 
             {/* Cert badges */}
             <FadeIn delay={0.5}>
-              <div className="flex items-center gap-3 flex-nowrap overflow-x-auto">
-                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em] shrink-0 whitespace-nowrap">Certified By</span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.15em]">Certified By</span>
                 {certBadges.map((badge) => (
                   <div
                     key={badge.name}
@@ -1087,7 +1087,7 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
           {/* ── LEFT ── */}
-          <div>
+          <div className="min-w-0 overflow-hidden">
             <FadeIn>
               <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-[1.1]">
                 {wcu.headline}
