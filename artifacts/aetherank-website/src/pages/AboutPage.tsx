@@ -57,9 +57,9 @@ export default function AboutPage() {
         </section>
 
         {/* ── Stats Bar ── */}
-        <section className="bg-slate-900 py-16 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.035]"
-            style={{ backgroundImage: "radial-gradient(circle, #10b981 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        <section className="bg-slate-50 py-16 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.4]"
+            style={{ backgroundImage: "radial-gradient(circle, #10b98120 1px, transparent 1px)", backgroundSize: "28px 28px" }}
           />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -67,12 +67,12 @@ export default function AboutPage() {
                 const Icon = STAT_ICONS[i % STAT_ICONS.length];
                 return (
                   <FadeIn key={i} delay={i * 0.1}>
-                    <div className="group bg-slate-800/60 border border-slate-700/50 hover:border-emerald-500/40 rounded-2xl p-6 text-center flex flex-col items-center gap-3 transition-all duration-300 hover:bg-slate-800">
-                      <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/25 transition-colors">
-                        <Icon className="w-5 h-5 text-emerald-400" />
+                    <div className="group bg-white border border-slate-200 hover:border-emerald-400 rounded-2xl p-6 text-center flex flex-col items-center gap-3 transition-all duration-300 hover:shadow-md shadow-sm">
+                      <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                        <Icon className="w-5 h-5 text-emerald-500" />
                       </div>
-                      <div className="text-4xl sm:text-5xl font-black text-white leading-none">{stat.value}</div>
-                      <div className="text-xs font-semibold text-slate-400 uppercase tracking-widest leading-tight">{stat.label}</div>
+                      <div className="text-4xl sm:text-5xl font-black text-slate-900 leading-none">{stat.value}</div>
+                      <div className="text-xs font-semibold text-slate-500 uppercase tracking-widest leading-tight">{stat.label}</div>
                     </div>
                   </FadeIn>
                 );
