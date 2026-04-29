@@ -104,7 +104,7 @@ export function Hero() {
 
             {/* H1 — clean 3-line hierarchy */}
             <FadeIn delay={0.1}>
-              <h1 className="text-[1.75rem] sm:text-[2.4rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
+              <h1 className="text-[2rem] sm:text-[2.4rem] lg:text-[2.9rem] xl:text-[3.5rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
                 <>Grow Your Business<br />with{" "}<span style={{ color: "oklch(69.6% .17 162.48)" }}>AI-Powered</span><br />Digital Marketing</>
               </h1>
             </FadeIn>
