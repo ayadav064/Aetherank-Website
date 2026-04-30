@@ -156,20 +156,18 @@ export function Hero() {
               </div>
             </FadeIn>
 
-            {/* Listed on badges */}
-            <FadeIn delay={0.5}>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.18em] shrink-0">Listed on</span>
-                {certBadges.map((badge) => (
-                  <span
-                    key={badge.name}
-                    className={`inline-flex items-center px-3 py-1 rounded-full border text-[11px] font-bold tracking-wide ${badge.color}`}
-                  >
-                    {badge.name}
-                  </span>
-                ))}
-              </div>
-            </FadeIn>
+            {/* Listed on badges — no FadeIn to avoid remount visibility bug */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.18em] shrink-0">Listed on</span>
+              {certBadges.map((badge) => (
+                <span
+                  key={badge.name}
+                  className={`inline-flex items-center px-3 py-1 rounded-full border text-[11px] font-bold tracking-wide ${badge.color}`}
+                >
+                  {badge.name}
+                </span>
+              ))}
+            </div>
 
           </div>
 
